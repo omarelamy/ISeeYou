@@ -1,6 +1,3 @@
-//New update
-//New Update
-//New Update
 package com.example.omarelaimy.iseeyou;
 import android.content.Context;
 import android.content.Intent;
