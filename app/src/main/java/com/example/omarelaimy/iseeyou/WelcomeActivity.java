@@ -99,9 +99,6 @@ public class WelcomeActivity extends AppCompatActivity {
             dots[currentPage].setTextColor(colorActive);
     }
 
-    private int getItem(int i) {
-        return viewPager.getCurrentItem() + i;
-    }
 
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
