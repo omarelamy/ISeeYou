@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -83,8 +84,8 @@ public class WelcomeActivity extends AppCompatActivity {
     {
         dots = new TextView[layouts.length];
 
-        int colorActive = getResources().getColor(R.color.dot_active);
-        int colorInactive = getResources().getColor(R.color.dot_inactive);
+        int colorActive = ContextCompat.getColor(getApplicationContext(),R.color.dot_active);
+        int colorInactive = ContextCompat.getColor(getApplicationContext(),R.color.dot_inactive);
 
         dotsLayout.removeAllViews();
         for (int i = 0; i < dots.length; i++) {
@@ -154,10 +155,10 @@ public class WelcomeActivity extends AppCompatActivity {
     /**
      * View pager adapter
      */
-    public class MyViewPagerAdapter extends PagerAdapter {
+    private class MyViewPagerAdapter extends PagerAdapter {
         private LayoutInflater layoutInflater;
 
-        public MyViewPagerAdapter() {
+        private MyViewPagerAdapter() {
         }
 
         @Override
