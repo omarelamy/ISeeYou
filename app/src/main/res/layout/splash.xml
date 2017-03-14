@@ -19,7 +19,7 @@
         android:scaleX="1.5"
         android:scaleY="1.5"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/_272sdp"
+        android:layout_marginTop="@dimen/_350sdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/AVLoadingIndicatorView"

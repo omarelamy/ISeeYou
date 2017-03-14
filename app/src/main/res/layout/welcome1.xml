@@ -5,27 +5,19 @@
     android:background="@color/welcomescreen"
     >
 
-
-    <!--Logo above blurred -->
-    <ImageView
-        android:id="@+id/logo_blurred"
-        android:layout_width="@dimen/_50sdp"
-        android:layout_height="@dimen/_50sdp"
-        android:layout_marginLeft="10dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="@dimen/_3sdp"
-        android:src="@drawable/logo_blurred"
-        />
-
-    <!--Slide 1 Logo -->
+    
+    <!--Slide 1 Logo-->
     <ImageView
         android:id="@+id/logo_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo_home"
-        android:layout_centerVertical="true"
+        android:scaleX="0.6"
+        android:scaleY="0.6"
+        android:src="@drawable/logohome"
+        android:layout_alignBottom="@+id/Description"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="27dp" />
 
     <!--Slide 1 Title -->
     <TextView
@@ -55,12 +47,5 @@
         android:textSize="@dimen/_16ssp"
         android:textColor="#FFFFFF" />
 
-    <!--<ImageView
-        android:layout_width="@dimen/_90sdp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/dots1"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/_20sdp"
-        />-->
+
 </RelativeLayout>
