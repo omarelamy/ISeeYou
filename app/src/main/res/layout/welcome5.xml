@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/welcomescreen">
 
-
+    <!--Welcome Page 5-->
     <!--Logo above blurred -->
     <ImageView
         android:id="@+id/logo_blurred"
@@ -14,6 +14,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginTop="@dimen/_3sdp"
         android:src="@drawable/logo_blurred"
+
         />
 
 
