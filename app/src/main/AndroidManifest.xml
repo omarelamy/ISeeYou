@@ -35,6 +35,10 @@
 
         </activity>
 
+        <activity android:name=".SignIn">
+
+        </activity>
+
     </application>
 
 </manifest>

@@ -7,6 +7,7 @@
     <!-- Welcome Screen background color-->
     <color name="welcomescreen">#181c2c</color>
 
+    <color name="NotificationBar">#0d111f</color>
     <!-- dots inactive color -->
     <color name="dot_inactive">#0a0c14</color>
 
