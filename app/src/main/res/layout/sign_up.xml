@@ -12,9 +12,9 @@
         android:src="@drawable/blurredsigninup" />
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -40,6 +40,46 @@
             android:background="@android:color/white"
             android:padding="10dp"
             >
+
+
+
+
+            <!-- Layout for the name field-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <ImageView
+                    android:id="@+id/name_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/name"
+                    />
+
+                <EditText
+                    android:id="@+id/name_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:hint="Name"
+                    android:textColorHint="@android:color/black"
+                    />
+            </LinearLayout>
+
+            <!--Separator-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:alpha=".5"
+                android:layout_gravity="center_horizontal"
+                android:background="#D9DADC"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
+
             <!-- Layout for the email field-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -76,6 +116,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"/>
 
+
             <!-- Layout for the password field-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -87,7 +128,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/password"
-                   />
+                    />
 
                 <EditText
                     android:id="@+id/password_text"
@@ -101,19 +142,56 @@
                     />
             </LinearLayout>
 
+            <!--Separator-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:alpha=".5"
+                android:layout_gravity="center_horizontal"
+                android:background="#D9DADC"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
+
+
+            <!-- Layout for the confirm password field-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/password_icon2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/password"
+                    />
+
+                <EditText
+                    android:id="@+id/confirm_password"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:hint="Confirm passowrd"
+                    android:textColorHint="@android:color/black"
+                    />
+            </LinearLayout>
+
         </LinearLayout>
+
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="#03AD40"
-            android:text="Sign in"
+            android:text="Sign Up"
             android:layout_gravity="center_horizontal"
             android:textAllCaps="false"
             android:textColor="@android:color/white"/>
 
-        <!--Separator-->
+        <!--separator between the sign in  and facebook buttons-->
         <View
             android:layout_width="200dp"
             android:layout_height="2dp"
@@ -123,45 +201,14 @@
             android:layout_gravity="center_horizontal"
             android:background="#576290" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:background="#3B5997"
-            android:text="Sign in with Facebook"
-            android:textColor="@android:color/white"
-            android:textAllCaps="false"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@android:color/white"
-            android:text="Sign in with Google"
-            android:textAllCaps="false"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Forget Password?"
+                android:text="Already a user?"
                 android:textColor="#ADB2C5"
                 android:layout_alignParentLeft="true"
+                android:layout_gravity="center_horizontal"
                 />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sign Up"
-                android:textColor="#ADB2C5"
-                android:layout_alignParentRight="true"
-                />
-        </RelativeLayout>
-
     </LinearLayout>
 
 </RelativeLayout>
