@@ -15,8 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="30dp"
+        android:layout_margin="30dp">
 
 
         <ImageView
@@ -24,9 +27,9 @@
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:layout_marginTop="-10dp"
-            android:scaleX="0.55"
-            android:scaleY="0.55"
+            android:layout_marginTop="30dp"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
             android:src="@drawable/signinhome" />
 
         <!-- white div for email and password-->
@@ -35,11 +38,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@android:color/white"
+            android:layout_marginTop="70dp"
             android:padding="10dp"
             >
-
-
-
 
             <!-- Layout for the name field-->
             <LinearLayout
@@ -60,7 +61,7 @@
                     android:textCursorDrawable="@null"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="textPassword"
                     android:background="@android:color/transparent"
                     android:padding="10dp"
                     android:hint="Name"
@@ -83,9 +84,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-
-                >
+                android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/email_icon"
@@ -200,32 +199,32 @@
             android:id="@+id/signup2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="70dp"
             android:background="#03AD40"
             android:text="Sign Up"
             android:layout_gravity="center_horizontal"
             android:textAllCaps="false"
             android:textColor="@android:color/white"/>
 
-        <!--separator between the sign in  and facebook buttons-->
+        <!--separator-->
         <View
             android:layout_width="200dp"
             android:layout_height="2dp"
             android:alpha=".5"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="50dp"
             android:layout_marginBottom="20dp"
             android:layout_gravity="center_horizontal"
             android:background="#576290" />
 
-            <TextView
-                android:id="@+id/already_user"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Already a user?"
-                android:textColor="#ADB2C5"
-                android:layout_alignParentLeft="true"
-                android:layout_gravity="center_horizontal"
-                />
+        <TextView
+            android:id="@+id/already_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already a user?"
+            android:textColor="#ADB2C5"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center_horizontal"
+            />
     </LinearLayout>
 
 </RelativeLayout>

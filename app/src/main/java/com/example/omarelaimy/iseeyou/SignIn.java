@@ -1,17 +1,28 @@
 package com.example.omarelaimy.iseeyou;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by Omar on 3/15/2017.
  */
 
 public class SignIn extends AppCompatActivity {
+    private TextView btnSignUp;
+    private View EmailSeparator,PasswordSeparator;
+    private EditText Email,Password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Making notification bar transparent
@@ -22,6 +33,51 @@ public class SignIn extends AppCompatActivity {
         changeStatusBarColor();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in);
+        //Get the sign up button to navigate to the sign up page//
+        btnSignUp = (TextView) findViewById(R.id.signup1);
+
+        //Get the separator lines
+        EmailSeparator =  (View) findViewById(R.id.email_separator);
+        PasswordSeparator = (View) findViewById(R.id.password_separator);
+
+        //Get the Email and password texts
+        Email = (EditText) findViewById(R.id.email_text);
+        Password = (EditText) findViewById(R.id.password_text);
+
+
+
+      //On Touch Focus .. Highlight the separators
+      Email.setOnTouchListener(new View.OnTouchListener(){
+          @Override
+          public boolean onTouch(View v, MotionEvent event) {
+              EmailSeparator.setBackgroundColor(getResources().getColor(R.color.SeparatorFocused));
+              return false;
+          }
+      });
+
+      Password.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                PasswordSeparator.setBackgroundColor(getResources().getColor(R.color.SeparatorFocused));
+                return false;
+            }
+        });
+
+        //If Sign up is pressed, go to sign up page
+     btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchSignUp();
+            }
+        });
+    }
+
+
+    //Launch SignUp Page
+    private void launchSignUp()
+    {
+        startActivity(new Intent(SignIn.this, SignUp.class));
+        finish();
     }
 
     private void changeStatusBarColor() {
