@@ -62,16 +62,23 @@ public class SignUp extends AppCompatActivity {
         ChangeSeparatorColor(Email,EmailSeparator);
         ChangeSeparatorColor(Password,PasswordSeparator);
         ChangeSeparatorColor(ConfirmPass,ConfirmPassSeparator);
-
     }
 
     private void ChangeSeparatorColor(final EditText editText, final View view)
     {
-        editText.setOnTouchListener(new View.OnTouchListener(){
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener()
+        {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                view.setBackgroundColor(getResources().getColor(R.color.SeparatorFocused));
-                return false;
+            public void onFocusChange(View v, boolean hasFocus)
+            {
+                if (hasFocus)
+                {
+                    view.setBackgroundColor(getResources().getColor(R.color.SeparatorFocused));
+                }
+                else
+                {
+                    view.setBackgroundColor(getResources().getColor(R.color.SeparatorColor));
+                }
             }
         });
     }

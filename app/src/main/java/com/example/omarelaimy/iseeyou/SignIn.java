@@ -1,6 +1,7 @@
 package com.example.omarelaimy.iseeyou;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -45,23 +46,8 @@ public class SignIn extends AppCompatActivity {
         Password = (EditText) findViewById(R.id.password_text);
 
 
-
-      //On Touch Focus .. Highlight the separators
-      Email.setOnTouchListener(new View.OnTouchListener(){
-          @Override
-          public boolean onTouch(View v, MotionEvent event) {
-              EmailSeparator.setBackgroundColor(getResources().getColor(R.color.SeparatorFocused));
-              return false;
-          }
-      });
-
-      Password.setOnTouchListener(new View.OnTouchListener(){
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                PasswordSeparator.setBackgroundColor(getResources().getColor(R.color.SeparatorFocused));
-                return false;
-            }
-        });
+        ChangeSeparatorStatus(Email,EmailSeparator);
+        ChangeSeparatorStatus(Password,PasswordSeparator);
 
         //If Sign up is pressed, go to sign up page
      btnSignUp.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +58,24 @@ public class SignIn extends AppCompatActivity {
         });
     }
 
-
+    private void ChangeSeparatorStatus(final EditText editText, final View view)
+    {
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener()
+        {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus)
+            {
+                if (hasFocus)
+                {
+                    view.setBackgroundColor(getResources().getColor(R.color.SeparatorFocused));
+                }
+                else
+                {
+                    view.setBackgroundColor(getResources().getColor(R.color.SeparatorColor));
+                }
+            }
+        });
+    }
     //Launch SignUp Page
     private void launchSignUp()
     {

@@ -10,6 +10,8 @@
     <color name="NotificationBar">#0d111f</color>
 
     <color name="SeparatorFocused">#2f4cb7</color>
+    <color name="SeparatorColor">#D9DADC</color>
+
     <!-- dots inactive color -->
     <color name="dot_inactive">#0a0c14</color>
 
