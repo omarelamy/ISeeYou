@@ -84,6 +84,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+                <ImageView
+                    android:id="@+id/password_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/password"
+                    />
+
                 <EditText
                     android:id="@+id/password_text"
                     android:layout_width="fill_parent"
@@ -95,11 +102,7 @@
                     android:textColorHint="@android:color/black"
                     android:textCursorDrawable="@null" />
 
-                <ImageView
-                    android:id="@+id/password_icon"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/password" />
+
                 <!-- -->
             </LinearLayout>
 

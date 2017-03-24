@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--Layout for the above background-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/welcomescreen"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="0.25"
+            android:scaleY="0.25"
+            android:background="@android:color/transparent"
+            android:src="@drawable/x"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Profile"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="8dp"
+            android:textSize="22sp"
+            android:textColor="#E6ECFF"
+            android:fontFamily="sans-serif-medium"
+            />
+    </LinearLayout>
+
+    <!--Filling the information of the user Layout-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F6F7F8"
+        android:orientation="vertical"
+        android:focusableInTouchMode="true">
+
+        <ImageView
+            android:id="@+id/profile_photo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/male_profile" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/patient_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="15sp"
+                android:hint="Patient's Name"
+                android:inputType="textPersonName"
+                android:paddingTop="10dp"
+                android:textColorHint="@color/hintColor"
+                android:textCursorDrawable="@null" />
+
+            <!--Separator-->
+            <View
+                android:id="@+id/patient_name_separator"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:alpha=".5"
+                android:background="#D9DADC" />
+
+            <EditText
+                android:id="@+id/relation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="15sp"
+                android:hint="Relation"
+                android:inputType="text"
+                android:paddingTop="10dp"
+                android:textColorHint="@color/hintColor"
+                android:textCursorDrawable="@null" />
+
+            <!--Separator-->
+            <View
+                android:id="@+id/relation_separator"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:alpha=".5"
+                android:background="#D9DADC" />
+
+            <EditText
+                android:id="@+id/phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="Phone Number"
+                android:textSize="15sp"
+                android:inputType="phone"
+                android:fontFamily="sans-serif-medium"
+                android:paddingTop="10dp"
+                android:textColorHint="@color/hintColor"
+                android:textCursorDrawable="@null" />
+
+            <!--Separator-->
+            <View
+                android:id="@+id/phone_number_separator"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:alpha=".5"
+                android:background="#D9DADC" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/gender_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_weight="1"
+                    android:textSize="12sp"
+                    android:text="Gender"
+                    />
+
+                <TextView
+                    android:id="@+id/age_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_weight="1"
+                    android:textSize="12sp"
+                    android:text="Age" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/gender_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:spinnerMode="dropdown"
+                    android:layout_weight="1"
+                    />
+
+                <NumberPicker
+                    android:id="@+id/age_picker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:scaleX="2.1"
+                    android:scaleY="2.1" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/product_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="15sp"
+                android:hint="Product ID"
+                android:inputType="text"
+                android:paddingTop="10dp"
+                android:textColorHint="@color/hintColor"
+                android:textCursorDrawable="@null" />
+
+            <!--Separator-->
+            <View
+                android:id="@+id/productid_separator"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:alpha=".5"
+                android:background="#D9DADC" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="Password"
+                android:textSize="15sp"
+                android:inputType="textPassword"
+                android:fontFamily="sans-serif-medium"
+                android:paddingTop="10dp"
+                android:textColorHint="@color/hintColor"
+                android:textCursorDrawable="@null" />
+
+            <!--Separator-->
+            <View
+                android:id="@+id/password_separator"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:alpha=".5"
+                android:background="#D9DADC" />
+
+            <EditText
+                android:id="@+id/confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="Confirm Password"
+                android:textSize="15sp"
+                android:inputType="textPassword"
+                android:fontFamily="sans-serif-medium"
+                android:paddingTop="10dp"
+                android:textColorHint="@color/hintColor"
+                android:textCursorDrawable="@null" />
+
+            <!--Separator-->
+            <View
+                android:id="@+id/confirm_pass_separator"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:alpha=".5"
+                android:background="#D9DADC" />
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:background="#03AD40"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:text="Create"
+                android:layout_gravity="center_horizontal"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"/>
+
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -54,6 +54,8 @@ public class SignIn extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 launchSignUp();
+               // startActivity(new Intent(SignIn.this, CreateProfile.class));
+               // finish();
             }
         });
     }
