@@ -136,7 +136,7 @@ public class CreateProfile extends Activity {
                 }
                 else if(position > 0 && selectedItemText == "Female")
                 {
-                    ProfilePhoto.setImageDrawable(getResources().getDrawable(R.drawable.heartrate));
+                    ProfilePhoto.setImageDrawable(getResources().getDrawable(R.drawable.female_profile));
                 }
             }
 
