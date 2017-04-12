@@ -1,20 +1,15 @@
 package com.example.omarelaimy.iseeyou;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by Omar on 3/15/2017.
@@ -22,6 +17,7 @@ import org.w3c.dom.Text;
 
 public class SignIn extends AppCompatActivity {
     private TextView btnSignUp;
+    private Button btnSignIn;
     private View EmailSeparator,PasswordSeparator;
     private EditText Email,Password;
     @Override
@@ -36,6 +32,9 @@ public class SignIn extends AppCompatActivity {
         setContentView(R.layout.sign_in);
         //Get the sign up button to navigate to the sign up page//
         btnSignUp = (TextView) findViewById(R.id.signup1);
+
+        //Get the sign in button
+        btnSignIn = (Button) findViewById(R.id.sign_in);
 
         //Get the separator lines
         EmailSeparator =  (View) findViewById(R.id.email_separator);
@@ -58,6 +57,15 @@ public class SignIn extends AppCompatActivity {
                // finish();
             }
         });
+
+    //If Sign in is pressed, go to sign up page
+    btnSignIn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(SignIn.this, ChooseProfile.class));
+            finish();
+        }
+    });
     }
 
     private void ChangeSeparatorStatus(final EditText editText, final View view)

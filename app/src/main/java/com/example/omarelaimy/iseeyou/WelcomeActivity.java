@@ -37,7 +37,6 @@ public class WelcomeActivity extends AppCompatActivity {
         //if (!prefManager.isFirstTimeLaunch()) {
           //  launchHomeScreen();
             //finish();
-        //
 
         // Making notification bar transparent
         if (Build.VERSION.SDK_INT >= 21) {
@@ -170,7 +169,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
-
             return view;
         }
 

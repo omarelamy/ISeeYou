@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/welcomescreen"
+    tools:context=".ChooseProfile" >
+
+    <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:text="Choose Profile"
+    android:textSize="22sp"
+    android:textColor="#E6ECFF"
+    android:layout_marginTop="50dp"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/myviewpager"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="-160dp"
+        android:overScrollMode="never" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="-120dp"
+        android:background="#03AD40">
+        <Button
+            android:id="@+id/create_profile"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:text="Create Your Profile"
+            android:textAllCaps="false"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/white"
+            android:paddingLeft="15dp"/>
+
+        <ImageView
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:src="@drawable/plus"
+            android:layout_marginTop="13dp"
+            android:layout_marginLeft="25dp"/>
+    </RelativeLayout>
+
+</LinearLayout>
