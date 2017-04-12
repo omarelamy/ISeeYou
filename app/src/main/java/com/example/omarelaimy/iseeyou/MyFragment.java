@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.omarelaimy.iseeyou.R;
+
 public class MyFragment extends Fragment {
     public static Fragment newInstance(ChooseProfile context, int pos, float scale) {
         Bundle b = new Bundle();

@@ -1,4 +1,5 @@
 package com.example.omarelaimy.iseeyou;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Activity;
@@ -6,12 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,6 +30,7 @@ public class CreateProfile extends Activity {
     private ImageView ProfilePhoto;
     private View PatientSeparator,RelationSeparator,PhoneSeparator,ProductSeparator,PasswordSeparator,ConfirmPassSeparator;
     private EditText PatientName,Relation,PhoneNumber,ProductID,Password,ConfirmPass;
+    private ImageButton btnClose;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -51,6 +58,9 @@ public class CreateProfile extends Activity {
         Password = (EditText) findViewById(R.id.password);
         ConfirmPass = (EditText) findViewById(R.id.confirm_password);
 
+        //Getting the Close Button
+        btnClose = (ImageButton) findViewById(R.id.cancel_button);
+
 
         //Change the color of the view when focused..
         ChangeSeparatorStatus(PatientName,PatientSeparator);
@@ -68,6 +78,16 @@ public class CreateProfile extends Activity {
                 "Male",
                 "Female",
         };
+
+        //clicking on the close button go to chooseprofile page
+
+      btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CreateProfile.this, ChooseProfile.class));
+                finish();
+            }
+        });
 
         final List<String> genderList = new ArrayList<>(Arrays.asList(Gender));
 
@@ -183,4 +203,6 @@ public class CreateProfile extends Activity {
             }
         });
     }
+
+
 }

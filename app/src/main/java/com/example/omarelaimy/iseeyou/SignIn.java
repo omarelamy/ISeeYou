@@ -1,5 +1,4 @@
 package com.example.omarelaimy.iseeyou;
-
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +9,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+
 
 /**
  * Created by Omar on 3/15/2017.
@@ -58,11 +59,11 @@ public class SignIn extends AppCompatActivity {
             }
         });
 
-    //If Sign in is pressed, go to sign up page
+    //If Sign in is pressed, go to choose profile page
     btnSignIn.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            startActivity(new Intent(SignIn.this, ChooseProfile.class));
+            startActivity(new Intent(SignIn.this,ChooseProfile.class));
             finish();
         }
     });

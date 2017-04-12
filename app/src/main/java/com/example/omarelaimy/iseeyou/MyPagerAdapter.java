@@ -4,6 +4,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
+import com.example.omarelaimy.iseeyou.R;
+
 public class MyPagerAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {
 
     private MyLinearLayout cur = null;
@@ -60,7 +62,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter implements ViewPager.On
                 pCount++;
             }
         } catch (Exception e) {
-            // TODO: handle exception
+
             e.printStackTrace();
         }
     }

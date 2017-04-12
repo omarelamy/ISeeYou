@@ -1,4 +1,3 @@
-
 package com.example.omarelaimy.iseeyou;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,10 +6,12 @@ import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import com.example.omarelaimy.iseeyou.R;
+
 
 public class ChooseProfile extends FragmentActivity {
     public final static int LOOPS = 1000;
-    public Button CreateProfile;
+    public Button CreateProfileBtn;
     public static int FIRST_PAGE; // = count * LOOPS / 2;
     public final static float BIG_SCALE = 1.0f;
     public final static float SMALL_SCALE = 0.7f;
@@ -31,7 +32,7 @@ public class ChooseProfile extends FragmentActivity {
 
         setContentView(R.layout.viewpager);
 
-        CreateProfile = (Button) findViewById(R.id.create_profile);
+        CreateProfileBtn = (Button) findViewById(R.id.create_profile);
         coverUrl = new int[] { R.drawable.male_profile, R.drawable.male_profile,
                 R.drawable.male_profile, R.drawable.female_profile};
 
@@ -46,7 +47,7 @@ public class ChooseProfile extends FragmentActivity {
 
 
         //If Create Profile button is pressed, go to sign up page
-        CreateProfile.setOnClickListener(new View.OnClickListener() {
+        CreateProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ChooseProfile.this, CreateProfile.class));

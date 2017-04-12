@@ -9,18 +9,19 @@
     tools:context=".ChooseProfile" >
 
     <TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
-    android:text="Choose Profile"
-    android:textSize="25sp"
-    android:textColor="#E6ECFF"
-    android:layout_marginTop="50dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Choose Profile"
+        android:textSize="50sp"
+        android:textColor="#E6ECFF"
+        android:fontFamily="sans-serif-medium"
+        android:layout_marginTop="90dp"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/myviewpager"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="800dp"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
         android:layout_marginTop="-160dp"
@@ -34,19 +35,20 @@
         android:background="#03AD40">
         <Button
             android:id="@+id/create_profile"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
+            android:layout_width="380dp"
+            android:layout_height="60dp"
             android:text="Create New Profile"
+            android:textSize="30sp"
             android:textAllCaps="false"
             android:background="@android:color/transparent"
             android:textColor="@android:color/white"
             android:paddingLeft="15dp"/>
 
         <ImageView
-            android:layout_width="23dp"
-            android:layout_height="23dp"
+            android:layout_width="30dp"
+            android:layout_height="30sp"
             android:src="@drawable/plus"
-            android:layout_marginLeft="25dp"
+            android:layout_marginLeft="35dp"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
 
