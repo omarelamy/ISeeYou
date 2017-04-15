@@ -49,7 +49,7 @@
         android:id="@+id/Description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Thank you for choosing I See You! Let's get started with a simple tour of what we're offering "
+        android:text="Pillbox guarantees you that your patient will always take his medicine on time."
         android:layout_below="@id/pillbox_overview"
         android:layout_marginTop="@dimen/_14sdp"
         android:paddingLeft="@dimen/desc_padding"

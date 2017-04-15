@@ -49,7 +49,7 @@
         android:id="@+id/Description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Thank you for choosing I See You! Let's get started with a simple tour of what we're offering "
+        android:text="Daily,weekly and monthly reports on heart rate along with the patient's behavior towards taking the pills schedule."
         android:paddingLeft="@dimen/desc_padding"
         android:paddingRight="@dimen/desc_padding"
         android:textAlignment="center"
