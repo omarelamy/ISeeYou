@@ -202,21 +202,21 @@
                 android:background="#D9DADC" />
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/diseases"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Password"
+                android:hint="Please enter Diseases separated by comma"
+                android:lines="4"
                 android:textSize="15sp"
-                android:inputType="textPassword"
+                android:inputType="textMultiLine"
                 android:fontFamily="sans-serif-medium"
-                android:paddingTop="10dp"
                 android:textColorHint="@color/hintColor"
                 android:textCursorDrawable="@null" />
 
             <!--Separator-->
             <View
-                android:id="@+id/password_separator"
+                android:id="@+id/disease_separator"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_gravity="center_horizontal"
@@ -224,33 +224,9 @@
                 android:layout_marginTop="5dp"
                 android:alpha=".5"
                 android:background="#D9DADC" />
-
-            <EditText
-                android:id="@+id/confirm_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="Confirm Password"
-                android:textSize="15sp"
-                android:inputType="textPassword"
-                android:fontFamily="sans-serif-medium"
-                android:paddingTop="10dp"
-                android:textColorHint="@color/hintColor"
-                android:textCursorDrawable="@null" />
-
-            <!--Separator-->
-            <View
-                android:id="@+id/confirm_pass_separator"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:alpha=".5"
-                android:background="#D9DADC" />
-
 
             <Button
+                android:id="@+id/create_profile2"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginTop="10dp"

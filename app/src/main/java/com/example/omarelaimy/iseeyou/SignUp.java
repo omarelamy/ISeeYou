@@ -71,6 +71,10 @@ public class SignUp extends AppCompatActivity {
         Password = (EditText) findViewById(R.id.password_text);
         ConfirmPass = (EditText) findViewById(R.id.confirm_password);
 
+        //Progress dialog
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+
         //Change the separators color when touching any of the edit texts.
         ChangeSeparatorColor(Name,NameSeparator);
         ChangeSeparatorColor(Email,EmailSeparator);
@@ -99,10 +103,8 @@ public class SignUp extends AppCompatActivity {
     {
         // Tag used to cancel the request
          String cancel_req_tag = "register";
-
-       // progressDialog.setMessage("We're signing you up :)");
-
-        //showDialog();
+       progressDialog.setMessage("We're signing you up :)");
+        showDialog();
 
         StringRequest strReq = new StringRequest(Request.Method.POST, URL_FOR_REGISTRATION, new Response.Listener<String>() {
 
