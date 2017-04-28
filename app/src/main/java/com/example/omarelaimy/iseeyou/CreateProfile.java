@@ -229,7 +229,7 @@ public class CreateProfile extends Activity {
 
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, "CreateProfile Response: " + response.toString());
+                Log.d(TAG, "CreateProfile Response: " + response);
 
                 try
                 {
@@ -276,12 +276,12 @@ public class CreateProfile extends Activity {
                   params.put("gender", Gender);
                   params.put("age", Age);
                   params.put("productid", ProductID);
-                  params.put("diseasescount", Integer.toString(Diseases.size()));
+                 /* params.put("diseasescount", Integer.toString(Diseases.size()));
                   for (int i= 0; i<Diseases.size();i++)
                   {
                     params.put("disease"+i,Diseases.get(i));
                   }
-
+                  */
                 return params;
             }
         };

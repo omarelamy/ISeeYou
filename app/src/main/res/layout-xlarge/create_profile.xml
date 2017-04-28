@@ -137,7 +137,7 @@
                 android:background="@android:color/transparent"
                 android:hint="Address"
                 android:textSize="32sp"
-                android:inputType="phone"
+                android:inputType="text"
                 android:fontFamily="sans-serif-medium"
                 android:paddingTop="20dp"
                 android:textColorHint="@color/hintColor"
