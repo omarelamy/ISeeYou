@@ -1,7 +1,9 @@
 package com.example.omarelaimy.iseeyou;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -87,6 +89,7 @@ public class SignIn extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
+
                 loginUser(Email.getText().toString(), Password.getText().toString());
             }
         });
@@ -111,8 +114,20 @@ public class SignIn extends AppCompatActivity {
 
                     if (!error) {
                         String user = jObj.getJSONObject("user").getString("name");
+                        //check username in JSONObject
+                /*        AlertDialog alertDialog = new AlertDialog.Builder(SignIn.this).create();
+                        alertDialog.setTitle("Alert");
+                        alertDialog.setMessage("Welcome " + user );
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();
+                 */
                         // Launch Choose profile activity
-                        Intent intent = new Intent(SignIn.this,ChooseProfile.class);
+                       Intent intent = new Intent(SignIn.this,ChooseProfile.class);
                         intent.putExtra("username", user);
                         startActivity(intent);
                         finish();

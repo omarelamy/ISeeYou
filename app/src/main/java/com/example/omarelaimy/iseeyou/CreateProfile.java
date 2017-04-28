@@ -40,8 +40,8 @@ public class CreateProfile extends Activity {
     private NumberPicker AgePicker;
     private Spinner GenderSpinner;
     private ImageView ProfilePhoto;
-    private View PatientSeparator,RelationSeparator,PhoneSeparator,ProductSeparator,DiseaseSeparator;
-    private EditText PatientName,Relation,PhoneNumber,ProductID,Diseases;
+    private View PatientSeparator,RelationSeparator,PhoneSeparator,ProductSeparator,DiseaseSeparator,AddressSeparator;
+    private EditText PatientName,Relation,PhoneNumber,Address,ProductID,Diseases;
     private ImageButton btnClose;
     private Button btnCreateProfile;
     @Override
@@ -59,13 +59,16 @@ public class CreateProfile extends Activity {
         PatientSeparator = (View) findViewById(R.id.patient_name_separator);
         RelationSeparator = (View) findViewById(R.id.relation_separator);
         PhoneSeparator = (View) findViewById(R.id.phone_number_separator);
+        AddressSeparator = (View) findViewById(R.id.address_separator);
         ProductSeparator = (View) findViewById(R.id.productid_separator);
         DiseaseSeparator = (View) findViewById(R.id.disease_separator);
+
 
         //Getting the EditTexts
         PatientName = (EditText) findViewById(R.id.patient_name);
         Relation = (EditText) findViewById(R.id.relation);
         PhoneNumber = (EditText) findViewById(R.id.phone_number);
+        Address = (EditText) findViewById(R.id.address);
         ProductID = (EditText) findViewById(R.id.product_id);
         Diseases = (EditText) findViewById(R.id.diseases);
 
@@ -79,8 +82,10 @@ public class CreateProfile extends Activity {
         ChangeSeparatorStatus(PatientName,PatientSeparator);
         ChangeSeparatorStatus(Relation,RelationSeparator);
         ChangeSeparatorStatus(PhoneNumber,PhoneSeparator);
+        ChangeSeparatorStatus(Address,AddressSeparator);
         ChangeSeparatorStatus(ProductID,ProductSeparator);
         ChangeSeparatorStatus(Diseases,DiseaseSeparator);
+
 
 
         // Initializing a String Array for the Gender
@@ -111,7 +116,7 @@ public class CreateProfile extends Activity {
                 //Place the diseases separated by commas in an arraylist.
                 List<String> DiseasesArray = Arrays.asList(Diseases.getText().toString().split(","));
                 //Call CreateProfile Function to make the http request.
-                CreateProfile(PatientName.getText().toString(),Relation.getText().toString(),PhoneNumber.getText().toString(),Gender,Age,ProductID.getText().toString(),DiseasesArray);
+                CreateProfile(PatientName.getText().toString(),Relation.getText().toString(),PhoneNumber.getText().toString(),Address.getText().toString(),Gender,Age,ProductID.getText().toString(),DiseasesArray);
             }
         });
 
@@ -214,7 +219,7 @@ public class CreateProfile extends Activity {
     }
 
     //Function for making the http request to the server with the inputs on the android application
-    private void CreateProfile (final String Patientname, final String Relation, final String Phonenumber, final String Gender, final String Age, final String ProductID, final List<String> Diseases)
+    private void CreateProfile (final String Patientname, final String Relation, final String Phonenumber,final String Address, final String Gender, final String Age, final String ProductID, final List<String> Diseases)
     {
         String Diseasescount = Integer.toString(Diseases.size());
         // Tag used to cancel the request
@@ -267,6 +272,7 @@ public class CreateProfile extends Activity {
                   params.put("patientname", Patientname);
                   params.put("relation", Relation);
                   params.put("phonenumber", Phonenumber);
+                  params.put("address",Address);
                   params.put("gender", Gender);
                   params.put("age", Age);
                   params.put("productid", ProductID);

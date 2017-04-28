@@ -129,6 +129,32 @@
                 android:alpha=".5"
                 android:background="#D9DADC" />
 
+            <!--Address-->
+            <EditText
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="Address"
+                android:textSize="32sp"
+                android:inputType="phone"
+                android:fontFamily="sans-serif-medium"
+                android:paddingTop="20dp"
+                android:textColorHint="@color/hintColor"
+                android:textCursorDrawable="@null" />
+
+            <!--Separator-->
+            <View
+                android:id="@+id/address_separator"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:alpha=".5"
+                android:background="#D9DADC" />
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -208,7 +234,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:hint="Please enter Diseases separated by comma"
-                android:lines="3"
+                android:lines="2"
                 android:textSize="32sp"
                 android:inputType="textMultiLine"
                 android:fontFamily="sans-serif-medium"
