@@ -238,8 +238,8 @@ public class CreateProfile extends Activity {
 
                     if (!error)
                     {
-                       // String user = jObj.getJSONObject("user").getString("name");
-                        Toast.makeText(getApplicationContext(), "Profile successfully Added!", Toast.LENGTH_SHORT).show();
+                      String patient = jObj.getJSONObject("patient").getString("name");
+                        Toast.makeText(getApplicationContext(), "Profile for " + patient + "is successfully Added!", Toast.LENGTH_SHORT).show();
                         // Launch ChooseProfile activity
                           Intent intent = new Intent(CreateProfile.this, ChooseProfile.class);
                           startActivity(intent);
