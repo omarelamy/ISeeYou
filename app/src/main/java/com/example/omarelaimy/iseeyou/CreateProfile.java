@@ -113,10 +113,8 @@ public class CreateProfile extends Activity {
                 String Gender = GenderSpinner.getSelectedItem().toString();
                 //Get the Age picker value
                 String Age  = "" + AgePicker.getValue();
-                //Place the diseases separated by commas in an arraylist.
-                List<String> DiseasesArray = Arrays.asList(Diseases.getText().toString().split(","));
                 //Call CreateProfile Function to make the http request.
-                CreateProfile(PatientName.getText().toString(),Relation.getText().toString(),PhoneNumber.getText().toString(),Address.getText().toString(),Gender,Age,ProductID.getText().toString(),DiseasesArray);
+                CreateProfile(PatientName.getText().toString(),Relation.getText().toString(),PhoneNumber.getText().toString(),Address.getText().toString(),Gender,Age,ProductID.getText().toString(),Diseases.getText().toString());
             }
         });
 
@@ -219,9 +217,8 @@ public class CreateProfile extends Activity {
     }
 
     //Function for making the http request to the server with the inputs on the android application
-    private void CreateProfile (final String Patientname, final String Relation, final String Phonenumber,final String Address, final String Gender, final String Age, final String ProductID, final List<String> Diseases)
+    private void CreateProfile (final String Patientname, final String Relation, final String Phonenumber,final String Address, final String Gender, final String Age, final String ProductID, final String patient_diseases)
     {
-        String Diseasescount = Integer.toString(Diseases.size());
         // Tag used to cancel the request
         String cancel_req_tag = "createprofile";
 
@@ -276,12 +273,7 @@ public class CreateProfile extends Activity {
                   params.put("gender", Gender);
                   params.put("age", Age);
                   params.put("productid", ProductID);
-                 /* params.put("diseasescount", Integer.toString(Diseases.size()));
-                  for (int i= 0; i<Diseases.size();i++)
-                  {
-                    params.put("disease"+i,Diseases.get(i));
-                  }
-                  */
+                 params.put("diseases",patient_diseases);
                 return params;
             }
         };
