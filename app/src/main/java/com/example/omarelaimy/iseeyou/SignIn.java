@@ -114,21 +114,15 @@ public class SignIn extends AppCompatActivity {
 
                     if (!error) {
                         String user = jObj.getJSONObject("user").getString("name");
-                        //check username in JSONObject
-                /*        AlertDialog alertDialog = new AlertDialog.Builder(SignIn.this).create();
-                        alertDialog.setTitle("Alert");
-                        alertDialog.setMessage("Welcome " + user );
-                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                        alertDialog.show();
-                 */
+
                         // Launch Choose profile activity
                        Intent intent = new Intent(SignIn.this,ChooseProfile.class);
-                        intent.putExtra("username", user);
+                        //Send parameters to the ChooseProfile Activity
+                        Bundle extras = new Bundle();
+                        extras.putString("caregiver_name",user);
+                        extras.putString("caregiver_email",Email.getText().toString());
+                        intent.putExtras(extras);
+
                         startActivity(intent);
                         finish();
                     }

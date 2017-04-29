@@ -10,6 +10,8 @@ import com.example.omarelaimy.iseeyou.R;
 
 
 public class ChooseProfile extends FragmentActivity {
+    private String Caregiver_email = "";
+    private String Caregiver_name = "";
     public final static int LOOPS = 1000;
     public Button CreateProfileBtn;
     public static int FIRST_PAGE; // = count * LOOPS / 2;
@@ -28,6 +30,11 @@ public class ChooseProfile extends FragmentActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        //Get email passed by signin activity
+        Bundle extras = getIntent().getExtras();
+        Caregiver_name = extras.getString("caregiver_name");
+        Caregiver_email = extras.getString("caregiver_email");
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.viewpager);
@@ -50,8 +57,16 @@ public class ChooseProfile extends FragmentActivity {
         CreateProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ChooseProfile.this, CreateProfile.class));
+                Intent intent = new Intent(ChooseProfile.this, CreateProfile.class);
+                //Send parameters to the ChooseProfile Activity
+                Bundle extras = new Bundle();
+                extras.putString("caregiver_name",Caregiver_name);
+                extras.putString("caregiver_email",Caregiver_email);
+                intent.putExtras(extras);
+
+                startActivity(intent);
                 finish();
+
             }
         });
         try {

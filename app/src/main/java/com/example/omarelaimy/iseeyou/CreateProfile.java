@@ -16,16 +16,12 @@ import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -37,6 +33,8 @@ public class CreateProfile extends Activity {
 
     private static final String TAG = "CreateProfileActivity";
     private static final String URL_FOR_CreateProfile = "https://icu.000webhostapp.com/create_profile.php";
+    private String Caregiver_name = "";
+    private  String Caregiver_email = "";
     private NumberPicker AgePicker;
     private Spinner GenderSpinner;
     private ImageView ProfilePhoto;
@@ -86,7 +84,11 @@ public class CreateProfile extends Activity {
         ChangeSeparatorStatus(ProductID,ProductSeparator);
         ChangeSeparatorStatus(Diseases,DiseaseSeparator);
 
+        Bundle extras = getIntent().getExtras();
+        Caregiver_name = extras.getString("caregiver_name");
+        Caregiver_email = extras.getString("caregiver_email");
 
+        Toast.makeText(getApplicationContext(), "Caregiver Email is " +  Caregiver_email , Toast.LENGTH_SHORT).show();
 
         // Initializing a String Array for the Gender
         String[] Gender = new String[]{
@@ -100,7 +102,13 @@ public class CreateProfile extends Activity {
       btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CreateProfile.this, ChooseProfile.class));
+                Intent intent = new Intent(CreateProfile.this, ChooseProfile.class);
+                //Send parameters to the ChooseProfile Activity
+                Bundle extras = new Bundle();
+                extras.putString("caregiver_name",Caregiver_name);
+                extras.putString("caregiver_email",Caregiver_email);
+                intent.putExtras(extras);
+                startActivity(intent);
                 finish();
             }
         });
@@ -114,7 +122,7 @@ public class CreateProfile extends Activity {
                 //Get the Age picker value
                 String Age  = "" + AgePicker.getValue();
                 //Call CreateProfile Function to make the http request.
-                CreateProfile(PatientName.getText().toString(),Relation.getText().toString(),PhoneNumber.getText().toString(),Address.getText().toString(),Gender,Age,ProductID.getText().toString(),Diseases.getText().toString());
+                CreateProfile(Caregiver_email,PatientName.getText().toString(),Relation.getText().toString(),PhoneNumber.getText().toString(),Address.getText().toString(),Gender,Age,ProductID.getText().toString(),Diseases.getText().toString());
             }
         });
 
@@ -206,18 +214,14 @@ public class CreateProfile extends Activity {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal)
             {
-
                 //Age = "" + newVal;
                 //Display the newly selected number from picker
             }
         });
-
-
-
     }
 
     //Function for making the http request to the server with the inputs on the android application
-    private void CreateProfile (final String Patientname, final String Relation, final String Phonenumber,final String Address, final String Gender, final String Age, final String ProductID, final String patient_diseases)
+    private void CreateProfile (final String Caregiver_email,final String Patientname, final String Relation, final String Phonenumber,final String Address, final String Gender, final String Age, final String ProductID, final String patient_diseases)
     {
         // Tag used to cancel the request
         String cancel_req_tag = "createprofile";
@@ -239,7 +243,12 @@ public class CreateProfile extends Activity {
                         Toast.makeText(getApplicationContext(), "Profile for " + patient + "is successfully Added!", Toast.LENGTH_SHORT).show();
                         // Launch ChooseProfile activity
                           Intent intent = new Intent(CreateProfile.this, ChooseProfile.class);
-                          startActivity(intent);
+                        Bundle extras = new Bundle();
+                        extras.putString("caregiver_name",Caregiver_name);
+                        extras.putString("caregiver_email",Caregiver_email);
+                        intent.putExtras(extras);
+
+                        startActivity(intent);
                           finish();
                     }
                     else
@@ -266,6 +275,7 @@ public class CreateProfile extends Activity {
             protected Map<String, String> getParams() {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<String, String>();
+                  params.put("caregiver_email",Caregiver_email);
                   params.put("patientname", Patientname);
                   params.put("relation", Relation);
                   params.put("phonenumber", Phonenumber);
@@ -298,6 +308,4 @@ public class CreateProfile extends Activity {
             }
         });
     }
-
-
 }
