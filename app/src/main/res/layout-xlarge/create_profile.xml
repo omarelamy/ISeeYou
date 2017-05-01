@@ -40,14 +40,34 @@
         android:orientation="vertical"
         android:focusableInTouchMode="true">
 
-        <ImageView
-            android:id="@+id/profile_photo"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="35dp"
-            android:layout_marginTop="40dp"
-            android:src="@drawable/male_profile" />
+        <!--Layout for the image with the edit button-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/profile_photo"
+                android:layout_width="220dp"
+                android:layout_height="220dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="15dp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/male_profile" />
+
+            <Button
+                android:id="@+id/buttonUpload"
+                android:layout_width="220dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="200dp"
+                android:layout_marginLeft="290dp"
+                android:background="@android:color/white"
+                android:alpha="0.4"
+                android:text="Edit"
+                android:textSize="27sp"
+                android:textAllCaps="false"
+                android:textColor="@android:color/black"/>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

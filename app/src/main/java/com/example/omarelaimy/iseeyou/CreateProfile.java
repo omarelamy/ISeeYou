@@ -1,8 +1,12 @@
 package com.example.omarelaimy.iseeyou;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +26,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -41,7 +48,11 @@ public class CreateProfile extends Activity {
     private View PatientSeparator,RelationSeparator,PhoneSeparator,ProductSeparator,DiseaseSeparator,AddressSeparator;
     private EditText PatientName,Relation,PhoneNumber,Address,ProductID,Diseases;
     private ImageButton btnClose;
-    private Button btnCreateProfile;
+    private Button btnCreateProfile,btnUpload;
+    //Variables for the profile photo
+    private Bitmap bitmap;
+    private int PICK_IMAGE_REQUEST = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -76,6 +87,9 @@ public class CreateProfile extends Activity {
         //Getting the Create Profile button
         btnCreateProfile = (Button) findViewById(R.id.create_profile2);
 
+        //Getting the button for uploading the photo
+        btnUpload = (Button) findViewById(R.id.buttonUpload);
+
         //Change the color of the view when focused..
         ChangeSeparatorStatus(PatientName,PatientSeparator);
         ChangeSeparatorStatus(Relation,RelationSeparator);
@@ -88,7 +102,6 @@ public class CreateProfile extends Activity {
         Caregiver_name = extras.getString("caregiver_name");
         Caregiver_email = extras.getString("caregiver_email");
 
-        Toast.makeText(getApplicationContext(), "Caregiver Email is " +  Caregiver_email , Toast.LENGTH_SHORT).show();
 
         // Initializing a String Array for the Gender
         String[] Gender = new String[]{
@@ -98,8 +111,7 @@ public class CreateProfile extends Activity {
         };
 
         //clicking on the close button go to chooseprofile page
-
-      btnClose.setOnClickListener(new View.OnClickListener() {
+        btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CreateProfile.this, ChooseProfile.class);
@@ -113,7 +125,7 @@ public class CreateProfile extends Activity {
             }
         });
 
-      btnCreateProfile.setOnClickListener(new View.OnClickListener() {
+        btnCreateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
@@ -123,6 +135,15 @@ public class CreateProfile extends Activity {
                 String Age  = "" + AgePicker.getValue();
                 //Call CreateProfile Function to make the http request.
                 CreateProfile(Caregiver_email,PatientName.getText().toString(),Relation.getText().toString(),PhoneNumber.getText().toString(),Address.getText().toString(),Gender,Age,ProductID.getText().toString(),Diseases.getText().toString());
+            }
+        });
+
+        btnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                //Image upload button pressed. Call the function for choosing the image from the library
+                showFileChooser();
             }
         });
 
@@ -220,6 +241,44 @@ public class CreateProfile extends Activity {
         });
     }
 
+    ///Functions///
+    //Function for picking an image from the photo gallery.
+    private void showFileChooser()
+    {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
+    //Call the onActivity result to check for the image picking success
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri filePath = data.getData();
+            try {
+                //Getting the Bitmap from Gallery
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                //Setting the Bitmap to ImageView
+                ProfilePhoto.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    //Function for converting the image to String base64 format
+    public String getStringImage(Bitmap bmp)
+    {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+    }
+
     //Function for making the http request to the server with the inputs on the android application
     private void CreateProfile (final String Caregiver_email,final String Patientname, final String Relation, final String Phonenumber,final String Address, final String Gender, final String Age, final String ProductID, final String patient_diseases)
     {
@@ -231,7 +290,6 @@ public class CreateProfile extends Activity {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "CreateProfile Response: " + response);
-
                 try
                 {
                     JSONObject jObj = new JSONObject(response);
@@ -240,7 +298,7 @@ public class CreateProfile extends Activity {
                     if (!error)
                     {
                       String patient = jObj.getJSONObject("patient").getString("name");
-                        Toast.makeText(getApplicationContext(), "Profile for " + patient + "is successfully Added!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Profile for " + patient + " is successfully Added!", Toast.LENGTH_SHORT).show();
                         // Launch ChooseProfile activity
                           Intent intent = new Intent(CreateProfile.this, ChooseProfile.class);
                         Bundle extras = new Bundle();
@@ -275,15 +333,29 @@ public class CreateProfile extends Activity {
             protected Map<String, String> getParams() {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<String, String>();
-                  params.put("caregiver_email",Caregiver_email);
-                  params.put("patientname", Patientname);
-                  params.put("relation", Relation);
-                  params.put("phonenumber", Phonenumber);
-                  params.put("address",Address);
-                  params.put("gender", Gender);
-                  params.put("age", Age);
-                  params.put("productid", ProductID);
-                 params.put("diseases",patient_diseases);
+
+                if (bitmap!=null)
+                {
+                    //Converting the Image to String
+                    String image = getStringImage(bitmap);
+
+                    //Putting The parameter for the image
+                    params.put("image",image);
+                }
+                else
+                {
+                    params.put("image","");
+                }
+
+                params.put("caregiver_email",Caregiver_email);
+                params.put("patientname", Patientname);
+                params.put("relation", Relation);
+                params.put("phonenumber", Phonenumber);
+                params.put("address",Address);
+                params.put("gender", Gender);
+                params.put("age", Age);
+                params.put("productid", ProductID);
+                params.put("diseases",patient_diseases);
                 return params;
             }
         };

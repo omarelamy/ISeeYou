@@ -58,7 +58,7 @@ public class ChooseProfile extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ChooseProfile.this, CreateProfile.class);
-                //Send parameters to the ChooseProfile Activity
+                //Send parameters to the CreateProfile Activity
                 Bundle extras = new Bundle();
                 extras.putString("caregiver_name",Caregiver_name);
                 extras.putString("caregiver_email",Caregiver_email);
