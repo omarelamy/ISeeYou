@@ -1,6 +1,7 @@
 package com.example.omarelaimy.iseeyou;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -42,6 +43,7 @@ public class CreateProfile extends Activity {
     private static final String URL_FOR_CreateProfile = "https://icu.000webhostapp.com/create_profile.php";
     private String Caregiver_name = "";
     private  String Caregiver_email = "";
+    private String Caregiver_ID= "";
     private NumberPicker AgePicker;
     private Spinner GenderSpinner;
     private ImageView ProfilePhoto;
@@ -101,6 +103,7 @@ public class CreateProfile extends Activity {
         Bundle extras = getIntent().getExtras();
         Caregiver_name = extras.getString("caregiver_name");
         Caregiver_email = extras.getString("caregiver_email");
+        Caregiver_ID    = extras.getString("caregiver_id");
 
 
         // Initializing a String Array for the Gender
@@ -119,6 +122,7 @@ public class CreateProfile extends Activity {
                 Bundle extras = new Bundle();
                 extras.putString("caregiver_name",Caregiver_name);
                 extras.putString("caregiver_email",Caregiver_email);
+                extras.putString("caregiver_id",Caregiver_ID);
                 intent.putExtras(extras);
                 startActivity(intent);
                 finish();
@@ -279,6 +283,19 @@ public class CreateProfile extends Activity {
         return encodedImage;
     }
 
+    //Function for converting the Base64format string to bitmap image
+    public Bitmap getImageBitmap(String EncodedString)
+    {
+        try{
+            byte [] encodeByte=Base64.decode(EncodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        }catch(Exception e){
+            e.getMessage();
+            return null;
+        }
+    }
+
     //Function for making the http request to the server with the inputs on the android application
     private void CreateProfile (final String Caregiver_email,final String Patientname, final String Relation, final String Phonenumber,final String Address, final String Gender, final String Age, final String ProductID, final String patient_diseases)
     {
@@ -289,7 +306,7 @@ public class CreateProfile extends Activity {
 
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, "CreateProfile Response: " + response);
+                Log.d(TAG, "Create Profile Response: " + response);
                 try
                 {
                     JSONObject jObj = new JSONObject(response);
@@ -300,12 +317,12 @@ public class CreateProfile extends Activity {
                       String patient = jObj.getJSONObject("patient").getString("name");
                         Toast.makeText(getApplicationContext(), "Profile for " + patient + " is successfully Added!", Toast.LENGTH_SHORT).show();
                         // Launch ChooseProfile activity
-                          Intent intent = new Intent(CreateProfile.this, ChooseProfile.class);
+                        Intent intent = new Intent(CreateProfile.this, ChooseProfile.class);
                         Bundle extras = new Bundle();
                         extras.putString("caregiver_name",Caregiver_name);
                         extras.putString("caregiver_email",Caregiver_email);
+                        extras.putString("caregiver_id",Caregiver_ID);
                         intent.putExtras(extras);
-
                         startActivity(intent);
                           finish();
                     }

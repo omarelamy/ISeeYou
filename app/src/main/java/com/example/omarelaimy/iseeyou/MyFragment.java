@@ -31,13 +31,15 @@ public class MyFragment extends Fragment {
         int pos   = this.getArguments().getInt("pos");
         TextView tv  = (TextView) fragmentLL.findViewById(R.id.profile_name);
 
-        tv.setText("Image " +  pos );
+        tv.setText(ChooseProfile.ChooseProfileCtx.CaregiverPatients.get(pos).GetName());
+
         tv.setTextColor(ContextCompat.getColor(getContext(),R.color.textcolor));
         ImageView iv = (ImageView) fragmentLL.findViewById(R.id.pagerImg);
 
         iv.setLayoutParams(layoutParams);
         iv.setImageResource(ChooseProfile.ChooseProfileCtx.coverUrl[pos] );
         iv.setPadding(15, 15, 15, 15);
+
 
         MyLinearLayout root = (MyLinearLayout) fragmentLL.findViewById(R.id.root);
         float scale   = this.getArguments().getFloat("scale");

@@ -91,6 +91,7 @@ public class SignIn extends AppCompatActivity {
             {
 
                 loginUser(Email.getText().toString(), Password.getText().toString());
+
             }
         });
     }
@@ -106,7 +107,7 @@ public class SignIn extends AppCompatActivity {
 
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, "Register Response: " + response.toString());
+                Log.d(TAG, "Login Response: " + response.toString());
                 hideDialog();
                 try {
                     JSONObject jObj = new JSONObject(response);
@@ -114,12 +115,13 @@ public class SignIn extends AppCompatActivity {
 
                     if (!error) {
                         String user = jObj.getJSONObject("user").getString("name");
-
+                        String userID = jObj.getJSONObject("user").getString("userID");
                         // Launch Choose profile activity
                        Intent intent = new Intent(SignIn.this,ChooseProfile.class);
                         //Send parameters to the ChooseProfile Activity
                         Bundle extras = new Bundle();
                         extras.putString("caregiver_name",user);
+                        extras.putString("caregiver_id",userID);
                         extras.putString("caregiver_email",Email.getText().toString());
                         intent.putExtras(extras);
 
