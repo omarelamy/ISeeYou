@@ -37,7 +37,12 @@ public class MyFragment extends Fragment {
         ImageView iv = (ImageView) fragmentLL.findViewById(R.id.pagerImg);
 
         iv.setLayoutParams(layoutParams);
-        iv.setImageResource(ChooseProfile.ChooseProfileCtx.coverUrl[pos] );
+        //Check if the user has a photo
+        if (!ChooseProfile.ChooseProfileCtx.PatientImageCheck[pos])
+            iv.setImageResource(ChooseProfile.ChooseProfileCtx.coverUrl[pos]);
+        else
+            iv.setImageBitmap(ChooseProfile.ChooseProfileCtx.PatientImage[pos]);
+        //iv.setImageResource(ChooseProfile.ChooseProfileCtx.coverUrl[pos]);
         iv.setPadding(15, 15, 15, 15);
 
 

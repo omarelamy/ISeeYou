@@ -48,8 +48,10 @@ public class ChooseProfile extends FragmentActivity {
     public ViewPager pager;
     /*Array of Patients (Patient Class)*/
     public ArrayList<Patient> CaregiverPatients = new ArrayList<>();
+    public Bitmap PatientImage[];
     /*** variables for the View */
     public int coverUrl[];
+    public boolean PatientImageCheck[];
     public static int count;
 
     public static ChooseProfile ChooseProfileCtx;
@@ -73,12 +75,26 @@ public class ChooseProfile extends FragmentActivity {
             public void onSuccess(ArrayList<Patient> CaregiverPatients) {
 
                 coverUrl = new int[CaregiverPatients.size()];
+                PatientImage = new Bitmap[CaregiverPatients.size()];
                 for (int i = 0 ; i < coverUrl.length;i++)
                 {
-                    if (CaregiverPatients.get(i).GetGender() == "0")
-                        coverUrl[i] = R.drawable.male_profile;
+                    //Check for Image attribute if null or not, make sure if comparison is RIGHT.
+                    if (CaregiverPatients.get(i).GetImage() == "null")
+                    {
+                        //User didn't enter a custom image,mark that.
+                        PatientImageCheck[i] = false;
+                        if (CaregiverPatients.get(i).GetGender() == "0")
+                            coverUrl[i] = R.drawable.male_profile;
+                        else
+                            coverUrl[i] = R.drawable.female_profile;
+                    }
                     else
-                        coverUrl[i] = R.drawable.female_profile;
+                    {
+                        PatientImageCheck[i] = true;
+                        //There's a profile photo for the patient. Load it in choose profile instead of  default one.
+                         PatientImage[i] = getImageBitmap(CaregiverPatients.get(i).GetImage());
+                    }
+
                 }
                 ChooseProfileCtx = ChooseProfile.this;
                 pager = (ViewPager) findViewById(R.id.myviewpager);
@@ -205,7 +221,6 @@ public class ChooseProfile extends FragmentActivity {
                                 CaregiverPatients.add(patient);
                             }
                             onCallBack.onSuccess(CaregiverPatients);
-                        Log.d(TAG, "Caregiver Patients\n" + "Name: " + Name + "\nGender: " + Gender);
                     }
                     else
                     {
