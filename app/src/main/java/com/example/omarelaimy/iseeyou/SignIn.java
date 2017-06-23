@@ -124,7 +124,6 @@ public class SignIn extends AppCompatActivity {
                         extras.putString("caregiver_id",userID);
                         extras.putString("caregiver_email",Email.getText().toString());
                         intent.putExtras(extras);
-
                         startActivity(intent);
                         finish();
                     }
