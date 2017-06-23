@@ -82,17 +82,15 @@ public class ChooseProfile extends FragmentActivity {
                     //Check for Image attribute if null or not, make sure if comparison is RIGHT.
                   if (CaregiverPatients.get(i).GetImage() == "null" )
                    {
-                        //User didn't enter a custom image,mark that.
+                        //User didn't enter a custom image, mark that.
                         PatientImageCheck[i] = false;
-
-                  }
-                    else
+                   }
+                  else
                    {
                        PatientImageCheck[i] = true;
-                      PatientImage[i] = getImageBitmap(CaregiverPatients.get(i).GetImage());
+                       PatientImage[i] = getImageBitmap(CaregiverPatients.get(i).GetImage());
 
-                    }
-
+                   }
                 }
                 ChooseProfileCtx = ChooseProfile.this;
                 pager = (ViewPager) findViewById(R.id.myviewpager);

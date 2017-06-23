@@ -314,7 +314,7 @@ public class CreateProfile extends Activity {
 
                     if (!error)
                     {
-                      String patient = jObj.getJSONObject("patient").getString("name");
+                        String patient = jObj.getJSONObject("patient").getString("name");
                         Toast.makeText(getApplicationContext(), "Profile for " + patient + " is successfully Added!", Toast.LENGTH_SHORT).show();
                         // Launch ChooseProfile activity
                         Intent intent = new Intent(CreateProfile.this, ChooseProfile.class);
@@ -323,8 +323,8 @@ public class CreateProfile extends Activity {
                         extras.putString("caregiver_email",Caregiver_email);
                         extras.putString("caregiver_id",Caregiver_ID);
                         intent.putExtras(extras);
-                        startActivity(intent);
-                          finish();
+                       // startActivity(intent);
+                        //finish();
                     }
                     else
                     {
