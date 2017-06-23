@@ -2,6 +2,7 @@ package com.example.omarelaimy.iseeyou;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.FragmentActivity;
@@ -11,6 +12,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.example.omarelaimy.iseeyou.R;
 
@@ -25,6 +28,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -80,7 +87,7 @@ public class ChooseProfile extends FragmentActivity {
                    else
                        coverUrl[i] = R.drawable.female_profile;
                     //Check for Image attribute if null or not, make sure if comparison is RIGHT.
-                  if (CaregiverPatients.get(i).GetImage() == "null" )
+                  if (CaregiverPatients.get(i).GetImagePath().isEmpty())
                    {
                         //User didn't enter a custom image, mark that.
                         PatientImageCheck[i] = false;
@@ -88,10 +95,11 @@ public class ChooseProfile extends FragmentActivity {
                   else
                    {
                        PatientImageCheck[i] = true;
-                       PatientImage[i] = getImageBitmap(CaregiverPatients.get(i).GetImage());
-
+                       String ImagePath = CaregiverPatients.get(i).GetImagePath();
+                       PatientImage[i] = getImageBitmap(ImagePath);
                    }
                 }
+
                 ChooseProfileCtx = ChooseProfile.this;
                 pager = (ViewPager) findViewById(R.id.myviewpager);
                 count = coverUrl.length;
@@ -115,21 +123,17 @@ public class ChooseProfile extends FragmentActivity {
                     pager.setOffscreenPageLimit(3);
                     // Set margin for pages as a negative number, so a part of next and
                     // previous pages will be showed
-
-
                 } catch (Exception e) {
 
                     e.printStackTrace();
                 }
             }
-
             @Override
             public void onFail(String msg) {
-                // Do Stuff
+                Log.d("PatientInfoRetrieval",msg);
             }
-        },Caregiver_ID);
+        });
 
-        //getCaregiverPatients(Caregiver_ID);
 
         //Set the view after loading.
         setContentView(R.layout.viewpager);
@@ -148,7 +152,6 @@ public class ChooseProfile extends FragmentActivity {
                 extras.putString("caregiver_email",Caregiver_email);
                 extras.putString("caregiver_id", Caregiver_ID);
                 intent.putExtras(extras);
-
                 startActivity(intent);
                 finish();
 
@@ -156,13 +159,6 @@ public class ChooseProfile extends FragmentActivity {
         });
     }
 
-    public interface CallBack {
-        void onSuccess(ArrayList<Patient> CaregiverPatients);
-
-        void onFail(String msg);
-    }
-
-    //Function for converting the Base64format string to bitmap image
     public Bitmap getImageBitmap(String EncodedString)
     {
         try{
@@ -174,8 +170,12 @@ public class ChooseProfile extends FragmentActivity {
             return null;
         }
     }
+    public interface CallBack {
+        void onSuccess(ArrayList<Patient> CaregiverPatients);
+        void onFail(String msg);
+    }
 
-    public void getCaregiverPatients(final CallBack onCallBack, String CaregiverID)
+    public void getCaregiverPatients(final CallBack onCallBack)
     {
         // Tag used to cancel the request
         String cancel_req_tag = "CaregiverPatients";
@@ -192,11 +192,10 @@ public class ChooseProfile extends FragmentActivity {
                     {
                         String Name   = "";
                         String Gender = "";
-                        String Image  = "";
+                        String ImagePath  = "";
                         String Relation  = "";
 
                         JSONArray result = jObj.getJSONArray(Config.JSON_ARRAY);
-                        int length = result.length();
                             //Loop on the array of patients. response from the server and save in the Patients Array.
                             for( int i = 0; i < result.length();i++)
                             {
@@ -204,9 +203,9 @@ public class ChooseProfile extends FragmentActivity {
                                 JSONObject PatientData = result.getJSONObject(i);
                                 Name = PatientData.getString(Config.KEY_NAME);
                                 Gender = PatientData.getString(Config.KEY_GENDER);
-                                Image  = PatientData.getString(Config.KEY_IMAGE);
+                                ImagePath  = PatientData.getString(Config.KEY_IMAGE);
                                 Relation = PatientData.getString(Config.KEY_RELATION);
-                                patient.SetPatientInfo(Name,Gender,Image,Relation);
+                                patient.SetPatientInfo(Name,Gender,ImagePath,Relation);
                                 CaregiverPatients.add(patient);
                             }
                             onCallBack.onSuccess(CaregiverPatients);

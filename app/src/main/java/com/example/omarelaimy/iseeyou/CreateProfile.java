@@ -214,10 +214,18 @@ public class CreateProfile extends Activity {
                 // First item is disable and it is used for hint
                 if(position > 0 && selectedItemText == "Male")
                 {
+                    //This check to make sure that the user didn't load any custom image, so if the bitmap attribute is not equal to null.
+                    //This means the user uploaded a photo.
+                    //Otherwise,set the image to the selected option.
+                    if (bitmap == null)
                     ProfilePhoto.setImageDrawable(getResources().getDrawable(R.drawable.male_profile));
                 }
                 else if(position > 0 && selectedItemText == "Female")
                 {
+                    //This check to make sure that the user didn't load any custom image, so if the bitmap attribute is not equal to null.
+                    //This means the user uploaded a photo.
+                    //Otherwise,set the image to the selected option.
+                    if (bitmap == null)
                     ProfilePhoto.setImageDrawable(getResources().getDrawable(R.drawable.female_profile));
                 }
             }
@@ -283,19 +291,6 @@ public class CreateProfile extends Activity {
         return encodedImage;
     }
 
-    //Function for converting the Base64format string to bitmap image
-    public Bitmap getImageBitmap(String EncodedString)
-    {
-        try{
-            byte [] encodeByte=Base64.decode(EncodedString,Base64.DEFAULT);
-            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            return bitmap;
-        }catch(Exception e){
-            e.getMessage();
-            return null;
-        }
-    }
-
     //Function for making the http request to the server with the inputs on the android application
     private void CreateProfile (final String Caregiver_email,final String Patientname, final String Relation, final String Phonenumber,final String Address, final String Gender, final String Age, final String ProductID, final String patient_diseases)
     {
@@ -323,8 +318,8 @@ public class CreateProfile extends Activity {
                         extras.putString("caregiver_email",Caregiver_email);
                         extras.putString("caregiver_id",Caregiver_ID);
                         intent.putExtras(extras);
-                       // startActivity(intent);
-                        //finish();
+                        startActivity(intent);
+                        finish();
                     }
                     else
                     {

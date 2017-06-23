@@ -7,7 +7,7 @@ package com.example.omarelaimy.iseeyou;
 public class Patient {
     private String Name;
     private String Gender;
-    private String Image;
+    private String ImagePath;
     private String Relation;
 
     public Patient()
@@ -19,7 +19,7 @@ public class Patient {
     {
         this.Name = name;
         this.Gender = gender;
-        this.Image = image;
+        this.ImagePath = image;
         this.Relation = relation;
     }
     public String GetName()
@@ -30,9 +30,9 @@ public class Patient {
     {
         return this.Gender;
     }
-    public String GetImage()
+    public String GetImagePath()
     {
-        return this.Image;
+        return this.ImagePath;
     }
     public String GetRelation()
     {
