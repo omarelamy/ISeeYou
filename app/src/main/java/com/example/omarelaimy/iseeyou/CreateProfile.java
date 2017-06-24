@@ -1,4 +1,5 @@
 package com.example.omarelaimy.iseeyou;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -51,6 +52,7 @@ public class CreateProfile extends Activity {
     private EditText PatientName,Relation,PhoneNumber,Address,ProductID,Diseases;
     private ImageButton btnClose;
     private Button btnCreateProfile,btnUpload;
+    ProgressDialog progressDialog;
     //Variables for the profile photo
     private Bitmap bitmap;
     private int PICK_IMAGE_REQUEST = 1;
@@ -92,6 +94,9 @@ public class CreateProfile extends Activity {
         //Getting the button for uploading the photo
         btnUpload = (Button) findViewById(R.id.buttonUpload);
 
+        //Set the Progressdialog
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
         //Change the color of the view when focused..
         ChangeSeparatorStatus(PatientName,PatientSeparator);
         ChangeSeparatorStatus(Relation,RelationSeparator);
@@ -138,6 +143,7 @@ public class CreateProfile extends Activity {
                 //Get the Age picker value
                 String Age  = "" + AgePicker.getValue();
                 //Call CreateProfile Function to make the http request.
+
                 CreateProfile(Caregiver_email,PatientName.getText().toString(),Relation.getText().toString(),PhoneNumber.getText().toString(),Address.getText().toString(),Gender,Age,ProductID.getText().toString(),Diseases.getText().toString());
             }
         });
@@ -254,6 +260,12 @@ public class CreateProfile extends Activity {
     }
 
     ///Functions///
+    //Function for showing the progress dialog
+    private void showDialog()
+    {
+        if (!progressDialog.isShowing())
+            progressDialog.show();
+    }
     //Function for picking an image from the photo gallery.
     private void showFileChooser()
     {
@@ -294,6 +306,8 @@ public class CreateProfile extends Activity {
     //Function for making the http request to the server with the inputs on the android application
     private void CreateProfile (final String Caregiver_email,final String Patientname, final String Relation, final String Phonenumber,final String Address, final String Gender, final String Age, final String ProductID, final String patient_diseases)
     {
+        progressDialog.setMessage("Creating your profile...");
+        showDialog();
         // Tag used to cancel the request
         String cancel_req_tag = "createprofile";
 
@@ -301,6 +315,7 @@ public class CreateProfile extends Activity {
 
             @Override
             public void onResponse(String response) {
+                progressDialog.dismiss();
                 Log.d(TAG, "Create Profile Response: " + response);
                 try
                 {

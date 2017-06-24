@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_inventory"
+            android:icon="@drawable/inventory"
+            android:title="@string/nav_inventory"
+            />
+        <item
+            android:id="@+id/nav_pillbox"
+            android:icon="@drawable/pill"
+            android:title="@string/nav_pillbox"
+            />
+        <item
+            android:id="@+id/nav_heartrate"
+            android:icon="@drawable/heart"
+            android:title="@string/nav_heartrate" />
+
+        <item
+            android:id="@+id/nav_appointments"
+            android:icon="@drawable/appointments"
+            android:title="@string/nav_appointments" />
+
+        <item
+            android:id="@+id/nav_notifications"
+            android:icon="@drawable/ic_notifications_black_24dp"
+            android:title="@string/nav_notifications" />
+
+        <item  android:title="@string/nav_myprofile"
+            android:id="@+id/nav_myprofile"
+            android:icon="@drawable/profilenav"/>
+
+        <item  android:title="@string/switch_patient"
+            android:id="@+id/nav_switchpatient"
+            android:icon="@drawable/ic_swap_horiz_black_48dp"/>
+
+        <item
+          android:id="@+id/nav_logout"
+          android:title="@string/action_logout"
+          android:icon="@drawable/logout"/>
+    </group>
+
+
+
+</menu>
