@@ -54,6 +54,11 @@ public class NavigationMainActivity extends AppCompatActivity {
     private String Patient_Name = "";
     private String Patient_Gender = "";
     private Bitmap Patient_Image;
+    //Caregiver info
+    private String Caregiver_name;
+    private String Caregiver_email;
+    private String Caregiver_ID;
+
     public static String CURRENT_TAG = Config.TAG_PROFILE;
 
     // index to identify current nav menu item
@@ -78,6 +83,9 @@ public class NavigationMainActivity extends AppCompatActivity {
         Patient_Name  = extras.getString("patient_name");
         Patient_ID = extras.getString("patient_id");
         Patient_Gender    = extras.getString("patient_gender");
+        Caregiver_email =  extras.getString("caregiver_email");
+        Caregiver_ID =  extras.getString("caregiver_id");
+        Caregiver_name = extras.getString("caregiver_name");
       //  Patient_Image  = (Bitmap) intent.getParcelableExtra("patient_image");
 
         super.onCreate(savedInstanceState);
@@ -231,10 +239,10 @@ iv_patientImage.setImageResource(R.drawable.female_profile);
                 ProfileFragment profileFragment = new ProfileFragment();
                 return profileFragment;
 
-            case 6:
+        //    case 6:
                 // switch profile
-                SwitchProfileFragment switchProfileFragment = new SwitchProfileFragment();
-                return switchProfileFragment;
+        //        SwitchProfileFragment switchProfileFragment = new SwitchProfileFragment();
+        //        return switchProfileFragment;
 
             //case 7:
                 // logout
@@ -250,7 +258,7 @@ iv_patientImage.setImageResource(R.drawable.female_profile);
     }
 
     private void setToolbarTitle() {
-        if(navItemIndex == 7)
+        if(navItemIndex == 7 || navItemIndex == 6)
             return;
         getSupportActionBar().setTitle(activityTitles[navItemIndex]);
     }
@@ -328,6 +336,10 @@ iv_patientImage.setImageResource(R.drawable.female_profile);
                 if(navItemIndex == 7)
                 {
                     LogoutMessage();
+                }
+                else if(navItemIndex == 6)
+                {
+                    SwitchProfile();
                 }
                 loadProfileFragment();
 
@@ -448,5 +460,16 @@ iv_patientImage.setImageResource(R.drawable.female_profile);
                  }
              }).setNegativeButton("No", null).show();
 
+ }
+ public void SwitchProfile()
+ {
+     Bundle extras = new Bundle();
+     Intent intent = new Intent(NavigationMainActivity.this,ChooseProfile.class);
+     extras.putString("caregiver_name",Caregiver_name);
+     extras.putString("caregiver_email",Caregiver_email);
+     extras.putString("caregiver_id",Caregiver_ID);
+     intent.putExtras(extras);
+     startActivity(intent);
+     finish();
  }
 }

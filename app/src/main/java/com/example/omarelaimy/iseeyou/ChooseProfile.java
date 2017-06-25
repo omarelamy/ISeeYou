@@ -41,9 +41,9 @@ import java.util.jar.Attributes;
 
 
 public class ChooseProfile extends FragmentActivity {
-    private String Caregiver_email = "";
-    private String Caregiver_name = "";
-    private String Caregiver_ID = "";
+    public String Caregiver_email = "";
+    public String Caregiver_name = "";
+    public String Caregiver_ID = "";
     private static final String CHOOSE_PROFILE_URL =  "https://icu.000webhostapp.com/chooseprofile.php";
     private static final String TAG = "ChooseProfileActivity";
     public final static int LOOPS = 1;
@@ -60,6 +60,11 @@ public class ChooseProfile extends FragmentActivity {
    public Bitmap PatientImage[];
     /*** variables for the View */
     public int coverUrl[];
+    //save parameters here to send to navigation bar
+    public String PatientNames[];
+    public String PatientIDs[];
+    public String PatientGender[];
+
     public boolean PatientImageCheck[];
     public static int count;
     public static ChooseProfile ChooseProfileCtx;
@@ -82,8 +87,15 @@ public class ChooseProfile extends FragmentActivity {
                 coverUrl = new int[CaregiverPatients.size()];
                 PatientImageCheck = new boolean[CaregiverPatients.size()];
                 PatientImage = new Bitmap[CaregiverPatients.size()];
+                PatientNames = new String[CaregiverPatients.size()];
+                PatientIDs = new String[CaregiverPatients.size()];
+                PatientGender = new String[CaregiverPatients.size()];
                 for (int i = 0 ; i < coverUrl.length;i++)
                 {
+                    //set patient names,ids and gender
+                    PatientNames[i] = CaregiverPatients.get(i).GetName();
+                    PatientIDs[i] = CaregiverPatients.get(i).GetID();
+                    PatientGender[i] = CaregiverPatients.get(i).GetGender();
                    if (CaregiverPatients.get(i).GetGender() == "0")
                         coverUrl[i] = R.drawable.male_profile;
                    else
@@ -133,21 +145,6 @@ public class ChooseProfile extends FragmentActivity {
                     e.printStackTrace();
                 }
 
-                pager.setOnClickListener(new View.OnClickListener(){
-                    public void onClick(View v){
-                        //this will log the page number that was click
-                        Intent intent = new Intent(ChooseProfile.this, NavigationMainActivity.class);
-                        //Send parameters to the CreateProfile Activity
-                        Bundle extras = new Bundle();
-                        extras.putString("patient_name","Patient Name");
-                        extras.putString("patient_id","Patient ID");
-                        extras.putString("patient_gender", "Patient Gender");
-                        intent.putExtras(extras);
-                        startActivity(intent);
-                        finish();
-
-                    }
-                });
 
             }
             @Override
@@ -167,7 +164,7 @@ public class ChooseProfile extends FragmentActivity {
         CreateProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              /*  Intent intent = new Intent(ChooseProfile.this, CreateProfile.class);
+                Intent intent = new Intent(ChooseProfile.this, CreateProfile.class);
                 //Send parameters to the CreateProfile Activity
                 Bundle extras = new Bundle();
                 extras.putString("caregiver_name",Caregiver_name);
@@ -175,16 +172,8 @@ public class ChooseProfile extends FragmentActivity {
                 extras.putString("caregiver_id", Caregiver_ID);
                 intent.putExtras(extras);
                 startActivity(intent);
-                finish();*/
-                Intent intent = new Intent(ChooseProfile.this, NavigationMainActivity.class);
-                //Send parameters to the CreateProfile Activity
-                Bundle extras = new Bundle();
-                extras.putString("patient_name",Caregiver_name);
-                extras.putString("patient_id",Caregiver_ID);
-                extras.putString("patient_gender", "Female");
-                intent.putExtras(extras);
-                startActivity(intent);
                 finish();
+
 
             }
         });
@@ -226,6 +215,7 @@ public class ChooseProfile extends FragmentActivity {
                     if (!error)
                     {
                         String Name   = "";
+                        String ID = "";
                         String Gender = "";
                         String ImagePath  = "";
                         String Relation  = "";
@@ -237,10 +227,11 @@ public class ChooseProfile extends FragmentActivity {
                                 Patient patient = new Patient();
                                 JSONObject PatientData = result.getJSONObject(i);
                                 Name = PatientData.getString(Config.KEY_NAME);
+                                ID = PatientData.getString(Config.KEY_ID);
                                 Gender = PatientData.getString(Config.KEY_GENDER);
                                 ImagePath  = PatientData.getString(Config.KEY_IMAGE);
                                 Relation = PatientData.getString(Config.KEY_RELATION);
-                                patient.SetPatientInfo(Name,Gender,ImagePath,Relation);
+                                patient.SetPatientInfo(Name,ID,Gender,ImagePath,Relation);
                                 CaregiverPatients.add(patient);
                             }
                             onCallBack.onSuccess(CaregiverPatients);

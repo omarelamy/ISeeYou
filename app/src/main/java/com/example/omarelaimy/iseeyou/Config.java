@@ -7,6 +7,7 @@ package com.example.omarelaimy.iseeyou;
 public class Config {
     //Attributes for Choose Profile Page
     public static final String KEY_NAME = "name";
+    public static final String KEY_ID = "patientid";
     public static final String KEY_GENDER = "Gender";
     public static final String KEY_IMAGE = "Image";
     public static final String KEY_RELATION = "Relation";

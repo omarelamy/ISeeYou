@@ -1,4 +1,5 @@
 package com.example.omarelaimy.iseeyou;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -11,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.omarelaimy.iseeyou.R;
+
+import static com.example.omarelaimy.iseeyou.ChooseProfile.ChooseProfileCtx;
 
 public class MyFragment extends Fragment {
     public static Fragment newInstance(ChooseProfile context, int pos, float scale) {
@@ -32,20 +35,41 @@ public class MyFragment extends Fragment {
         int pos   = this.getArguments().getInt("pos");
         TextView tv  = (TextView) fragmentLL.findViewById(R.id.profile_name);
 
-        tv.setText(ChooseProfile.ChooseProfileCtx.CaregiverPatients.get(pos).GetName());
+        tv.setText(ChooseProfileCtx.CaregiverPatients.get(pos).GetName());
 
         tv.setTextColor(ContextCompat.getColor(getContext(),R.color.textcolor));
         ImageView iv = (ImageView) fragmentLL.findViewById(R.id.pagerImg);
-
+        final String PatientName = ChooseProfileCtx.PatientNames[pos];
+        final String PatientGender = ChooseProfileCtx.PatientGender[pos];
+        final String PatientID = ChooseProfileCtx.PatientIDs[pos];
         iv.setLayoutParams(layoutParams);
        // iv.setImageResource(ChooseProfile.ChooseProfileCtx.coverUrl[pos]);
         //Check if the user has a photo
-        if (!ChooseProfile.ChooseProfileCtx.PatientImageCheck[pos])
-          iv.setImageResource(ChooseProfile.ChooseProfileCtx.coverUrl[pos]);
+        if (!ChooseProfileCtx.PatientImageCheck[pos])
+          iv.setImageResource(ChooseProfileCtx.coverUrl[pos]);
         else
-            iv.setImageBitmap(ChooseProfile.ChooseProfileCtx.PatientImage[pos]);
+            iv.setImageBitmap(ChooseProfileCtx.PatientImage[pos]);
 
         iv.setPadding(15, 15, 15, 15);
+
+        iv.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+               //call the navigation bar activity
+
+                Intent intent = new Intent(ChooseProfileCtx, NavigationMainActivity.class);
+                //Send parameters to the CreateProfile Activity
+                Bundle extras = new Bundle();
+                extras.putString("patient_name",PatientName);
+                extras.putString("patient_id",PatientID);
+                extras.putString("patient_gender", PatientGender);
+                extras.putString("caregiver_name",ChooseProfileCtx.Caregiver_name);
+                extras.putString("caregiver_email",ChooseProfileCtx.Caregiver_email);
+                extras.putString("caregiver_id", ChooseProfileCtx.Caregiver_ID);
+                intent.putExtras(extras);
+                startActivity(intent);
+                ChooseProfileCtx.finish();
+            }
+        });
 
 
         MyLinearLayout root = (MyLinearLayout) fragmentLL.findViewById(R.id.root);
