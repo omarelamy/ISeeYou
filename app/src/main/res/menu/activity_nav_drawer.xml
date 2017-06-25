@@ -28,7 +28,7 @@
             android:title="@string/nav_notifications" />
 
         <item  android:title="@string/nav_myprofile"
-            android:id="@+id/nav_myprofile"
+            android:id="@+id/nav_profile"
             android:icon="@drawable/profilenav"/>
 
         <item  android:title="@string/switch_patient"

@@ -306,8 +306,7 @@ public class CreateProfile extends Activity {
     //Function for making the http request to the server with the inputs on the android application
     private void CreateProfile (final String Caregiver_email,final String Patientname, final String Relation, final String Phonenumber,final String Address, final String Gender, final String Age, final String ProductID, final String patient_diseases)
     {
-        progressDialog.setMessage("Creating your profile...");
-        showDialog();
+
         // Tag used to cancel the request
         String cancel_req_tag = "createprofile";
 

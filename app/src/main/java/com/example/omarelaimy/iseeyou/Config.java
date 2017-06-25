@@ -12,4 +12,15 @@ public class Config {
     public static final String KEY_RELATION = "Relation";
     public static final String JSON_ARRAY = "result";
     //End Attributes for Choose Profile Page
+
+    // tags used to attach the fragments for navigation bar
+    public static final String TAG_APPOINTMENTS = "Appointments";
+    public static final String TAG_HEARTRATE = "Heart Rate Monitor";
+    public static final String TAG_INVENTORY = "My Inventory";
+    public static final String TAG_LOGOUT = "Logout";
+    public static final String TAG_NOTIFICATIONS = "Notifications";
+    public static final String TAG_PILLBOX = "Pillbox";
+    public static final String TAG_SWITCHPROFILE = "Switch Profile";
+    public static final String TAG_PROFILE = "Profile";
+
 }

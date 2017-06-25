@@ -3,6 +3,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import com.example.omarelaimy.iseeyou.R;
 
@@ -14,6 +15,8 @@ public class MyPagerAdapter extends FragmentPagerAdapter implements ViewPager.On
     private FragmentManager fm;
     private float scale;
     int pCount = 0;
+    private static final String TAG = "MyPagerAdapterActivity";
+
 
     public MyPagerAdapter(ChooseProfile context, FragmentManager fm) {
         super(fm);
@@ -69,7 +72,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter implements ViewPager.On
 
     @Override
     public void onPageSelected(int position) {
-
+        Log.d(TAG, "INSIDE IMAGE CLICK EVENT HANDLER");
     }
 
     @Override

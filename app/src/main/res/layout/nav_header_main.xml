@@ -17,7 +17,7 @@
         android:padding="@dimen/activity_horizontal_margin">
 
         <ImageView
-            android:id="@+id/img_profile"
+            android:id="@+id/patient_img"
             android:layout_width="@dimen/profile_width"
             android:layout_height="@dimen/profile_height"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
@@ -25,7 +25,7 @@
             app:srcCompat="@drawable/male_profile" />
 
            <TextView
-               android:id="@+id/profile_name"
+               android:id="@+id/patient_name"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_marginLeft="13dp"

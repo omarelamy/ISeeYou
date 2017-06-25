@@ -1,4 +1,5 @@
 package com.example.omarelaimy.iseeyou;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -53,6 +54,7 @@ public class ChooseProfile extends FragmentActivity {
     public final static float DIFF_SCALE = BIG_SCALE - SMALL_SCALE;
     public MyPagerAdapter adapter;
     public ViewPager pager;
+
     /*Array of Patients (Patient Class)*/
     public ArrayList<Patient> CaregiverPatients = new ArrayList<>();
    public Bitmap PatientImage[];
@@ -100,6 +102,8 @@ public class ChooseProfile extends FragmentActivity {
                    }
                 }
 
+
+
                 ChooseProfileCtx = ChooseProfile.this;
                 pager = (ViewPager) findViewById(R.id.myviewpager);
                 count = coverUrl.length;
@@ -123,10 +127,28 @@ public class ChooseProfile extends FragmentActivity {
                     pager.setOffscreenPageLimit(3);
                     // Set margin for pages as a negative number, so a part of next and
                     // previous pages will be showed
+
                 } catch (Exception e) {
 
                     e.printStackTrace();
                 }
+
+                pager.setOnClickListener(new View.OnClickListener(){
+                    public void onClick(View v){
+                        //this will log the page number that was click
+                        Intent intent = new Intent(ChooseProfile.this, NavigationMainActivity.class);
+                        //Send parameters to the CreateProfile Activity
+                        Bundle extras = new Bundle();
+                        extras.putString("patient_name","Patient Name");
+                        extras.putString("patient_id","Patient ID");
+                        extras.putString("patient_gender", "Patient Gender");
+                        intent.putExtras(extras);
+                        startActivity(intent);
+                        finish();
+
+                    }
+                });
+
             }
             @Override
             public void onFail(String msg) {
@@ -145,7 +167,7 @@ public class ChooseProfile extends FragmentActivity {
         CreateProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ChooseProfile.this, CreateProfile.class);
+              /*  Intent intent = new Intent(ChooseProfile.this, CreateProfile.class);
                 //Send parameters to the CreateProfile Activity
                 Bundle extras = new Bundle();
                 extras.putString("caregiver_name",Caregiver_name);
@@ -153,11 +175,24 @@ public class ChooseProfile extends FragmentActivity {
                 extras.putString("caregiver_id", Caregiver_ID);
                 intent.putExtras(extras);
                 startActivity(intent);
+                finish();*/
+                Intent intent = new Intent(ChooseProfile.this, NavigationMainActivity.class);
+                //Send parameters to the CreateProfile Activity
+                Bundle extras = new Bundle();
+                extras.putString("patient_name",Caregiver_name);
+                extras.putString("patient_id",Caregiver_ID);
+                extras.putString("patient_gender", "Female");
+                intent.putExtras(extras);
+                startActivity(intent);
                 finish();
 
             }
         });
+
+
     }
+
+
 
     public Bitmap getImageBitmap(String EncodedString)
     {
