@@ -1,5 +1,10 @@
 package com.example.omarelaimy.iseeyou;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -12,6 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.omarelaimy.iseeyou.R;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 
 import static com.example.omarelaimy.iseeyou.ChooseProfile.ChooseProfileCtx;
 
@@ -51,12 +59,18 @@ public class MyFragment extends Fragment {
             iv.setImageBitmap(ChooseProfileCtx.PatientImage[pos]);
 
         iv.setPadding(15, 15, 15, 15);
-
+        final Bitmap bmp =  ((BitmapDrawable)iv.getDrawable()).getBitmap();
+        BitmapClass.img = bmp;
         iv.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-               //call the navigation bar activity
-
-                Intent intent = new Intent(ChooseProfileCtx, NavigationMainActivity.class);
+                //Call the Navigation Bar Activity and send the needed parameters
+                //Convert the image to bytearray.
+               // ByteArrayOutputStream stream = new ByteArrayOutputStream();
+               // bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                //byte[] byteArray = stream.toByteArray();
+                Config.img = bmp;
+                Intent intent;
+                intent = new Intent(ChooseProfileCtx, NavigationMainActivity.class);
                 //Send parameters to the CreateProfile Activity
                 Bundle extras = new Bundle();
                 extras.putString("patient_name",PatientName);
@@ -65,6 +79,9 @@ public class MyFragment extends Fragment {
                 extras.putString("caregiver_name",ChooseProfileCtx.Caregiver_name);
                 extras.putString("caregiver_email",ChooseProfileCtx.Caregiver_email);
                 extras.putString("caregiver_id", ChooseProfileCtx.Caregiver_ID);
+               // ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                //bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                //byte[] byteArray = stream.toByteArray();
                 intent.putExtras(extras);
                 startActivity(intent);
                 ChooseProfileCtx.finish();

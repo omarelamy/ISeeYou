@@ -10,14 +10,39 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/welcomescreen"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/welcomescreen"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        <ImageView
+            android:id="@+id/nav_edit_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="Hello"
+            android:layout_marginTop="-37dp"
+            android:layout_marginLeft="280dp"
+            android:src="@drawable/edit" />
+
+        <Button
+            android:id="@+id/nav_edit_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="310dp"
+            android:layout_marginTop="-26dp"
+            android:background="@android:color/transparent"
+            android:text="Edit"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="#98999c"
+            android:textSize="17sp" />
+
 
     </android.support.design.widget.AppBarLayout>
 

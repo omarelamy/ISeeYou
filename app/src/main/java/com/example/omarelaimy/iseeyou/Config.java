@@ -1,5 +1,7 @@
 package com.example.omarelaimy.iseeyou;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by Omar on 6/20/2017.
  */
@@ -23,5 +25,6 @@ public class Config {
     public static final String TAG_PILLBOX = "Pillbox";
     public static final String TAG_SWITCHPROFILE = "Switch Profile";
     public static final String TAG_PROFILE = "Profile";
+    public static Bitmap img;
 
 }

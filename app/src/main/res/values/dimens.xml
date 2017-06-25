@@ -10,7 +10,7 @@
     <dimen name="desc_padding">40dp</dimen>
     <!--Navigation Bar dimensions, as per the Android design guidelines -->
     <dimen name="nav_header_vertical_spacing">5dp</dimen>
-    <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="nav_header_height">180dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="profile_width">115dp</dimen>
     <dimen name="profile_height">115dp</dimen>

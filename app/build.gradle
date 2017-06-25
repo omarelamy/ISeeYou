@@ -25,10 +25,13 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-
     // compile 'com.android.support:appcompat-v7:23.4.0'
     //compile 'com.android.support:appcompat-v7:24.0.0'
-   // compile 'com.android.support:design:23.1.0'
+    // compile 'com.android.support:design:23.1.0'
+
+
+
+
     compile 'com.android.support:design:25.2.0'
     compile 'com.wang.avi:library:2.1.3'
     compile 'com.intuit.sdp:sdp-android:1.0.4'
@@ -39,6 +42,4 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
     compile 'com.android.support:support-v4:25.2.0'
     testCompile 'junit:junit:4.12'
-
-
 }

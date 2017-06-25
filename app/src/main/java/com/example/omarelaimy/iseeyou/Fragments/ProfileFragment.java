@@ -1,9 +1,5 @@
 package com.example.omarelaimy.iseeyou.Fragments;
 
-/**
- * Created by hp on 25-Jun-17.
- */
-
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,16 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.example.omarelaimy.iseeyou.R;
-
-
-import android.content.Context;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.omarelaimy.iseeyou.R;
 
@@ -35,8 +22,8 @@ import com.example.omarelaimy.iseeyou.R;
 public class ProfileFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1= "param1";
-    private static final String ARG_PARAM2= "param2";
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -66,11 +53,6 @@ public class ProfileFragment extends Fragment {
         return fragment;
     }
 
-    public static ProfileFragment newInstance() {
-        ProfileFragment fragment = new ProfileFragment();
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,8 +65,10 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
+        //TextView textView = new TextView(getActivity());
+        //textView.setText(R.string.hello_blank_fragment);
+        //return textView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -97,12 +81,12 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
+        /*if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
-        }
+        }*/
     }
 
     @Override

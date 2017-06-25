@@ -54,7 +54,7 @@ public class ChooseProfile extends FragmentActivity {
     public final static float DIFF_SCALE = BIG_SCALE - SMALL_SCALE;
     public MyPagerAdapter adapter;
     public ViewPager pager;
-
+    public ProgressDialog progress;
     /*Array of Patients (Patient Class)*/
     public ArrayList<Patient> CaregiverPatients = new ArrayList<>();
    public Bitmap PatientImage[];
@@ -201,12 +201,15 @@ public class ChooseProfile extends FragmentActivity {
 
     public void getCaregiverPatients(final CallBack onCallBack)
     {
+        progress = ProgressDialog.show(this, "Loading your Patients",
+                "Please wait...", true);
         // Tag used to cancel the request
         String cancel_req_tag = "CaregiverPatients";
         StringRequest strReq = new StringRequest(Request.Method.POST, CHOOSE_PROFILE_URL, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response) {
+                progress.dismiss();
                 Log.d(TAG, "Choose Profile Response: " + response.toString());
                 try {
                     JSONObject jObj = new JSONObject(response);

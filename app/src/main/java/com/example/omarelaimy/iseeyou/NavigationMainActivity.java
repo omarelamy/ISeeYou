@@ -1,39 +1,35 @@
 package com.example.omarelaimy.iseeyou;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 //import com.example.omarelaimy.iseeyou.navigationdrawer.R;
 
 import com.example.omarelaimy.iseeyou.Fragments.AppointmentsFragment;
 import com.example.omarelaimy.iseeyou.Fragments.HeartRateFragment;
-import com.example.omarelaimy.iseeyou.Fragments.ProfileFragment;
 import com.example.omarelaimy.iseeyou.Fragments.InventoryFragment;
-import com.example.omarelaimy.iseeyou.Fragments.LogoutFragment;
 import com.example.omarelaimy.iseeyou.Fragments.NotificationsFragment;
 import com.example.omarelaimy.iseeyou.Fragments.PillboxFragment;
-import com.example.omarelaimy.iseeyou.Fragments.SwitchProfileFragment;
+import com.example.omarelaimy.iseeyou.Fragments.ProfileFragment;
 
 
 /**
@@ -45,6 +41,8 @@ public class NavigationMainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private View navHeader;
     private ImageView iv_patientImage;
+    private ImageView EditIcon;
+    private Button EditButton;
     private TextView tv_patientName;
     private Toolbar toolbar;
    // private FloatingActionButton fab;
@@ -86,8 +84,8 @@ public class NavigationMainActivity extends AppCompatActivity {
         Caregiver_email =  extras.getString("caregiver_email");
         Caregiver_ID =  extras.getString("caregiver_id");
         Caregiver_name = extras.getString("caregiver_name");
-      //  Patient_Image  = (Bitmap) intent.getParcelableExtra("patient_image");
-
+        //byte[] byteArray = getIntent().getByteArrayExtra("patient_image");
+        Patient_Image = Config.img;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigationbar_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -97,6 +95,8 @@ public class NavigationMainActivity extends AppCompatActivity {
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        EditIcon = (ImageView) findViewById(R.id.nav_edit_icon);
+        EditButton = (Button) findViewById(R.id.nav_edit_button);
         //fab = (FloatingActionButton) findViewById(R.id.fab);
 
         // Navigation view header
@@ -136,18 +136,11 @@ public class NavigationMainActivity extends AppCompatActivity {
      * name, website, notifications action view (dot)
      */
     private void loadNavHeader() {
-        // name, website
+        //Set the Patient Name.
         tv_patientName.setText(Patient_Name);
-iv_patientImage.setImageResource(R.drawable.female_profile);
-        // Loading profile image
-     /*   Glide.with(this).load(Patient_Image)
-                .crossFade()
-                .thumbnail(0.5f)
-                .bitmapTransform(new CircleTransform(this))
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(iv_patientImage);
-*/
-        // showing dot next to notifications label
+        //Set the Patient's Profile Image.
+        iv_patientImage.setImageBitmap(Patient_Image);
+        //Show dot next to notifications label.
         navigationView.getMenu().getItem(4).setActionView(R.layout.menu_dot);
     }
 
@@ -180,7 +173,6 @@ iv_patientImage.setImageResource(R.drawable.female_profile);
             @Override
             public void run() {
                 // update the main content by replacing fragments
-
                 Fragment fragment = getProfileFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
@@ -191,9 +183,9 @@ iv_patientImage.setImageResource(R.drawable.female_profile);
         };
 
         // If mPendingRunnable is not null, then add to the message queue
- ///     if (mPendingRunnable != null) {
-  //          mHandler.post(mPendingRunnable);
-   //     }
+        if (mPendingRunnable != null) {
+            mHandler.post(mPendingRunnable);
+        }
 
         // show or hide the fab button
        // toggleFab();
@@ -208,7 +200,6 @@ iv_patientImage.setImageResource(R.drawable.female_profile);
 
     private Fragment getProfileFragment() {
         switch (navItemIndex) {
-
             case 0:
                 //  inventory
                 InventoryFragment inventoryFragment = new InventoryFragment();
@@ -249,23 +240,75 @@ iv_patientImage.setImageResource(R.drawable.female_profile);
             //    LogoutFragment logoutFragment = new LogoutFragment();
             //    return logoutFragment;
               //  LogoutMessage();
-
-
-
             default:
                 return new ProfileFragment();
         }
     }
 
     private void setToolbarTitle() {
+        //If Selected item is Heart rate monitor or my notifications. hide the edit icons.
+        if (navItemIndex == 2 || navItemIndex == 4)
+        {
+            EditIcon.setVisibility(View.GONE);
+            EditButton.setVisibility(View.GONE);
+        }
+        else
+        {
+            EditIcon.setVisibility(View.VISIBLE);
+            EditButton.setVisibility(View.VISIBLE);
+        }
         if(navItemIndex == 7 || navItemIndex == 6)
             return;
         getSupportActionBar().setTitle(activityTitles[navItemIndex]);
     }
 
+    public void setNavMenuItemThemeColors(int color){
+        //Setting default colors for menu item Text and Icon
+        int navDefaultTextColor = Color.parseColor("#202020");
+        int navDefaultIconColor = Color.parseColor("#737373");
+
+        //Defining ColorStateList for menu item Text
+        ColorStateList navMenuTextList = new ColorStateList(
+                new int[][]{
+                        new int[]{android.R.attr.state_checked},
+                        new int[]{android.R.attr.state_enabled},
+                        new int[]{android.R.attr.state_pressed},
+                        new int[]{android.R.attr.state_focused},
+                        new int[]{android.R.attr.state_pressed}
+                },
+                new int[] {
+                        color,
+                        navDefaultTextColor,
+                        navDefaultTextColor,
+                        navDefaultTextColor,
+                        navDefaultTextColor
+                }
+        );
+
+        //Defining ColorStateList for menu item Icon
+        ColorStateList navMenuIconList = new ColorStateList(
+                new int[][]{
+                        new int[]{android.R.attr.state_checked},
+                        new int[]{android.R.attr.state_enabled},
+                        new int[]{android.R.attr.state_pressed},
+                        new int[]{android.R.attr.state_focused},
+                        new int[]{android.R.attr.state_pressed}
+                },
+                new int[] {
+                        color,
+                        navDefaultIconColor,
+                        navDefaultIconColor,
+                        navDefaultIconColor,
+                        navDefaultIconColor
+                }
+        );
+
+        navigationView.setItemTextColor(navMenuTextList);
+        navigationView.setItemIconTintList(navMenuIconList);
+    }
     private void selectNavMenu() {
         navigationView.getMenu().getItem(navItemIndex).setChecked(true);
-        //TODO: Set selected item color to green.
+        setNavMenuItemThemeColors(getResources().getColor(R.color.colorAccent));
     }
 
     private void setUpNavigationView() {
@@ -403,9 +446,10 @@ iv_patientImage.setImageResource(R.drawable.female_profile);
         }
 
         // when fragment is notifications, load the menu created for notifications
-        if (navItemIndex == 3) {
-            getMenuInflater().inflate(R.menu.notifications, menu);
-        }
+        //if (navItemIndex == 3)
+        //{
+          //  getMenuInflater().inflate(R.menu.main, menu);
+        //}
         return true;
     }
 
@@ -463,13 +507,22 @@ iv_patientImage.setImageResource(R.drawable.female_profile);
  }
  public void SwitchProfile()
  {
-     Bundle extras = new Bundle();
-     Intent intent = new Intent(NavigationMainActivity.this,ChooseProfile.class);
-     extras.putString("caregiver_name",Caregiver_name);
-     extras.putString("caregiver_email",Caregiver_email);
-     extras.putString("caregiver_id",Caregiver_ID);
-     intent.putExtras(extras);
-     startActivity(intent);
-     finish();
+     new AlertDialog.Builder(this)
+             .setTitle("Switch Profile")
+             .setMessage("Are you sure you want to switch a patient's profile?")
+             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                 @Override
+                 public void onClick(DialogInterface dialog, int which) {
+                     //Launch Chooseprofile Activity
+                     Bundle extras = new Bundle();
+                     Intent intent = new Intent(NavigationMainActivity.this,ChooseProfile.class);
+                     extras.putString("caregiver_name",Caregiver_name);
+                     extras.putString("caregiver_email",Caregiver_email);
+                     extras.putString("caregiver_id",Caregiver_ID);
+                     intent.putExtras(extras);
+                     startActivity(intent);
+                     finish();
+                 }
+             }).setNegativeButton("No", null).show();
  }
 }
