@@ -8,6 +8,8 @@
     <color name="welcomescreen">#181c2c</color>
     <color name="textcolor">#E6ECFF</color>
     <color name="NotificationBar">#0d111f</color>
+    <color name="current_heart_rate">#db4437</color>
+    <color name="avergae_heart_rate">#be3c30</color>
 
     <color name="SeparatorFocused">#2f4cb7</color>
     <color name="SeparatorColor">#D9DADC</color>
