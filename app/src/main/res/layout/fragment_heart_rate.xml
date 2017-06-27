@@ -19,7 +19,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/heart_circle"
-            android:backgroundTint="@color/avergae_heart_rate">
+            android:backgroundTint="@color/average_heart_rate">
 
             <TextView
                 android:id="@+id/average_heart_rate"
