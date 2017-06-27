@@ -26,5 +26,7 @@ public class Config {
     public static final String TAG_SWITCHPROFILE = "Switch Profile";
     public static final String TAG_PROFILE = "Profile";
     public static Bitmap img;
+    //Tags used for the Heart rate Fragment
+    public static final String TAG_CURRENTHEARTRATE = "current_heart_rate";
 
 }

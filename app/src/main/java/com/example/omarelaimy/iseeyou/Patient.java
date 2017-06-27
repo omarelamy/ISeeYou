@@ -10,6 +10,8 @@ public class Patient {
     private String Gender;
     private String ImagePath;
     private String Relation;
+    private double CurrentHeartRate;
+    private double AverageHeartRate;
 
     public Patient()
     {
@@ -23,6 +25,22 @@ public class Patient {
         this.Gender = gender;
         this.ImagePath = image;
         this.Relation = relation;
+    }
+    public void SetCurrentHeartRate(double currentheartrate)
+    {
+        this.CurrentHeartRate = currentheartrate;
+    }
+    public void SetAverageHeartRate(double averageheartrate)
+    {
+        this.AverageHeartRate = averageheartrate;
+    }
+    public String GetCurrentHeartRate()
+    {
+        return Double.toString(this.CurrentHeartRate);
+    }
+    public String GetAverageHeartRate()
+    {
+        return Double.toString(this.AverageHeartRate);
     }
     public String GetName()
     {

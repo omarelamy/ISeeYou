@@ -31,6 +31,8 @@ import com.example.omarelaimy.iseeyou.Fragments.NotificationsFragment;
 import com.example.omarelaimy.iseeyou.Fragments.PillboxFragment;
 import com.example.omarelaimy.iseeyou.Fragments.ProfileFragment;
 
+import static com.example.omarelaimy.iseeyou.Fragments.HeartRateFragment.newInstance;
+
 
 /**
  * Created by Omar on 6/24/2017.
@@ -212,7 +214,10 @@ public class NavigationMainActivity extends AppCompatActivity {
 
             case 2:
                 // heartrate
-                HeartRateFragment heartRateFragment = new HeartRateFragment();
+                HeartRateFragment heartRateFragment = newInstance(Patient_ID);
+                //Bundle bundle = new Bundle();
+                //bundle.putString("patientid",Patient_ID);
+                //heartRateFragment.setArguments(bundle);
                 return heartRateFragment;
 
             case 3:
