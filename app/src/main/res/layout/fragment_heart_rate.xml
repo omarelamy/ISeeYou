@@ -17,6 +17,15 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:background="#f7f4f8">
+            <!--Swipe label -->
+            <TextView
+                android:id="@+id/swipe_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Swipe down to refresh"
+                android:textColor="@color/average_heart_rate"
+                android:textStyle="italic" />
             <!--Small Circle (Average BPM)-->
             <RelativeLayout
                 android:layout_width="90dp"
@@ -55,8 +64,8 @@
             <RelativeLayout
                 android:layout_width="180dp"
                 android:layout_height="180dp"
-                android:layout_marginTop="-40dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-40dp"
                 android:background="@drawable/heart_circle">
 
                 <TextView
@@ -92,7 +101,6 @@
                     android:textSize="40sp"
                     android:textStyle="bold" />
             </RelativeLayout>
-
 
 
             <TextView

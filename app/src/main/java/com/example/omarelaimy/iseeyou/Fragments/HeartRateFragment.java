@@ -77,15 +77,23 @@ public class HeartRateFragment extends Fragment implements SwipeRefreshLayout.On
         View  view  = inflater.inflate(R.layout.fragment_heart_rate, container, false);
         tv = (TextView) view.findViewById(R.id.current_heart_rate);
         //Get the swipetorefresh layout.
-  /*     swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+        swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
         swipeLayout.setOnRefreshListener(this);
         swipeLayout.setColorSchemeColors(getResources().getColor(android.R.color.holo_green_dark),
                 getResources().getColor(android.R.color.holo_red_dark),
                 getResources().getColor(android.R.color.holo_blue_dark),
                 getResources().getColor(android.R.color.holo_orange_dark));
-*/
-        //Call the function to get the current heart rate of the patient.
-        getCurrentHeartRate();
+
+       swipeLayout.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        swipeLayout.setRefreshing(true);
+                                        getCurrentHeartRate();
+                                        Toast.makeText(getActivity().getApplicationContext(), "You can always swipe down to get the latest heart rate!", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+        );
+
         return view;
 
     }
@@ -93,8 +101,10 @@ public class HeartRateFragment extends Fragment implements SwipeRefreshLayout.On
     @Override
     public void onRefresh()
     {
-        //TODO call the function for retrieving the php results.
-        //new myTask().execute();
+        //Setting the refresh layout to true.
+        swipeLayout.setRefreshing(true);
+       //Call getting the current heart rate function.
+        getCurrentHeartRate();
     }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -137,15 +147,15 @@ public class HeartRateFragment extends Fragment implements SwipeRefreshLayout.On
 
     public void getCurrentHeartRate()
     {
-        progress = ProgressDialog.show(getActivity(), "Getting the patient's heart rate",
-                "Please wait...", true);
+        //progress = ProgressDialog.show(getActivity(), "Getting the patient's heart rate",
+          //      "Please wait...", true);
         // Tag used to cancel the request
         String cancel_req_tag = "PatientHeartrate";
         StringRequest strReq = new StringRequest(Request.Method.POST, HEART_RATE_URL, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response) {
-                progress.dismiss();
+               // progress.dismiss();
                 Log.d(TAG, "Current Heart Rate Response: " + response.toString());
                 try {
                     JSONObject jObj = new JSONObject(response);
@@ -158,7 +168,6 @@ public class HeartRateFragment extends Fragment implements SwipeRefreshLayout.On
                         String Reading = jObj.getJSONObject("result").getString("current_heart_rate");
                         patient.SetCurrentHeartRate(Double.parseDouble(Reading),TimeStamp);
                         tv.setText(patient.GetCurrentHeartRate());
-                        //onCallBack.onSuccess(patient);
                     }
 
                     else
@@ -170,9 +179,8 @@ public class HeartRateFragment extends Fragment implements SwipeRefreshLayout.On
                 catch (JSONException e)
                 {
                     e.printStackTrace();
-                    //onCallBack.onFail(e.toString());
                 }
-
+                swipeLayout.setRefreshing(false);
             }
         }, new Response.ErrorListener() {
             @Override
