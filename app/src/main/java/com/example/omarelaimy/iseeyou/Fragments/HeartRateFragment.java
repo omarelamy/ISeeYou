@@ -34,33 +34,21 @@ import org.w3c.dom.Text;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link HeartRateFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HeartRateFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HeartRateFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private static final String patientparameter = "patientid";
     private static final String HEART_RATE_URL =  "https://icu.000webhostapp.com/heartrate.php";
     private static final String TAG = "HeartRateFragment";
-
-
-    //private static final String ARG_PARAM2 = "param2";
+    //public Patient patient = new Patient();
     private SwipeRefreshLayout swipeLayout;
     private String PatientID;
-    //ana 7asa en el static final eli fo2 dh mlosh lazma
-
+    private TextView tv;
+    private TextView PatientName;
     private OnFragmentInteractionListener mListener;
+    private ProgressDialog progress;
 
     public HeartRateFragment() {
         // Required empty public constructor
     }
-
-
-
 
     public static HeartRateFragment newInstance(String patientid) {
         HeartRateFragment fragment = new HeartRateFragment();
@@ -74,35 +62,32 @@ public class HeartRateFragment extends Fragment implements SwipeRefreshLayout.On
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            PatientID = getArguments().getString(patientparameter);
+            PatientID = getArguments().getString("patientid");
         }
 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View  view  = inflater.inflate(R.layout.fragment_heart_rate, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        //maynf3sh lazem fel oncreateview 3shan homa dool el gowael fragment_heart_rate
-        //Get the Textviews for the heart rate and the average heart rate
-        TextView PatientCurrentHeartRate  = (TextView) view.findViewById(R.id.current_heart_rate);
-        PatientCurrentHeartRate.setText("kkdkd");
-        TextView PatientAverageHeartRate  = (TextView) view.findViewById(R.id.average_heart_rate);
-        //((TextView) getView().findViewById(R.id.current_heart_rate)).setText("90");
+        // Inflate the layout for this fragment
+        if(container == null) {
+            return null;
+        }
+        View  view  = inflater.inflate(R.layout.fragment_heart_rate, container, false);
+        tv = (TextView) view.findViewById(R.id.current_heart_rate);
         //Get the swipetorefresh layout.
-        swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+  /*     swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
         swipeLayout.setOnRefreshListener(this);
         swipeLayout.setColorSchemeColors(getResources().getColor(android.R.color.holo_green_dark),
                 getResources().getColor(android.R.color.holo_red_dark),
                 getResources().getColor(android.R.color.holo_blue_dark),
                 getResources().getColor(android.R.color.holo_orange_dark));
+*/
+        //Call the function to get the current heart rate of the patient.
+        getCurrentHeartRate();
+        return view;
 
-        getCurrentHeartRate(PatientID,PatientCurrentHeartRate,PatientAverageHeartRate);
-
-        return inflater.inflate(R.layout.fragment_heart_rate, container, false);
-        //ahh wait ana mgm3a estnaa :D
     }
 
     @Override
@@ -150,14 +135,17 @@ public class HeartRateFragment extends Fragment implements SwipeRefreshLayout.On
         void onFragmentInteraction(Uri uri);
     }
 
-    public void getCurrentHeartRate(String patientid, final TextView currentheartrate, TextView averageheartrate)
+    public void getCurrentHeartRate()
     {
+        progress = ProgressDialog.show(getActivity(), "Getting the patient's heart rate",
+                "Please wait...", true);
         // Tag used to cancel the request
         String cancel_req_tag = "PatientHeartrate";
         StringRequest strReq = new StringRequest(Request.Method.POST, HEART_RATE_URL, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response) {
+                progress.dismiss();
                 Log.d(TAG, "Current Heart Rate Response: " + response.toString());
                 try {
                     JSONObject jObj = new JSONObject(response);
@@ -165,11 +153,14 @@ public class HeartRateFragment extends Fragment implements SwipeRefreshLayout.On
 
                     if (!error)
                     {
-                        //Get the timestamp and the reading of the patient.
+                        Patient patient = new Patient();
                         String TimeStamp   = jObj.getJSONObject("result").getString("heart_timestamp");
                         String Reading = jObj.getJSONObject("result").getString("current_heart_rate");
-                        currentheartrate.setText(Reading);
+                        patient.SetCurrentHeartRate(Double.parseDouble(Reading),TimeStamp);
+                        tv.setText(patient.GetCurrentHeartRate());
+                        //onCallBack.onSuccess(patient);
                     }
+
                     else
                     {
                         String errorMsg = jObj.getString("error_msg");
@@ -179,6 +170,7 @@ public class HeartRateFragment extends Fragment implements SwipeRefreshLayout.On
                 catch (JSONException e)
                 {
                     e.printStackTrace();
+                    //onCallBack.onFail(e.toString());
                 }
 
             }
@@ -186,7 +178,7 @@ public class HeartRateFragment extends Fragment implements SwipeRefreshLayout.On
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                Log.e(TAG, "Choose Profile Error: " + error.getMessage());
+                Log.e(TAG, "Get HeartRate Error: " + error.getMessage());
                 Toast.makeText(getActivity().getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
             }
         }) {
@@ -203,3 +195,5 @@ public class HeartRateFragment extends Fragment implements SwipeRefreshLayout.On
     }
 
 }
+
+

@@ -12,6 +12,8 @@ public class Patient {
     private String Relation;
     private double CurrentHeartRate;
     private double AverageHeartRate;
+    private String CurrentHeartRateTimeStamp;
+    private String AverageHeartRateTimeStamp;
 
     public Patient()
     {
@@ -26,9 +28,10 @@ public class Patient {
         this.ImagePath = image;
         this.Relation = relation;
     }
-    public void SetCurrentHeartRate(double currentheartrate)
+    public void SetCurrentHeartRate(double currentheartrate,String timestamp)
     {
         this.CurrentHeartRate = currentheartrate;
+        this.CurrentHeartRateTimeStamp = timestamp;
     }
     public void SetAverageHeartRate(double averageheartrate)
     {
