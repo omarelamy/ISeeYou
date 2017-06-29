@@ -64,8 +64,9 @@ public class ChooseProfile extends FragmentActivity {
     public String PatientNames[];
     public String PatientIDs[];
     public String PatientGender[];
-
+    public String PatientProductIDs[];
     public boolean PatientImageCheck[];
+
     public static int count;
     public static ChooseProfile ChooseProfileCtx;
     public static int currentPage = 0;
@@ -89,6 +90,8 @@ public class ChooseProfile extends FragmentActivity {
                 PatientImage = new Bitmap[CaregiverPatients.size()];
                 PatientNames = new String[CaregiverPatients.size()];
                 PatientIDs = new String[CaregiverPatients.size()];
+                PatientProductIDs =  new String[CaregiverPatients.size()];
+                //Add PatientProducts
                 PatientGender = new String[CaregiverPatients.size()];
                 for (int i = 0 ; i < coverUrl.length;i++)
                 {
@@ -96,6 +99,7 @@ public class ChooseProfile extends FragmentActivity {
                     PatientNames[i] = CaregiverPatients.get(i).GetName();
                     PatientIDs[i] = CaregiverPatients.get(i).GetID();
                     PatientGender[i] = CaregiverPatients.get(i).GetGender();
+                    PatientProductIDs[i] = CaregiverPatients.get(i).GetProductID();
                    if (CaregiverPatients.get(i).GetGender() == "0")
                         coverUrl[i] = R.drawable.male_profile;
                    else
@@ -222,6 +226,7 @@ public class ChooseProfile extends FragmentActivity {
                         String Gender = "";
                         String ImagePath  = "";
                         String Relation  = "";
+                        String ProductID = "";
 
                         JSONArray result = jObj.getJSONArray(Config.JSON_ARRAY);
                             //Loop on the array of patients. response from the server and save in the Patients Array.
@@ -234,7 +239,8 @@ public class ChooseProfile extends FragmentActivity {
                                 Gender = PatientData.getString(Config.KEY_GENDER);
                                 ImagePath  = PatientData.getString(Config.KEY_IMAGE);
                                 Relation = PatientData.getString(Config.KEY_RELATION);
-                                patient.SetPatientInfo(Name,ID,Gender,ImagePath,Relation);
+                                ProductID = PatientData.getString(Config.KEY_PRODUCTID);
+                                patient.SetPatientInfo(Name,ID,Gender,ImagePath,Relation,ProductID);
                                 CaregiverPatients.add(patient);
                             }
                             onCallBack.onSuccess(CaregiverPatients);

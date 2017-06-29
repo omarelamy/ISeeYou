@@ -10,6 +10,7 @@ public class Patient {
     private String Gender;
     private String ImagePath;
     private String Relation;
+    private String ProductID;
     private double CurrentHeartRate;
     private double AverageHeartRate;
     private String CurrentHeartRateTimeStamp;
@@ -20,13 +21,14 @@ public class Patient {
         //Empty constructor.
     }
     //Setting the attributes for a patient.
-    public void SetPatientInfo(String name,String id,String gender, String image,String relation)
+    public void SetPatientInfo(String name,String id,String gender, String image,String relation,String productid)
     {
         this.Name = name;
         this.ID = id;
         this.Gender = gender;
         this.ImagePath = image;
         this.Relation = relation;
+        this.ProductID = productid;
     }
     public void SetCurrentHeartRate(double currentheartrate,String timestamp)
     {
@@ -61,5 +63,9 @@ public class Patient {
     public String GetRelation()
     {
         return this.Relation;
+    }
+    public String GetProductID()
+    {
+        return this.ProductID;
     }
 }

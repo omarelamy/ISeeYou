@@ -13,6 +13,7 @@ public class Config {
     public static final String KEY_GENDER = "Gender";
     public static final String KEY_IMAGE = "Image";
     public static final String KEY_RELATION = "Relation";
+    public static final String KEY_PRODUCTID = "productid";
     public static final String JSON_ARRAY = "result";
     //End Attributes for Choose Profile Page
 

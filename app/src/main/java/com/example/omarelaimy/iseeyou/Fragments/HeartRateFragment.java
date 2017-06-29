@@ -36,11 +36,13 @@ import java.util.Map;
 
 public class HeartRateFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private static final String patientparameter = "patientid";
+    private static final String patientnameparameter = "patientname";
     private static final String HEART_RATE_URL =  "https://icu.000webhostapp.com/heartrate.php";
     private static final String TAG = "HeartRateFragment";
     //public Patient patient = new Patient();
     private SwipeRefreshLayout swipeLayout;
     private String PatientID;
+    private String Patientname;
     private TextView tv;
     private TextView PatientName;
     private OnFragmentInteractionListener mListener;
@@ -50,10 +52,11 @@ public class HeartRateFragment extends Fragment implements SwipeRefreshLayout.On
         // Required empty public constructor
     }
 
-    public static HeartRateFragment newInstance(String patientid) {
+    public static HeartRateFragment newHearRateInstance(String patientid,String patientname) {
         HeartRateFragment fragment = new HeartRateFragment();
         Bundle args = new Bundle();
         args.putString(patientparameter, patientid);
+        args.putString(patientnameparameter,patientname);
         fragment.setArguments(args);
         return fragment;
     }
@@ -63,6 +66,7 @@ public class HeartRateFragment extends Fragment implements SwipeRefreshLayout.On
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             PatientID = getArguments().getString("patientid");
+            Patientname = getArguments().getString("patientname");
         }
 
     }

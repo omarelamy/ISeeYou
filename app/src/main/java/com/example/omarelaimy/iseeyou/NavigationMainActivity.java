@@ -31,7 +31,8 @@ import com.example.omarelaimy.iseeyou.Fragments.NotificationsFragment;
 import com.example.omarelaimy.iseeyou.Fragments.PillboxFragment;
 import com.example.omarelaimy.iseeyou.Fragments.ProfileFragment;
 
-import static com.example.omarelaimy.iseeyou.Fragments.HeartRateFragment.newInstance;
+import static com.example.omarelaimy.iseeyou.Fragments.HeartRateFragment.newHearRateInstance;
+import static com.example.omarelaimy.iseeyou.Fragments.PillboxFragment.newPillBoxInstance;
 
 
 /**
@@ -51,6 +52,7 @@ public class NavigationMainActivity extends AppCompatActivity {
 
     //Patient's info
     private String Patient_ID = "";
+    private String Patient_ProductID = "";
     private String Patient_Name = "";
     private String Patient_Gender = "";
     private Bitmap Patient_Image;
@@ -86,7 +88,7 @@ public class NavigationMainActivity extends AppCompatActivity {
         Caregiver_email =  extras.getString("caregiver_email");
         Caregiver_ID =  extras.getString("caregiver_id");
         Caregiver_name = extras.getString("caregiver_name");
-        //byte[] byteArray = getIntent().getByteArrayExtra("patient_image");
+        Patient_ProductID = extras.getString("productid");
         Patient_Image = Config.img;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigationbar_main);
@@ -209,12 +211,12 @@ public class NavigationMainActivity extends AppCompatActivity {
 
             case 1:
                 // pillbox
-                PillboxFragment pillboxFragment = new PillboxFragment();
+                PillboxFragment pillboxFragment = newPillBoxInstance(Patient_ID,Patient_ProductID);
                 return pillboxFragment;
 
             case 2:
                 // heartrate
-                HeartRateFragment heartRateFragment = newInstance(Patient_ID);
+                HeartRateFragment heartRateFragment = newHearRateInstance(Patient_ID,Patient_Name);
                 //Bundle bundle = new Bundle();
                 //bundle.putString("patientid",Patient_ID);
                 //heartRateFragment.setArguments(bundle);

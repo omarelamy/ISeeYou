@@ -50,6 +50,7 @@ public class MyFragment extends Fragment {
         final String PatientName = ChooseProfileCtx.PatientNames[pos];
         final String PatientGender = ChooseProfileCtx.PatientGender[pos];
         final String PatientID = ChooseProfileCtx.PatientIDs[pos];
+        final String ProductID =  ChooseProfileCtx.PatientProductIDs[pos];
         iv.setLayoutParams(layoutParams);
        // iv.setImageResource(ChooseProfile.ChooseProfileCtx.coverUrl[pos]);
         //Check if the user has a photo
@@ -76,6 +77,7 @@ public class MyFragment extends Fragment {
                 extras.putString("patient_name",PatientName);
                 extras.putString("patient_id",PatientID);
                 extras.putString("patient_gender", PatientGender);
+                extras.putString("productid",ProductID);
                 extras.putString("caregiver_name",ChooseProfileCtx.Caregiver_name);
                 extras.putString("caregiver_email",ChooseProfileCtx.Caregiver_email);
                 extras.putString("caregiver_id", ChooseProfileCtx.Caregiver_ID);
