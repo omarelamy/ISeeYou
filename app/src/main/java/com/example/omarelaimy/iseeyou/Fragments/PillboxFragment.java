@@ -66,6 +66,7 @@ public class PillboxFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_pillbox, container, false);
+        //TODO: Implement the functionality of slots on click listeners.
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -2,12 +2,631 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#eeecef"
     tools:context="com.example.omarelaimy.iseeyou.Fragments.PillboxFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="horizontal"
+        android:background="@android:color/white"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="45dp">
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/PillBoxTableColor">
+
+            <!--Saturday Row-->
+            <TableRow
+                android:id="@+id/sat"
+                android:layout_width="fill_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_height="60dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="20dp"
+                    android:text="Sat"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <!--Sunday Row-->
+            <TableRow
+                android:id="@+id/sun"
+                android:layout_width="fill_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_height="60dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="20dp"
+                    android:text="Sun"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <!--Monday Row-->
+            <TableRow
+                android:id="@+id/mon"
+                android:layout_width="fill_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_height="60dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="20dp"
+                    android:text="Mon"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <!--Tuesday Row-->
+            <TableRow
+                android:id="@+id/tue"
+                android:layout_width="fill_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_height="60dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="20dp"
+                    android:text="Tue"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <!--Wednesday Row-->
+            <TableRow
+                android:id="@+id/wed"
+                android:layout_width="fill_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_height="60dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="20dp"
+                    android:text="Wed"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <!--Thursday Row-->
+            <TableRow
+                android:id="@+id/thu"
+                android:layout_width="fill_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_height="60dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="20dp"
+                    android:text="Thu"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <!--Friday Row-->
+            <TableRow
+                android:id="@+id/fri"
+                android:layout_width="fill_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_height="60dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="20dp"
+                    android:text="Fri"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+
+        </TableLayout>
+
+        <!--Pillbox Slots Table -->
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/pillboxtablelayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:stretchColumns="*"><!--Make all columns fit equally-->
+
+            <!--Saturday Row-->
+            <TableRow
+                android:id="@+id/sat_row"
+                android:layout_width="fill_parent"
+                android:layout_weight="1">
+
+                <LinearLayout   android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+
+                <!-- Morning Slot-->
+                <ImageView
+                    android:id="@+id/sat_morning_slot"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="50dp"
+                    android:src="@drawable/morningactive" />
+
+
+                <!--Separator-->
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:alpha=".5"
+                    android:layout_marginTop="10dp"
+                    android:background="#D9DADC" />
+                <!-- Afternoon Slot-->
+                <ImageView
+                    android:id="@+id/sat_afternoon_slot"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:layout_width="50dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/afternoonactive" />
+
+                    <!--Separator-->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:alpha=".5"
+                        android:layout_marginTop="10dp"
+                        android:background="#D9DADC" />
+
+                <!-- Evening Slot-->
+                <ImageView
+                    android:id="@+id/sat_evening_slot"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:layout_width="50dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/eveningactive" />
+
+
+        </LinearLayout>
+        </TableRow>
+
+            <!--Separator-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha=".5"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#D9DADC" />
+
+            <!--Sunday Row-->
+            <TableRow
+                android:id="@+id/sun_row"
+                android:layout_width="fill_parent"
+                android:layout_weight="1">
+                <LinearLayout   android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                <!-- Morning Slot-->
+                <ImageView
+                    android:id="@+id/sun_morning_slot"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="50dp"
+                    android:src="@drawable/morningactive" />
+
+                    <!--Separator-->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:alpha=".5"
+                        android:layout_marginTop="10dp"
+                        android:background="#D9DADC" />
+
+                <!-- Afternoon Slot-->
+                <ImageView
+                    android:id="@+id/sun_afternoon_slot"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="50dp"
+                    android:src="@drawable/afternoonactive" />
+
+                    <!--Separator-->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:alpha=".5"
+                        android:layout_marginTop="10dp"
+                        android:background="#D9DADC" />
+
+                <!-- Evening Slot-->
+                <ImageView
+                    android:id="@+id/sun_evening_slot"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="50dp"
+                    android:src="@drawable/eveningactive" />
+
+                </LinearLayout>
+
+            </TableRow>
+
+            <!--Separator-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha=".5"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#D9DADC" />
+
+            <!--Monday Row-->
+            <TableRow
+                android:id="@+id/mon_row"
+                android:layout_width="fill_parent"
+                android:layout_weight="1">
+
+                <LinearLayout   android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                <!-- Morning Slot-->
+                <ImageView
+                    android:id="@+id/mon_morning_slot"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="50dp"
+                    android:src="@drawable/morningactive" />
+
+                    <!--Separator-->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:alpha=".5"
+                        android:layout_marginTop="10dp"
+                        android:background="#D9DADC" />
+
+                <!-- Afternoon Slot-->
+                <ImageView
+                    android:id="@+id/mon_afternoon_slot"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="50dp"
+                    android:src="@drawable/afternoonactive" />
+
+                    <!--Separator-->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:alpha=".5"
+                        android:layout_marginTop="10dp"
+                        android:background="#D9DADC" />
+
+                <!-- Evening Slot-->
+                <ImageView
+                    android:id="@+id/mon_evening_slot"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="50dp"
+                    android:src="@drawable/eveningactive" />
+                </LinearLayout>
+
+            </TableRow>
+
+            <!--Separator-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha=".5"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#D9DADC" />
+
+            <!--Tuesday Row-->
+            <TableRow
+                android:id="@+id/tues_row"
+                android:layout_width="fill_parent"
+                android:layout_weight="1">
+
+                <LinearLayout   android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                <!-- Morning Slot-->
+                <ImageView
+                    android:id="@+id/tue_morning_slot"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="50dp"
+                    android:src="@drawable/morningactive" />
+
+                    <!--Separator-->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:alpha=".5"
+                        android:layout_marginTop="10dp"
+                        android:background="#D9DADC" />
+
+                <!-- Afternoon Slot-->
+                <ImageView
+                    android:id="@+id/tue_afternoon_slot"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="50dp"
+                    android:src="@drawable/afternoonactive" />
+
+                    <!--Separator-->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:alpha=".5"
+                        android:layout_marginTop="10dp"
+                        android:background="#D9DADC" />
+
+                <!-- Evening Slot-->
+                <ImageView
+                    android:id="@+id/tue_evening_slot"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="50dp"
+                    android:src="@drawable/eveningactive" />
+                </LinearLayout>
+            </TableRow>
+
+            <!--Separator-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha=".5"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#D9DADC" />
+
+            <!--Wednesday Row-->
+            <TableRow
+                android:id="@+id/wed_row"
+                android:layout_width="fill_parent"
+                android:layout_weight="1">
+
+                <LinearLayout   android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                <!-- Morning Slot-->
+                <ImageView
+                    android:id="@+id/wed_morning_slot"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="50dp"
+                    android:src="@drawable/morningactive" />
+
+                    <!--Separator-->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:alpha=".5"
+                        android:layout_marginTop="10dp"
+                        android:background="#D9DADC" />
+
+                <!-- Afternoon Slot-->
+                <ImageView
+                    android:id="@+id/wed_afternoon_slot"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="50dp"
+                    android:src="@drawable/afternoonactive" />
+
+                    <!--Separator-->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:alpha=".5"
+                        android:layout_marginTop="10dp"
+                        android:background="#D9DADC" />
+
+                <!-- Evening Slot-->
+                <ImageView
+                    android:id="@+id/wed_evening_slot"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="50dp"
+                    android:src="@drawable/eveningactive" />
+                </LinearLayout>
+            </TableRow>
+
+            <!--Separator-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha=".5"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#D9DADC" />
+
+
+            <!--Thursday Row-->
+            <TableRow
+                android:id="@+id/thur_row"
+                android:layout_width="fill_parent"
+                android:layout_weight="1">
+
+                <LinearLayout   android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                <!-- Morning Slot-->
+                <ImageView
+                    android:id="@+id/thu_morning_slot"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="50dp"
+                    android:src="@drawable/morningactive" />
+
+                    <!--Separator-->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:alpha=".5"
+                        android:layout_marginTop="10dp"
+                        android:background="#D9DADC" />
+
+                <!-- Afternoon Slot-->
+                <ImageView
+                    android:id="@+id/thu_afternoon_slot"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="50dp"
+                    android:src="@drawable/afternoonactive" />
+
+                    <!--Separator-->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:alpha=".5"
+                        android:layout_marginTop="10dp"
+                        android:background="#D9DADC" />
+
+                <!-- Evening Slot-->
+                <ImageView
+                    android:id="@+id/thu_evening_slot"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="50dp"
+                    android:src="@drawable/eveningactive" />
+                </LinearLayout>
+            </TableRow>
+
+            <!--Separator-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha=".5"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#D9DADC" />
+
+            <!--Friday Row-->
+            <TableRow
+                android:id="@+id/fri_row"
+                android:layout_width="fill_parent"
+                android:layout_weight="1">
+
+                <LinearLayout   android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                <!-- Morning Slot-->
+                <ImageView
+                    android:id="@+id/fri_morning_slot"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="50dp"
+                    android:src="@drawable/morningactive" />
+
+                    <!--Separator-->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:alpha=".5"
+                        android:layout_marginTop="10dp"
+                        android:background="#D9DADC" />
+
+                <!-- Afternoon Slot-->
+                <ImageView
+                    android:id="@+id/fri_afternoon_slot"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="50dp"
+                    android:src="@drawable/afternoonactive" />
+
+                    <!--Separator-->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:alpha=".5"
+                        android:layout_marginTop="10dp"
+                        android:background="#D9DADC" />
+
+                <!-- Evening Slot-->
+                <ImageView
+                    android:id="@+id/fri_evening_slot"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="50dp"
+                    android:src="@drawable/eveningactive" />
+                </LinearLayout>
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
 
 </FrameLayout>
