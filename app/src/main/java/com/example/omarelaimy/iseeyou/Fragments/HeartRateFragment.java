@@ -72,6 +72,7 @@ public class HeartRateFragment extends Fragment implements SwipeRefreshLayout.On
     }
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
