@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/edit_slot_layout"
     android:layout_height="match_parent">
 
     <!--Layout for the Slot title bar-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
+        android:id="@+id/singleslot_toolbar"
         android:background="@color/welcomescreen"
         android:orientation="horizontal">
 
@@ -45,102 +47,78 @@
             android:fontFamily="sans-serif-medium"
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp">
 
+
+    <!--Layout for the Pills in the slot view-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:paddingBottom="20dp"
+        android:layout_below="@+id/singleslot_toolbar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <!--Image button for the Add pill-->
+        <ImageView
+            android:id="@+id/add_pill"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:src="@drawable/plus"
+            android:layout_margin="20dp"
+            android:layout_alignParentRight="true" />
+
+
+
+    </RelativeLayout>
+
+    <!--Layout for the time pickers-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
-        <Button
-            android:id="@+id/from_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="#03AD40"
-            android:text="Set From Time"
-            android:layout_gravity="center_horizontal"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-           android:layout_marginRight="5dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
-
-        <Button
-            android:id="@+id/to_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="#03AD40"
-            android:text="Set From Time"
-            android:layout_gravity="center_horizontal"
-            android:textAllCaps="false"
-            android:layout_marginLeft="5dp"
-            android:textColor="@android:color/white"/>
-
-    </LinearLayout>
-
-
-
-
-</LinearLayout>
-
-   <!-- <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_margin="10dp"
+        android:layout_alignParentBottom="true">
 
         <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-            android:orientation="vertical">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="From"
-        android:textSize="25dp"
-        android:textColor="@color/colorAccent"
-        android:gravity="center_horizontal"/>
-    <TimePicker
-        android:id="@+id/FromTimePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <Button
+                android:id="@+id/from_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#03AD40"
+                android:text="Set From Time"
+                android:layout_gravity="center_horizontal"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:layout_marginRight="5dp" />
 
-        android:timePickerMode="clock" />
-</LinearLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:orientation="vertical">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="To"
-        android:textSize="25dp"
-        android:textColor="@color/colorAccent"
-        android:gravity="center_horizontal"/>
-    <TimePicker
-        android:id="@+id/ToTimePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        </LinearLayout>
 
-        android:timePickerMode="clock" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
 
-</LinearLayout>
+            <Button
+                android:id="@+id/to_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#03AD40"
+                android:text="Set From Time"
+                android:layout_gravity="center_horizontal"
+                android:textAllCaps="false"
+                android:layout_marginLeft="5dp"
+                android:textColor="@android:color/white"/>
 
-        </LinearLayout>-->
+        </LinearLayout>
 
-</LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
 
 
 

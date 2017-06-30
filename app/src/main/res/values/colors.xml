@@ -9,6 +9,7 @@
     <color name="textcolor">#E6ECFF</color>
     <color name="NotificationBar">#0d111f</color>
     <color name="PillBoxTableColor">#01b545</color>
+    <color name="Pillcolor">#13b7b8</color>
     <color name="current_heart_rate">#db4437</color>
     <color name="average_heart_rate">#be3c30</color>
 

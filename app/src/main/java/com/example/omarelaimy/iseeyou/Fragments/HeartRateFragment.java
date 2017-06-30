@@ -95,7 +95,6 @@ public class HeartRateFragment extends Fragment implements SwipeRefreshLayout.On
                                     public void run() {
                                         swipeLayout.setRefreshing(true);
                                         getCurrentHeartRate();
-                                        Toast.makeText(getActivity().getApplicationContext(), "You can always swipe down to get the latest heart rate!", Toast.LENGTH_LONG).show();
                                     }
                                 }
         );

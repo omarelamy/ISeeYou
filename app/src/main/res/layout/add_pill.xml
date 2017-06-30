@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/corners"
+    android:padding="20dp">
+
+    <ImageButton
+        android:id="@+id/pill_cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleX="0.25"
+        android:scaleY="0.25"
+        android:tint="@color/welcomescreen"
+        android:layout_gravity="right"
+        android:background="@android:color/transparent"
+        android:src="@drawable/x"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select the pill shape"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/welcomescreen"
+        android:textStyle="italic" />
+
+    <!--Layout containing the 2 images with the texts-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!--Layout for the circular pill image-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/circular_pillimage"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:scaleX="0.7"
+                android:scaleY="0.7"
+                android:tint="@color/welcomescreen"
+                android:src="@drawable/circular_pill"/>
+
+            <!--Edit text for the pill name-->
+            <EditText
+                android:id="@+id/circular_pillid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Medicine name"
+                android:textColorHint="@color/welcomescreen"
+                android:inputType="text"
+                android:textColor="@color/welcomescreen"
+                android:textSize="16sp"
+                android:textStyle="italic"
+                android:visibility="invisible"
+                android:background="@android:color/transparent"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+        <!--Layout for the capsule pill image-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!--Image view for the capsule image-->
+            <ImageView
+                android:id="@+id/capsule_pillimage"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:scaleX="0.7"
+                android:scaleY="0.7"
+                android:tint="@color/welcomescreen"
+                android:src="@drawable/capsule_pill"/>
+
+            <!--Edit text for the pill name-->
+            <EditText
+                android:id="@+id/capsule_pillid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Medicine name"
+                android:textColorHint="@color/welcomescreen"
+                android:inputType="text"
+                android:textColor="@color/welcomescreen"
+                android:textSize="16sp"
+                android:textStyle="italic"
+                android:visibility="invisible"
+                android:background="@android:color/transparent"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/add_pill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/corners"
+        android:backgroundTint="@color/colorAccent"
+        android:text="Done"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white" />
+</LinearLayout>
