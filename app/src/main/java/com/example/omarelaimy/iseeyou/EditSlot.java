@@ -4,7 +4,9 @@ import android.app.FragmentTransaction;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.MediaExtractor;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -18,8 +20,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import java.lang.reflect.Field;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import com.android.volley.Request;
@@ -71,12 +75,17 @@ public class EditSlot extends AppCompatActivity {
     private String SlotDay,SlotDayTime,PatientID,ProductID;
     private TextView tv_ProductID,tv_SlotName;
     private ImageButton closeBtn;
-    private Button setFromTime,setToTime;
+    private Button setFromTime,setToTime,DoneAddPill;
     private ImageView BtnaddPill;
     private PopupWindow mPopupWindow;
-    private RelativeLayout mRelativeLayout;
+    private RelativeLayout mRelativeLayout,CircularPillsLayout,CapsulePillsLayout;
+    private EditText Circular_edit,Capsule_edit;
+    private NumberPicker CircularPillsPicker,CapsulePillsPicker;
     private boolean pillhighlight1 = false;
     private boolean pillhighlight2 = false;
+    private int PillType,PillCount;
+    private String MedicineName;
+    private ImageView iv_pill;
     private static final String TAG = "EditSlotActivity";
     private static final String URL_FOR_EditSlot="";  /*"https://icu.000webhostapp.com/login.php"*/;
     @Override
@@ -98,6 +107,7 @@ public class EditSlot extends AppCompatActivity {
         SlotDayTime = extras.getString("SlotDayTime");
 
 
+        //Get the button.
         BtnaddPill = (ImageView) findViewById(R.id.add_pill);
 
         //Set the SlotName to the text from the intent.
@@ -150,6 +160,29 @@ public class EditSlot extends AppCompatActivity {
                     mPopupWindow.setElevation(5.0f);
                 }
 
+
+                //Get the layouts for the pills count.
+                CircularPillsLayout = (RelativeLayout) customView.findViewById(R.id.circular_pillscount_layout);
+                CapsulePillsLayout =  (RelativeLayout) customView.findViewById(R.id.capsule_pillscount_layout);
+
+                //Get the pickers for the pills count
+                CircularPillsPicker = (NumberPicker) customView.findViewById(R.id.circular_count);
+                CapsulePillsPicker = (NumberPicker) customView.findViewById(R.id.capsule_count);
+
+                //Set the min and max values for the pill
+                CircularPillsPicker.setMinValue(1);
+                CircularPillsPicker.setMaxValue(10);
+                CapsulePillsPicker.setMinValue(1);
+                CapsulePillsPicker.setMaxValue(10);
+
+                //Set the color for the text in the wheel
+                setNumberPickerTextColor(CircularPillsPicker, Color.parseColor("#181c2c"));
+                setNumberPickerTextColor(CapsulePillsPicker, Color.parseColor("#181c2c"));
+
+                //Set the wrap selector wheel
+                CircularPillsPicker.setWrapSelectorWheel(true);
+                CapsulePillsPicker.setWrapSelectorWheel(true);
+
                 // Get a reference for the custom view close button
                 ImageButton closeButton = (ImageButton) customView.findViewById(R.id.pill_cancel_button);
                 // Get the Image views of the pills shapes.
@@ -157,12 +190,19 @@ public class EditSlot extends AppCompatActivity {
                 ImageView Capsule_Pill = (ImageView) customView.findViewById(R.id.capsule_pillimage);
 
                 //Get the Edit texts
-                EditText Circular_edit = (EditText) customView.findViewById(R.id.circular_pillid);
-                EditText Capsule_edit  = (EditText) customView.findViewById(R.id.capsule_pillid);
+                Circular_edit = (EditText) customView.findViewById(R.id.circular_pillid);
+                Capsule_edit  = (EditText) customView.findViewById(R.id.capsule_pillid);
 
                 //Call the functions on the image listeners.
-                PillImageListener(Circular_Pill,Circular_edit,1,Capsule_Pill,Capsule_edit);
-                PillImageListener(Capsule_Pill, Capsule_edit,2,Circular_Pill,Circular_edit);
+                PillImageListener(Circular_Pill,Circular_edit,CircularPillsLayout,1,Capsule_Pill,Capsule_edit,CapsulePillsLayout);
+                PillImageListener(Capsule_Pill, Capsule_edit,CapsulePillsLayout,2,Circular_Pill,Circular_edit,CircularPillsLayout);
+
+                //Get the done Add pill button
+                DoneAddPill = (Button) customView.findViewById(R.id.done_add_pill);
+
+                //Call the function on done pill
+                DoneAddPillListener(DoneAddPill);
+
 
                 // Set a click listener for the popup window close button
                 closeButton.setOnClickListener(new View.OnClickListener() {
@@ -181,7 +221,72 @@ public class EditSlot extends AppCompatActivity {
         });
     }
 
-    public void PillImageListener(final ImageView iv,final EditText et, final int pillno,final ImageView other_iv, final EditText other_et)
+
+    //Function that changes the color of the number picker.
+    public static boolean setNumberPickerTextColor(NumberPicker numberPicker, int color)
+    {
+        final int count = numberPicker.getChildCount();
+        for(int i = 0; i < count; i++){
+            View child = numberPicker.getChildAt(i);
+            if(child instanceof EditText){
+                try{
+                    Field selectorWheelPaintField = numberPicker.getClass()
+                            .getDeclaredField("mSelectorWheelPaint");
+                    selectorWheelPaintField.setAccessible(true);
+                    ((Paint)selectorWheelPaintField.get(numberPicker)).setColor(color);
+                    ((EditText)child).setTextColor(color);
+                    numberPicker.invalidate();
+                    return true;
+                }
+                catch(NoSuchFieldException e){
+                    Log.d("NumberPickerTextColor", e.toString());
+                }
+                catch(IllegalAccessException e){
+                    Log.d("NumberPickerTextColor", e.toString());
+                }
+                catch(IllegalArgumentException e){
+                    Log.d("NumberPickerTextColor", e.toString());
+                }
+            }
+        }
+        return false;
+    }
+
+    public void DoneAddPillListener (Button button)
+    {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+
+               //TODO Get the pilltype,pillname,pillcount.
+               //TODO Add the image of the pill to the slot cart.
+
+                if(pillhighlight1)
+                {
+                    PillType = 1;
+                    MedicineName =  Circular_edit.getText().toString();
+                    PillCount = CircularPillsPicker.getValue();
+                    //iv_pill = new ImageView("@drawable/circular_pill");
+
+                }
+                if(pillhighlight2)
+                {
+                    PillType = 2;
+                    MedicineName = Capsule_edit.getText().toString();
+                    PillCount = CapsulePillsPicker.getValue();
+                }
+                if(pillhighlight1 || pillhighlight2)
+                {
+                    RelativeLayout.LayoutParams viewNewPills =
+                            new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+
+                }
+            }
+        });
+    }
+    //Function that listens for the selected ImageView whether the circular pill or capsule pill.
+    public void PillImageListener(final ImageView iv,final EditText et,final RelativeLayout mylayout, final int pillno,final ImageView other_iv, final EditText other_et, final RelativeLayout otherlayout)
     {
 
         iv.setOnClickListener(new View.OnClickListener() {
@@ -194,17 +299,20 @@ public class EditSlot extends AppCompatActivity {
                         iv.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.welcomescreen));
                         et.setText("");
                         et.setVisibility(View.GONE);
+                        mylayout.setVisibility(View.GONE);
                     }
                     else  //add hilight to pill1 and remove from pill2
                     {
                         pillhighlight1 = true;
                         iv.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.colorAccent));
                         et.setVisibility(View.VISIBLE);
+                        mylayout.setVisibility(View.VISIBLE);
                         pillhighlight2 = false;
                         //disable other pill
                         other_iv.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.welcomescreen));
                         other_et.setText("");
                         other_et.setVisibility(View.GONE);
+                        otherlayout.setVisibility(View.GONE);
 
                     }
                 }
@@ -217,6 +325,7 @@ public class EditSlot extends AppCompatActivity {
                         iv.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.welcomescreen));
                         et.setText("");
                         et.setVisibility(View.GONE);
+                        mylayout.setVisibility(View.GONE);
 
 
                     }
@@ -225,11 +334,13 @@ public class EditSlot extends AppCompatActivity {
                         pillhighlight2 = true;
                         iv.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.colorAccent));
                         et.setVisibility(View.VISIBLE);
+                        mylayout.setVisibility(View.VISIBLE);
                         pillhighlight1 = false;
                         //remove highlight of other view
                         other_iv.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.welcomescreen));
                         other_et.setText("");
                         other_et.setVisibility(View.GONE);
+                        otherlayout.setVisibility(View.GONE);
                     }
                 }
 

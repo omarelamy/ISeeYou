@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/corners"
-    android:padding="20dp">
+    android:padding="10dp">
 
     <ImageButton
         android:id="@+id/pill_cancel_button"
@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:text="Select the pill shape"
         android:layout_gravity="center"
+        android:layout_marginTop="-20dp"
         android:textSize="20sp"
         android:textColor="@color/welcomescreen"
         android:textStyle="italic" />
@@ -44,23 +45,52 @@
                 android:layout_height="120dp"
                 android:scaleX="0.7"
                 android:scaleY="0.7"
-                android:tint="@color/welcomescreen"
-                android:src="@drawable/circular_pill"/>
+                android:src="@drawable/circular_pill"
+                android:tint="@color/welcomescreen" />
 
             <!--Edit text for the pill name-->
             <EditText
                 android:id="@+id/circular_pillid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
                 android:hint="Medicine name"
-                android:textColorHint="@color/welcomescreen"
                 android:inputType="text"
                 android:textColor="@color/welcomescreen"
+                android:textColorHint="@color/welcomescreen"
                 android:textSize="16sp"
                 android:textStyle="italic"
-                android:visibility="invisible"
-                android:background="@android:color/transparent"
-                android:layout_gravity="center"/>
+                android:visibility="invisible" />
+
+            <!--Relative layout that includes the text for pill count and numberpicker-->
+            <RelativeLayout
+                android:id="@+id/circular_pillscount_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="invisible">
+
+                <!--Text view for the circular pill count-->
+                <TextView
+                    android:id="@+id/circular_pillcount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/welcomescreen"
+                    android:textSize="17sp"
+                    android:layout_marginTop="12dp"
+                    android:text="Pills Count: "/>
+
+                <NumberPicker
+                    android:id="@+id/circular_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="-5dp"
+                    android:scaleX="1.9"
+                    android:scaleY="1.9"
+                    android:layout_toRightOf="@id/circular_pillcount"/>
+            </RelativeLayout>
+
 
         </LinearLayout>
 
@@ -78,28 +108,59 @@
                 android:layout_height="120dp"
                 android:scaleX="0.7"
                 android:scaleY="0.7"
-                android:tint="@color/welcomescreen"
-                android:src="@drawable/capsule_pill"/>
+                android:src="@drawable/capsule_pill"
+                android:tint="@color/welcomescreen" />
 
             <!--Edit text for the pill name-->
             <EditText
                 android:id="@+id/capsule_pillid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
                 android:hint="Medicine name"
-                android:textColorHint="@color/welcomescreen"
                 android:inputType="text"
                 android:textColor="@color/welcomescreen"
+                android:textColorHint="@color/welcomescreen"
                 android:textSize="16sp"
                 android:textStyle="italic"
+                android:visibility="invisible" />
+
+            <!--Relative layout that includes the text for pill count and numberpicker-->
+            <RelativeLayout
+                android:id="@+id/capsule_pillscount_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:visibility="invisible"
-                android:background="@android:color/transparent"
-                android:layout_gravity="center"/>
+                android:gravity="center">
+
+                <!--Text view for the circular pill count-->
+                <TextView
+                    android:id="@+id/capsule_pillcount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/welcomescreen"
+                    android:textSize="17sp"
+                    android:layout_marginTop="12dp"
+                    android:text="Pills Count: "/>
+
+                <NumberPicker
+                    android:id="@+id/capsule_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="-5dp"
+                    android:scaleX="1.9"
+                    android:scaleY="1.9"
+                    android:layout_toRightOf="@id/capsule_pillcount"/>
+
+
+            </RelativeLayout>
         </LinearLayout>
 
     </LinearLayout>
+
     <Button
-        android:id="@+id/add_pill"
+        android:id="@+id/done_add_pill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/corners"

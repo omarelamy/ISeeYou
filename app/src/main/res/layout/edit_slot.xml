@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:id="@+id/edit_slot_layout"
+    android:background="#eeecef"
     android:layout_height="match_parent">
 
     <!--Layout for the Slot title bar-->
@@ -48,25 +49,69 @@
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
-
-    <!--Layout for the Pills in the slot view-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="4dp"
+        android:layout_above="@id/current_pillslayout"
+        android:textColor="@color/welcomescreen"
+        android:textStyle="italic"
+        android:fontFamily="sans-serif-medium"
+        android:text="Current Pills"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:paddingBottom="20dp"
-        android:layout_below="@+id/singleslot_toolbar"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:id="@+id/current_pillslayout"
+        android:layout_above="@id/new_pillslayout"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/corners2"
+        android:layout_alignParentLeft="true">
 
-        <!--Image button for the Add pill-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#E6ECFF"
+            android:text="You still have no added pills in this slot."
+            android:textSize="15sp"/>
+
+    </RelativeLayout>
+
+    <!--Layout for the Pills in the slot view-->
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="4dp"
+        android:layout_above="@id/new_pillslayout"
+        android:textColor="@color/welcomescreen"
+        android:textStyle="italic"
+        android:fontFamily="sans-serif-medium"
+        android:text="New Pills"/>
+    <RelativeLayout
+        android:id="@+id/new_pillslayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/corners2"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="200dp">
+
+
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#E6ECFF"
+        android:text="Add your new pills here!"
+        android:textSize="15sp"/>
+            <!--Image button for the Add pill-->
         <ImageView
             android:id="@+id/add_pill"
             android:layout_width="23dp"
             android:layout_height="23dp"
             android:src="@drawable/plus"
-            android:layout_margin="20dp"
             android:layout_alignParentRight="true" />
 
 
@@ -81,6 +126,7 @@
         android:layout_alignParentBottom="true">
 
         <LinearLayout
+            android:id="@+id/slot_timelayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1">
@@ -109,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="#03AD40"
-                android:text="Set From Time"
+                android:text="Set To Time"
                 android:layout_gravity="center_horizontal"
                 android:textAllCaps="false"
                 android:layout_marginLeft="5dp"
