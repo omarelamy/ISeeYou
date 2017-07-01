@@ -58,9 +58,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:layout_gravity="center"
         android:layout_marginBottom="4dp"
-
         android:textColor="@color/welcomescreen"
         android:textStyle="italic"
         android:fontFamily="sans-serif-medium"
@@ -95,11 +94,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_gravity="center"
         android:layout_marginBottom="4dp"
         android:textColor="@color/welcomescreen"
         android:textStyle="italic"
         android:fontFamily="sans-serif-medium"
         android:text="New Pills"/>
+
     <RelativeLayout
         android:id="@+id/view_new_pillslayout"
         android:layout_width="match_parent"
@@ -112,7 +113,7 @@
         <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-            android:id="@+id/defalut_newpills_txt"
+        android:id="@+id/defalut_newpills_txt"
         android:textColor="#E6ECFF"
         android:text="Add your new pills here!"
         android:textSize="15sp"/>

@@ -92,6 +92,7 @@ public class EditSlot extends AppCompatActivity {
     private String MedicineName;
     private int addedPillsNum = 0;
     private int pillsImgMargin = 0;
+    private int closeImgMargin = 0;
     private  ArrayList<Pill> newPills = new ArrayList<>();
     private static final String TAG = "EditSlotActivity";
     private static final String URL_FOR_EditSlot="";  /*"https://icu.000webhostapp.com/login.php"*/;
@@ -142,7 +143,9 @@ public class EditSlot extends AppCompatActivity {
 
         //Call the function of loading the popup window.
         AddPillListener(BtnaddPill);
-        //Add the pill to the new pills layout
+
+
+
 
     }
 
@@ -216,9 +219,6 @@ public class EditSlot extends AppCompatActivity {
                 //Call the function on done pill
                 DoneAddPillListener(DoneAddPill);
 
-
-
-
                 // Set a click listener for the popup window close button
                 closeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -258,13 +258,24 @@ public class EditSlot extends AppCompatActivity {
                 MedicineName =  Circular_edit.getText().toString();
                 PillCount = CircularPillsPicker.getValue();
                 if(LastPillType == 1) //increase margin between two circular pills
-                    pillsImgMargin += 50;
-                String FullText = MedicineName + " (" + PillCount + ")";
+                {
+                    pillsImgMargin += 70;
+                }
+
+                String FullText="";
+                if (MedicineName.length() <= 7)
+                    FullText = MedicineName + " (" + PillCount + ")";
+                else
+                {
+                    String partialMedicineName  = MedicineName.substring(0, Math.min(MedicineName.length(), 7));
+                    FullText = partialMedicineName + "..." +  " (" + PillCount + ")";
+                }
                 ImageView iv = AddnewImage(newPillsLayout,R.drawable.circular_pill,70,70,pillsImgMargin,10,RelativeLayout.ALIGN_PARENT_LEFT,R.color.textcolor);
-                TextView tv = AddnewText(newPillsLayout,130,wrap_content,pillsImgMargin,80,5,RelativeLayout.ALIGN_PARENT_LEFT,FullText,10,2);
-                pillsImgMargin += 90;
+                TextView tv = AddnewText(newPillsLayout,150,wrap_content,pillsImgMargin,80,5,RelativeLayout.ALIGN_PARENT_LEFT,FullText,10,2);
+                pillsImgMargin += 95;
+                closeImgMargin = pillsImgMargin + 4;
                 newPillsTxt.setVisibility(View.GONE);
-                ImageView closeBtn = new ImageView(EditSlot.this);
+                ImageView closeBtn = AddnewImage(newPillsLayout,R.drawable.x,30,30,closeImgMargin,10,RelativeLayout.ALIGN_PARENT_LEFT,R.color.whitecolor);
                 newpill.SetPillInfo(MedicineName,1,PillCount,addedPillsNum-1, iv,closeBtn,tv );
                 newPills.add(newpill);
             }
@@ -275,17 +286,28 @@ public class EditSlot extends AppCompatActivity {
                 MedicineName = Capsule_edit.getText().toString();
                 PillCount = CapsulePillsPicker.getValue();
                 if(LastPillType == 1) //incrase margin between circular and capsule pills
-                        pillsImgMargin += 20;
-                String FullText = MedicineName + " (" + PillCount + ")";
+                {
+                    pillsImgMargin += 50;
+                }
+                String FullText="";
+                if (MedicineName.length() <= 7)
+                    FullText = MedicineName + " (" + PillCount + ")";
+                else
+                {
+                    String partialMedicineName  = MedicineName.substring(0, Math.min(MedicineName.length(), 7));
+                    FullText = partialMedicineName + "..." +  " (" + PillCount + ")";
+                }
                 ImageView iv = AddnewImage(newPillsLayout,R.drawable.capsule_pill,70,70,pillsImgMargin,10,RelativeLayout.ALIGN_PARENT_LEFT,R.color.textcolor);
-                TextView tv = AddnewText(newPillsLayout,130,wrap_content,pillsImgMargin,80,5,RelativeLayout.ALIGN_PARENT_LEFT,FullText,10,2);
-                pillsImgMargin += 90;
+                TextView tv = AddnewText(newPillsLayout,150,wrap_content,pillsImgMargin,80,5,RelativeLayout.ALIGN_PARENT_LEFT,FullText,10,2);
+                pillsImgMargin += 95;
+                closeImgMargin = pillsImgMargin;
                 newPillsTxt.setVisibility(View.GONE);
-                ImageView closeBtn = new ImageView(EditSlot.this);
+                ImageView closeBtn = AddnewImage(newPillsLayout,R.drawable.x,30,30,closeImgMargin,10,RelativeLayout.ALIGN_PARENT_LEFT,R.color.whitecolor);
                 newpill.SetPillInfo(MedicineName,2,PillCount,addedPillsNum-1, iv,closeBtn,tv );
                 newPills.add(newpill);
-
             }
+
+                //NEW PILLS ARRAY IS ACCESSIBLE HERE.
 
                 addedPillsNum += 1;
                 LastPillType = PillType;

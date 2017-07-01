@@ -7,6 +7,7 @@
     <!-- Welcome Screen background color-->
     <color name="welcomescreen">#181c2c</color>
     <color name="textcolor">#E6ECFF</color>
+    <color name="whitecolor">#FFFFFFFF</color>
     <color name="NotificationBar">#0d111f</color>
     <color name="PillBoxTableColor">#01b545</color>
     <color name="Pillcolor">#13b7b8</color>
