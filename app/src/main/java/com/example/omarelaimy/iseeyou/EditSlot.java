@@ -308,7 +308,11 @@ public class EditSlot extends AppCompatActivity {
             }
 
                 //NEW PILLS ARRAY IS ACCESSIBLE HERE.
-
+                for (int i = 0; i<newPills.size();i++)
+                {
+                    //Call the onclick listener for each close image for all the added pills.
+                    ClosePillImageListener(newPills.get(i).GetCloseimg());
+                }
                 addedPillsNum += 1;
                 LastPillType = PillType;
                 PillType = 0;
@@ -316,6 +320,18 @@ public class EditSlot extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void ClosePillImageListener(ImageView iv)
+    {
+        iv.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                //TODO
+                //1) Remove the Image from the XML and re-adjust margins.
+                //2) Remove the Image from the array for the index of the image.
+            }
+        });
     }
     //Function that listens for the selected ImageView whether the circular pill or capsule pill.
     public void PillImageListener(final ImageView iv,final EditText et,final RelativeLayout mylayout, final int pillno,final ImageView other_iv, final EditText other_et, final RelativeLayout otherlayout)
