@@ -49,12 +49,18 @@
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/singleslot_toolbar"
+    android:id="@+id/current_pillslayout"
+    android:orientation="vertical">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+
         android:layout_marginBottom="4dp"
-        android:layout_above="@id/current_pillslayout"
+
         android:textColor="@color/welcomescreen"
         android:textStyle="italic"
         android:fontFamily="sans-serif-medium"
@@ -63,11 +69,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/current_pillslayout"
-        android:layout_above="@id/new_pillslayout"
+        android:id="@+id/view_current_pillslayout"
+
         android:layout_marginBottom="80dp"
-        android:background="@drawable/corners2"
-        android:layout_alignParentLeft="true">
+        android:background="@drawable/corners2">
 
         <TextView
             android:layout_width="match_parent"
@@ -77,22 +82,26 @@
             android:textSize="15sp"/>
 
     </RelativeLayout>
-
+</LinearLayout>
     <!--Layout for the Pills in the slot view-->
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/new_pillslayout"
+    android:layout_below="@id/current_pillslayout"
+    android:orientation="vertical">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginBottom="4dp"
-        android:layout_above="@id/new_pillslayout"
         android:textColor="@color/welcomescreen"
         android:textStyle="italic"
         android:fontFamily="sans-serif-medium"
         android:text="New Pills"/>
     <RelativeLayout
-        android:id="@+id/new_pillslayout"
+        android:id="@+id/view_new_pillslayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/corners2"
@@ -103,6 +112,7 @@
         <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+            android:id="@+id/defalut_newpills_txt"
         android:textColor="#E6ECFF"
         android:text="Add your new pills here!"
         android:textSize="15sp"/>
@@ -117,13 +127,15 @@
 
 
     </RelativeLayout>
+</LinearLayout>
 
     <!--Layout for the time pickers-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        >
 
         <LinearLayout
             android:id="@+id/slot_timelayout"

@@ -247,7 +247,6 @@ public class CreateProfile extends Activity {
         AgePicker.setMinValue(0);
         //Gets whether the selector wheel wraps when reaching the min/max value.
         AgePicker.setWrapSelectorWheel(true);
-
         //Set a value change listener for NumberPicker
         AgePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
