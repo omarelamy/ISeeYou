@@ -284,6 +284,7 @@ public class EditSlot extends AppCompatActivity {
                 ImageView closeBtn = new ImageView(EditSlot.this);
                 newpill.SetPillInfo(MedicineName,2,PillCount,addedPillsNum-1, iv,closeBtn,tv );
                 newPills.add(newpill);
+
             }
 
                 addedPillsNum += 1;
