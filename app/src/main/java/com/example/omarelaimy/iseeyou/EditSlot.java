@@ -400,6 +400,7 @@ public class EditSlot extends AppCompatActivity {
     }
 
     public void setTime(Button button, final int id)
+
     {
         button.setOnClickListener(new View.OnClickListener() {
 
