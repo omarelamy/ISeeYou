@@ -42,6 +42,11 @@ public class Pill {
         return PillType;
     }
 
+   /*public int GetLastPillType()
+   {
+       return LastPillType;
+   }*/
+
     public int GetPillCount()
     {
         return PillCount;

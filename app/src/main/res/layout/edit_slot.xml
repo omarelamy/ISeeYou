@@ -54,12 +54,15 @@
     android:layout_height="wrap_content"
     android:layout_below="@id/singleslot_toolbar"
     android:id="@+id/current_pillslayout"
-    android:orientation="vertical">
+    android:orientation="vertical"
+        android:layout_marginBottom="80dp">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="4dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="8dp"
         android:textColor="@color/welcomescreen"
         android:textStyle="italic"
         android:fontFamily="sans-serif-medium"
@@ -70,7 +73,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/view_current_pillslayout"
 
-        android:layout_marginBottom="80dp"
         android:background="@drawable/corners2">
 
         <TextView
@@ -105,18 +107,17 @@
         android:id="@+id/view_new_pillslayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/corners2"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="200dp">
+        android:background="@drawable/corners2">
 
 
         <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/defalut_newpills_txt"
+        android:id="@+id/default_newpills_txt"
         android:textColor="#E6ECFF"
         android:text="Add your new pills here!"
         android:textSize="15sp"/>
+
             <!--Image button for the Add pill-->
         <ImageView
             android:id="@+id/add_pill"
@@ -124,9 +125,6 @@
             android:layout_height="23dp"
             android:src="@drawable/plus"
             android:layout_alignParentRight="true" />
-
-
-
     </RelativeLayout>
 </LinearLayout>
 
@@ -134,33 +132,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:id="@+id/FromToTime"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_alignParentBottom="true"
-        >
+        android:layout_marginBottom="90dp">
 
-        <LinearLayout
-            android:id="@+id/slot_timelayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+
             <Button
                 android:id="@+id/from_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+
                 android:background="#03AD40"
                 android:text="Set From Time"
                 android:layout_gravity="center_horizontal"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
-                android:layout_marginRight="5dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+                 />
 
             <Button
                 android:id="@+id/to_time"
@@ -169,6 +159,7 @@
                 android:layout_marginTop="10dp"
                 android:background="#03AD40"
                 android:text="Set To Time"
+                android:layout_weight="1"
                 android:layout_gravity="center_horizontal"
                 android:textAllCaps="false"
                 android:layout_marginLeft="5dp"
@@ -176,7 +167,19 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+
+   <Button
+        android:id="@+id/submit_slot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/corners3"
+        android:text="Add My Pills"
+       android:layout_marginBottom="16dp"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+       android:layout_alignParentBottom="true"
+       android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
 
 
