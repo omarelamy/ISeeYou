@@ -283,7 +283,7 @@ public class EditSlot extends AppCompatActivity {
                 }
                 tv = AddnewText(newPillsLayout,150,30,0,FullText,10,2);
                 newPillsTxt.setVisibility(View.GONE);
-                ImageView closeBtn = AddnewImage(newPillsLayout,R.drawable.x,5,5,0,0,R.color.whitecolor);
+                ImageView closeBtn = AddnewImage(newPillsLayout,R.drawable.x,20,20,0,0,R.color.whitecolor);
                 newpill.SetPillInfo(MedicineName,2,PillCount,addedPillsNum,iv,closeBtn,tv);
                 newPills.add(newpill);
                 newPillsTxt.setVisibility(View.GONE);
@@ -311,6 +311,8 @@ public class EditSlot extends AppCompatActivity {
             public void onClick(View v)
             {
             toremove.add(idx);
+                if(toremove.size() == newPills.size())
+                    newPillsTxt.setVisibility(View.VISIBLE);
                 //Remove the layout corresponding to the clicked (x).
                 newPillsLayout.removeView(SignlePillLayout.get(idx));
                 newPillsLayout.removeView(iv);
@@ -402,7 +404,6 @@ public class EditSlot extends AppCompatActivity {
 
         TextView tv = new TextView(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
-
         params.setMargins(0, 0, 0, 0);
         tv.setLayoutParams(params);
         tv.setText(text);
@@ -416,15 +417,12 @@ public class EditSlot extends AppCompatActivity {
 
     public LinearLayout CreateSinglePillView(ImageView iv,TextView tv, ImageView deletebtn)
     {
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(80, 150);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(100, 150);
         layoutParams.setMargins(50, 10, 10, 0);
         LinearLayout layout = new LinearLayout(EditSlot.this);
         layout.setLayoutParams(layoutParams);
         layout.setPadding(0,0,0,0);
         layout.setOrientation(LinearLayout.VERTICAL);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(25, 25);
-       //params.gravity = Gravity.RIGHT;
-        deletebtn.setLayoutParams(params);
         layout.addView(deletebtn);
         layout.addView(iv);
         layout.addView(tv);

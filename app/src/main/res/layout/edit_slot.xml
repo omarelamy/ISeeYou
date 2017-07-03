@@ -170,7 +170,7 @@
         android:text="Add My Pills"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:layout_gravity="center"
+        android:layout_gravity="center|bottom"
         />
 
 </LinearLayout>
