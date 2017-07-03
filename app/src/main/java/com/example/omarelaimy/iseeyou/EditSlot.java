@@ -273,14 +273,14 @@ public class EditSlot extends AppCompatActivity {
                 //Common code for both pills
                 //Setting the medicine name displayed
                 if (MedicineName.length() <= 6)
-                    FullText = MedicineName + " (" + PillCount + ")";
+                    FullText = MedicineName + "\n (" + PillCount + ")";
                 else
                 {
                     String partialMedicineName  = MedicineName.substring(0, Math.min(MedicineName.length(), 6));
-                    FullText = partialMedicineName + "..." +  " (" + PillCount + ")";
+                    FullText = partialMedicineName + "..." +  "\n(" + PillCount + ")";
                 }
 
-                tv = AddnewText(newPillsLayout,150,30,0,FullText,10,2);
+                tv = AddnewText(newPillsLayout,150,wrap_content,0,FullText,10,2);
                 newPillsTxt.setVisibility(View.GONE);
                 ImageView closeBtn = AddnewImage(newPillsLayout,R.drawable.x,20,20,0,0,R.color.whitecolor);
                 newpill.SetPillInfo(MedicineName,PillType,PillCount,addedPillsNum,iv,closeBtn,tv);
@@ -450,8 +450,8 @@ public class EditSlot extends AppCompatActivity {
 
     public LinearLayout CreateSinglePillView(ImageView iv,TextView tv, ImageView deletebtn)
     {
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(100, 150);
-        layoutParams.setMargins(50, 10, 10, 0);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(70, 200);
+        layoutParams.setMargins(50, 0, 10, 0);
         LinearLayout layout = new LinearLayout(EditSlot.this);
         layout.setLayoutParams(layoutParams);
         layout.setPadding(0,0,0,0);
