@@ -261,6 +261,7 @@ public class EditSlot extends AppCompatActivity {
                     MedicineName =  Circular_edit.getText().toString();
                     PillCount = CircularPillsPicker.getValue();
                     iv = AddnewImage(newPillsLayout, R.drawable.circular_pill, 50, 50, 0 ,0, R.color.textcolor);
+
                    }
 
                 if(pillhighlight2)
