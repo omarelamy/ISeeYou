@@ -70,8 +70,6 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.view.ViewGroup.LayoutParams;
 
-
-
 /**
  * Created by Omar on 3/15/2017.
  */
@@ -81,6 +79,7 @@ public class EditSlot extends AppCompatActivity {
     private TextView tv_ProductID,tv_SlotName;
     private ImageButton closeBtn;
     private Button setFromTime,setToTime,DoneAddPill;
+    private Button BtnUpdateCurrent,BtnAddNew;
     private ImageView BtnaddPill;
     private PopupWindow mPopupWindow;
     private LinearLayout mLinearLayout;
@@ -94,10 +93,9 @@ public class EditSlot extends AppCompatActivity {
     private int PillType,PillCount;
     private String MedicineName;
     private int addedPillsNum = 0;
-    private int pillsImgMargin = 0;
     private  ArrayList<Pill> newPills = new ArrayList<>();
-    private ArrayList<LinearLayout> SignlePillLayout = new ArrayList<>();
     private List<Integer> toremove = new ArrayList<>();
+    private ArrayList<LinearLayout> SinglePillLayout = new ArrayList<>();
     private static final String TAG = "EditSlotActivity";
     private static final String URL_FOR_EditSlot="";  /*"https://icu.000webhostapp.com/login.php"*/;
     @Override
@@ -121,12 +119,13 @@ public class EditSlot extends AppCompatActivity {
 
         //Get the button.
         BtnaddPill = (ImageView) findViewById(R.id.add_pill);
-
+        BtnAddNew = (Button) findViewById(R.id.btn_add_pills);
+       // BtnUpdateCurrent = (Button) findViewById(R.id.btn_update_pills);
         //Set the SlotName to the text from the intent.
         tv_SlotName.setText(SlotDay + " " + SlotDayTime);
         tv_ProductID.setText(ProductID);
         //Current Pills Layout
-       // currentPillsLayout = (LinearLayout) findViewById(R.id.view_current_pillslayout);
+        currentPillsLayout = (LinearLayout) findViewById(R.id.view_current_pillslayout);
         //New Pills layout
         newPillsTxt = (TextView) findViewById(R.id.defalut_newpills_txt);
         newPillsLayout = (LinearLayout) findViewById(R.id.view_new_pillslayout);
@@ -143,11 +142,8 @@ public class EditSlot extends AppCompatActivity {
         setTime(setToTime,2);
 
         mLinearLayout = (LinearLayout) findViewById(R.id.edit_slot_layout);
-
-
         //Call the function of loading the popup window.
         AddPillListener(BtnaddPill);
-
     }
 
 
@@ -264,16 +260,17 @@ public class EditSlot extends AppCompatActivity {
                 {
                     MedicineName =  Circular_edit.getText().toString();
                     PillCount = CircularPillsPicker.getValue();
-                    iv = AddnewImage(newPillsLayout, R.drawable.circular_pill, 70, 70, 0 ,0, R.color.textcolor);
+                    iv = AddnewImage(newPillsLayout, R.drawable.circular_pill, 50, 50, 0 ,0, R.color.textcolor);
                    }
 
                 if(pillhighlight2)
                 {
                     MedicineName = Capsule_edit.getText().toString();
                     PillCount = CapsulePillsPicker.getValue();
-                   iv = AddnewImage(newPillsLayout,R.drawable.capsule_pill,70,70,0,0,R.color.textcolor);
+                   iv = AddnewImage(newPillsLayout,R.drawable.capsule_pill,50,50,0,0,R.color.textcolor);
                 }
                 //Common code for both pills
+                //Setting the medicine name displayed
                 if (MedicineName.length() <= 6)
                     FullText = MedicineName + " (" + PillCount + ")";
                 else
@@ -281,14 +278,14 @@ public class EditSlot extends AppCompatActivity {
                     String partialMedicineName  = MedicineName.substring(0, Math.min(MedicineName.length(), 6));
                     FullText = partialMedicineName + "..." +  " (" + PillCount + ")";
                 }
+
                 tv = AddnewText(newPillsLayout,150,30,0,FullText,10,2);
                 newPillsTxt.setVisibility(View.GONE);
                 ImageView closeBtn = AddnewImage(newPillsLayout,R.drawable.x,20,20,0,0,R.color.whitecolor);
-                newpill.SetPillInfo(MedicineName,2,PillCount,addedPillsNum,iv,closeBtn,tv);
+                newpill.SetPillInfo(MedicineName,PillType,PillCount,addedPillsNum,iv,closeBtn,tv);
                 newPills.add(newpill);
-                newPillsTxt.setVisibility(View.GONE);
                 LinearLayout mylayout = CreateSinglePillView(iv,tv,closeBtn);
-                SignlePillLayout.add(mylayout);
+                SinglePillLayout.add(mylayout);
                 newPillsLayout.addView(mylayout);
                 //NEW PILLS ARRAY IS ACCESSIBLE HERE.
                 for (int i = 0; i<newPills.size();i++)
@@ -297,7 +294,6 @@ public class EditSlot extends AppCompatActivity {
                     ClosePillImageListener(newPills.get(i).GetCloseimg(),i);
                 }
                 addedPillsNum += 1;
-
                 PillType = 0;
                 mPopupWindow.dismiss();
             }
@@ -310,12 +306,14 @@ public class EditSlot extends AppCompatActivity {
         iv.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-            toremove.add(idx);
-                if(toremove.size() == newPills.size())
-                    newPillsTxt.setVisibility(View.VISIBLE);
                 //Remove the layout corresponding to the clicked (x).
-                newPillsLayout.removeView(SignlePillLayout.get(idx));
+                newPillsLayout.removeView(SinglePillLayout.get(idx));
                 newPillsLayout.removeView(iv);
+                toremove.add(idx);
+                //newPills.remove(idx);
+                //SinglePillLayout.remove(idx);
+                if(newPills.size() == toremove.size() )
+                    newPillsTxt.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -350,7 +348,6 @@ public class EditSlot extends AppCompatActivity {
                         other_et.setText("");
                         other_et.setVisibility(View.GONE);
                         otherlayout.setVisibility(View.GONE);
-
                     }
                 }
 
@@ -368,7 +365,7 @@ public class EditSlot extends AppCompatActivity {
                     else //add hilight to pill1 and remove from pill2
                     {
                         pillhighlight2 = true;
-                        PillType = 1;
+                        PillType = 2;
                         iv.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.colorAccent));
                         et.setVisibility(View.VISIBLE);
                         mylayout.setVisibility(View.VISIBLE);
@@ -384,6 +381,42 @@ public class EditSlot extends AppCompatActivity {
         });
     }
 
+    public void AddSlotPillsListener(Button button)
+    {
+      button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                //TODO Remove indecies marketed at arraylist remove from newPills and SinglePillsLayout
+                //toremove.add(idx);
+
+                //Check if both times are not set.
+             /*     if (setFromTime.getText() == "Set From Time" && setToTime.getText() == "Set To Time")
+                    Toast.makeText(getApplicationContext(),"Please set the From time and the To time of the slot.", Toast.LENGTH_LONG).show();
+
+                    //Check if From Time is not set
+                else if (setFromTime.getText() == "Set From Time")
+                    Toast.makeText(getApplicationContext(),"Please set the From time of the slot.", Toast.LENGTH_LONG).show();
+
+                    //Check if To Time is not set
+                else if (setToTime.getText() == "Set To Time")
+                    Toast.makeText(getApplicationContext(),"Please set the To time of the slot.", Toast.LENGTH_LONG).show();
+
+                else
+                {
+                    //Check if newpills is size is empty.
+                    //The function misses the update query fro the slotTime.
+                    if (newPills.size() == 0)
+                        EditSlotTimeMessage();
+                    //It's safe to insert into the db with new pills
+                    InsertPills();
+                }*/
+            }
+
+        });
+
+    }
+
     //Add new image dynamically to a given layout
     public ImageView AddnewImage(LinearLayout mainLayout, int src, int width, int height, int leftmargin, int margins,int mycolor)
     {
@@ -393,7 +426,6 @@ public class EditSlot extends AppCompatActivity {
         iv_pill.setColorFilter(ContextCompat.getColor(getApplicationContext(),mycolor));
         params.setMargins(leftmargin, margins, margins, margins);
        iv_pill.setPadding(0,0,0,0);
-        //params.addRule(align);
         iv_pill.setLayoutParams(params);
         return iv_pill;
     }
@@ -427,6 +459,104 @@ public class EditSlot extends AppCompatActivity {
         layout.addView(iv);
         layout.addView(tv);
         return layout;
+    }
+
+    public void InsertPills()
+    {
+        Toast.makeText(getApplicationContext(), "The Product ID is " + ProductID, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "The Patient ID is " + PatientID, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "The Slot Day is " + SlotDay, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "The Slot Day Time is " + SlotDayTime, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "The Set From Time is " + setFromTime.getText().toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "The Set To Time is " + setToTime.getText().toString() , Toast.LENGTH_LONG).show();
+
+
+        // Tag used to cancel the request
+        /*String cancel_req_tag = "createprofile";
+        StringRequest strReq = new StringRequest(Request.Method.POST, URL_FOR_EditSlot, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Edit Slot Response: " + response);
+                try
+                {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+                    if (!error)
+                    {
+                        //String patient = jObj.getJSONObject("patient").getString("name");
+                        //Toast.makeText(getApplicationContext(), "Profile for " + patient + " is successfully Added!", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        String errorMsg = jObj.getString("error_msg");
+                        Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
+                    }
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Edit slot Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                //Strings used to fill the pills names' and their counts.
+                String PillsNames = "";
+                String PillsCount = "";
+                // Posting params to register url
+                Map<String, String> params = new HashMap<String, String>();
+                //Parameters for the patient
+                params.put("productid",ProductID);
+                params.put("patientid",PatientID);
+                params.put("day",SlotDay);
+                params.put("daytime",SlotDayTime);
+                params.put("fromtime",setFromTime.getText().toString());
+                params.put("totime",setToTime.getText().toString());
+                //Send the array of the pills names' and array of pills counts separated by commas.
+                for (int i = 0 ;i<newPills.size();i++)
+                {
+                    if (i == (newPills.size()-1))
+                    {
+                        PillsNames += newPills.get(i).GetPillName();
+                        PillsCount += String.valueOf(newPills.get(i).GetPillCount());
+                    }
+                    else
+                    {
+                        PillsNames += newPills.get(i).GetPillName() + ",";
+                        PillsCount += String.valueOf(newPills.get(i).GetPillCount()) + ",";
+                    }
+                }
+                params.put("pillsnames",PillsNames);
+                params.put("pillscount",PillsCount);
+                return params;
+            }
+        };
+        // Adding request to request queue
+        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq, cancel_req_tag);
+*/
+    }
+
+
+    //Slot Time Message.
+    public void EditSlotTimeMessage()
+    {
+        new AlertDialog.Builder(this)
+                .setTitle("Logout")
+                .setMessage("There are no new pills to beadded. Do you want to edit the slot time only?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Call update query to update the current pills time.
+                    }
+                }).setNegativeButton("No", null).show();
+
     }
 
 

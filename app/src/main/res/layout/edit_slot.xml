@@ -49,22 +49,57 @@
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
+    <!--Layout for the time pickers-->
+
+
+    <LinearLayout
+        android:id="@+id/slot_timelayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
+        <Button
+            android:id="@+id/from_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#03AD40"
+            android:text="Set From Time"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"/>
+        <Button
+            android:id="@+id/to_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#03AD40"
+            android:text="Set To Time"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            />
+    </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/current_pillslayout"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="80dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/welcomescreen"
             android:textStyle="italic"
+            android:layout_marginBottom="10dp"
             android:fontFamily="sans-serif-medium"
             android:layout_gravity="center"
             android:text="Current Pills"
-            android:layout_marginBottom="23dp"/>
+           />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -79,99 +114,104 @@
                 android:text="You still have no added pills in this slot."
                 android:textSize="15sp"/>
 
+
+
         </LinearLayout>
+
+     <!--   <Button
+            android:id="@+id/btn_update_pills"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/corners3"
+            android:layout_marginTop="30dp"
+            android:text="Update Current Pills"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center|bottom" />-->
+
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/new_pillslayout"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="50dp">
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:textColor="@color/welcomescreen"
             android:textStyle="italic"
             android:fontFamily="sans-serif-medium"
-            android:text="New Pills"/>
+            android:text="New Pills"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
 
-        <ImageView
-            android:id="@+id/add_pill"
-            android:layout_width="23dp"
-            android:layout_height="23dp"
-            android:src="@drawable/plus"
-            android:layout_gravity="right" />
+            />
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:fillViewport="true"
+            android:scrollbars="none">
 
         <LinearLayout
             android:id="@+id/view_new_pillslayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/corners2"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+           >
 
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/defalut_newpills_txt"
+                android:background="@android:color/transparent"
                 android:textColor="#E6ECFF"
                 android:text="Add your new pills here!"
-                android:textSize="15sp"/>
+                android:textSize="15sp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"/>
             <!--Image button for the Add pill-->
 
 
+
         </LinearLayout>
+        </HorizontalScrollView>
+        <ImageView
+            android:id="@+id/add_pill"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:src="@drawable/plus"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="-30dp"/>
+
+
+
+        <Button
+            android:id="@+id/btn_add_pills"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/corners3"
+            android:layout_marginTop="30dp"
+            android:text="Add New Pills"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center|bottom"
+            />
     </LinearLayout>
 
-    <!--Layout for the time pickers-->
-
-
-      <LinearLayout
-    android:id="@+id/slot_timelayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-          android:layout_marginTop="30dp">
-    <Button
-        android:id="@+id/from_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="#03AD40"
-        android:text="Set From Time"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="5dp"/>
-    <Button
-        android:id="@+id/to_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="#03AD40"
-        android:text="Set To Time"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="10dp"
-        />
-</LinearLayout>
 
 
 
-    <Button
-        android:id="@+id/submit_slot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/corners3"
-        android:layout_marginTop="30dp"
-        android:text="Add My Pills"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:layout_gravity="center|bottom"
-        />
 
 </LinearLayout>
 
