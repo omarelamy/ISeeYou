@@ -16,6 +16,7 @@
 
     <color name="SeparatorFocused">#2f4cb7</color>
     <color name="SeparatorColor">#D9DADC</color>
+    <color name="greycolor">#6b6d73</color>
 
     <color name="hintColor">#C4C4C4</color>
     <!-- dots inactive color -->

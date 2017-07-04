@@ -32,6 +32,7 @@ import com.example.omarelaimy.iseeyou.Fragments.PillboxFragment;
 import com.example.omarelaimy.iseeyou.Fragments.ProfileFragment;
 
 import static com.example.omarelaimy.iseeyou.Fragments.HeartRateFragment.newHearRateInstance;
+import static com.example.omarelaimy.iseeyou.Fragments.InventoryFragment.newInventoryInstance;
 import static com.example.omarelaimy.iseeyou.Fragments.PillboxFragment.newPillBoxInstance;
 
 
@@ -206,7 +207,7 @@ public class NavigationMainActivity extends AppCompatActivity {
         switch (navItemIndex) {
             case 0:
                 //  inventory
-                InventoryFragment inventoryFragment = new InventoryFragment();
+                InventoryFragment inventoryFragment = newInventoryInstance(Patient_ID);
                 return inventoryFragment;
 
             case 1:

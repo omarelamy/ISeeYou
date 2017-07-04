@@ -1,32 +1,33 @@
 package com.example.omarelaimy.iseeyou.Fragments;
 
+import android.app.ActionBar;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.text.Layout;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.example.omarelaimy.iseeyou.Patient;
 import com.example.omarelaimy.iseeyou.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link InventoryFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link InventoryFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class InventoryFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import org.w3c.dom.Text;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+
+public class InventoryFragment extends Fragment {
+    private static final String patientparameter = "patientid";
+
+    private String PatientID;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -34,20 +35,11 @@ public class InventoryFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment InventoryFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static InventoryFragment newInstance(String param1, String param2) {
+
+    public static InventoryFragment newInventoryInstance(String patientid) {
         InventoryFragment fragment = new InventoryFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(patientparameter, patientid);
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,19 +48,25 @@ public class InventoryFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            PatientID = getArguments().getString(patientparameter);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_inventory, container, false);
+        View  mainview  =  inflater.inflate(R.layout.fragment_inventory, container, false);
+        LinearLayout mainlayout = (LinearLayout) mainview.findViewById(R.id.mainview_inventory);
+
+        LinearLayout pillLayout = CreatePillLayout();
+
+        mainlayout.addView(pillLayout);
+
+        return mainview;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -105,5 +103,57 @@ public class InventoryFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public  LinearLayout CreatePillLayout()
+    {
+        //main layout for each pill
+        LinearLayout PillLayout = new LinearLayout(getActivity());
+        PillLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        //Children of the pill layout
+        LinearLayout pillIndicator = new LinearLayout(getActivity());
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(45, 250);
+        layoutParams.setMargins(20, 10, 20, 10);
+        pillIndicator.setLayoutParams(layoutParams);
+        pillIndicator.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        pillIndicator.setPadding(0,0,0,0);
+
+        //Layout for pill Description
+        LinearLayout pillInfo = new LinearLayout(getActivity());
+        pillInfo.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.MATCH_PARENT);
+        layoutParams2.setMargins(80, 10, 20, 10);
+        pillInfo.setLayoutParams(layoutParams2);
+        //TextView for pillinfo
+        TextView tv_pillname = new TextView(getActivity());
+        TextView tv_pillcount = new TextView(getActivity());
+        //Setting the info for the pill name.
+        tv_pillname.setText("Pill Name 1");
+        tv_pillname.setTextColor(getResources().getColor(R.color.welcomescreen));
+        //tv_pillname.setTypeface(null, Typeface.BOLD);
+        tv_pillname.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
+
+        tv_pillcount.setText("56 pills left");
+        tv_pillcount.setTypeface(null,Typeface.ITALIC);
+        tv_pillcount.setTextColor(getResources().getColor(R.color.greycolor));
+        tv_pillcount.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        pillInfo.addView(tv_pillname);
+        pillInfo.addView(tv_pillcount);
+
+        //ImageView for the icon
+        int src = R.drawable.circular_pill;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(80, 80);
+        ImageView iv_pilltype = new ImageView(getActivity());
+        iv_pilltype.setImageResource(src);
+        iv_pilltype.setColorFilter(getResources().getColor(R.color.welcomescreen));
+        params.setMargins(100, 0, 0, 0);
+        iv_pilltype.setPadding(0,0,0,0);
+        iv_pilltype.setLayoutParams(params);
+
+        PillLayout.addView(pillIndicator);
+        PillLayout.addView(pillInfo);
+        PillLayout.addView(iv_pilltype);
+        return PillLayout;
     }
 }
