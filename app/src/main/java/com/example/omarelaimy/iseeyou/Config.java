@@ -30,4 +30,15 @@ public class Config {
     //Tags used for the Heart rate Fragment
     public static final String TAG_CURRENTHEARTRATE = "current_heart_rate";
 
+    //Tags used for the pill retrieval
+    public static final String KEY_Pillname = "medicinename";
+    public static final String KEY_PillType = "medicinetype";
+    public static final String KEY_PillCount= "medicinecount";
+
+    //Tags used for pill insertion
+    public static final String Key_PillInsertError = "error";
+    public static final String Key_PillInsertErrormsg = "error_msg";
+    public static final String Key_PillInsertName = "pillname";
+    public static final String Key_PillInsertCount = "pillcount";
+
 }
