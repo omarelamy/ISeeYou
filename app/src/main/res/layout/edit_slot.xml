@@ -3,7 +3,8 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:id="@+id/edit_slot_layout"
     android:background="#eeecef"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+  >
 
     <!--Layout for the Slot title bar-->
     <RelativeLayout
@@ -56,7 +57,9 @@
         android:id="@+id/slot_timelayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
         <Button
             android:id="@+id/from_time"
             android:layout_width="match_parent"
@@ -66,7 +69,7 @@
             android:text="Set From Time"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:layout_marginLeft="10dp"
+
             android:layout_marginRight="5dp"/>
         <Button
             android:id="@+id/to_time"
@@ -77,9 +80,7 @@
             android:text="Set To Time"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
-            />
+            android:layout_marginLeft="5dp" />
     </LinearLayout>
 
 
@@ -88,7 +89,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/current_pillslayout"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -111,7 +114,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/view_current_pillslayout"
-            android:background="@drawable/corners2">
+            android:background="@color/colorAccent"
+            android:paddingTop="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="20dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -145,7 +152,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/new_pillslayout"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
 
         <TextView
@@ -172,8 +181,12 @@
             android:id="@+id/view_new_pillslayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/corners2"
             android:orientation="horizontal"
+            android:background="@color/colorAccent"
+            android:paddingTop="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="12dp"
            >
 
 
@@ -186,9 +199,9 @@
                 android:text="Add your new pills here!"
                 android:textSize="15sp"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginBottom="2dp"
+                android:layout_gravity="center_vertical"/>
             <!--Image button for the Add pill-->
-
 
 
         </LinearLayout>
@@ -201,7 +214,7 @@
             android:layout_gravity="right"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="120dp"
-            android:layout_marginTop="-30dp"/>
+            android:layout_marginTop="-37dp"/>
 
 
 

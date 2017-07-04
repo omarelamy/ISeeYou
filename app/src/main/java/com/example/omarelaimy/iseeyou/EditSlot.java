@@ -34,6 +34,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.omarelaimy.iseeyou.Fragments.PillboxFragment;
 import static com.example.omarelaimy.iseeyou.Fragments.PillboxFragment.newPillBoxInstance;
+import static com.example.omarelaimy.iseeyou.R.id.current_heart_rate;
 import static com.example.omarelaimy.iseeyou.R.id.imageView;
 import static com.example.omarelaimy.iseeyou.R.id.wrap_content;
 
@@ -81,6 +82,8 @@ public class EditSlot extends AppCompatActivity {
     private TextView tv_ProductID,tv_SlotName;
     private ImageButton closeBtn;
     private Button setFromTime,setToTime,DoneAddPill;
+    private boolean SetFromTimeClicked = false;
+    private boolean SetToTimeClicked = false;
     private Button BtnUpdateCurrent,BtnAddNewPills;
     private ImageView BtnaddPill;
     private PopupWindow mPopupWindow;
@@ -336,7 +339,6 @@ public class EditSlot extends AppCompatActivity {
             iv.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v)
                 {
-
                     //Call the function for the database deletion.
                     DeletePillMessage(idx,iv);
                 }
@@ -413,23 +415,23 @@ public class EditSlot extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
+
                    //Remove first the marked indices are deleted.
                    for (int k = 0 ;k <newpillstoremove.size();k++)
                    {
                        newPills.remove(newPills.remove(newPills.get(newpillstoremove.get(k))));
                    }
 
-
                  //Check if both times are not set.
-                 if (setFromTime.getText() == "Set From Time" && setToTime.getText() == "Set To Time")
+                 if (!SetFromTimeClicked && !SetToTimeClicked)
                     Toast.makeText(getApplicationContext(),"Please set the From time and the To time of the slot.", Toast.LENGTH_LONG).show();
 
-                    //Check if From Time is not set
-                else if (setFromTime.getText() == "Set From Time")
+                 //Check if From Time is not set
+                 else if (!SetFromTimeClicked)
                     Toast.makeText(getApplicationContext(),"Please set the From time of the slot.", Toast.LENGTH_LONG).show();
 
-                    //Check if To Time is not set
-                else if (setToTime.getText() == "Set To Time")
+                 //Check if To Time is not set
+                 else if (!SetToTimeClicked)
                     Toast.makeText(getApplicationContext(),"Please set the To time of the slot.", Toast.LENGTH_LONG).show();
 
                 else
@@ -449,6 +451,18 @@ public class EditSlot extends AppCompatActivity {
 
         });
 
+    }
+
+    //Listener for the update of each pill count in the current pills layout.
+    public void CurrentPillsImageListener(ImageView iv, final int idx)
+    {
+        //Click listener on each image.
+        iv.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                UpdatePillCountMessage(idx);
+            }
+        });
     }
 
     /***************End Event Listeners*****************/
@@ -528,11 +542,16 @@ public class EditSlot extends AppCompatActivity {
                     if (!error)
                     {
                         JSONArray result = jObj.getJSONArray(Config.JSON_ARRAY);
-                        //TODO CREATE THE LINEAR LAYOUT FOR THE ARRAY RETURNED.
+                        //CREATE THE LINEAR LAYOUT FOR THE ARRAY RETURNED of Pills.
                         String CurrPillname = "";
                         String CurrPillCount = "";
                         String CurrPillType= "";
-
+                        String FromTime = "";
+                        String ToTime = "";
+                        JSONObject initialobj = result.getJSONObject(0);
+                        FromTime = initialobj.getString(Config.KEY_SlotFromtime);
+                        ToTime   = initialobj.getString(Config.KEY_SlotTotime);
+                        //Loop on all pills and put them in currentpills array as well as the layout.
                         for( int i = 0; i < result.length();i++)
                         {
                             Pill currentpill = new Pill();
@@ -555,7 +574,10 @@ public class EditSlot extends AppCompatActivity {
                             LinearLayout mylayout = CreateSinglePillView(iv,tv,closeBtn);
                             CurrentPillLayout.add(mylayout);
                             currentPillsLayout.addView(mylayout);
-
+                            SetToTimeClicked = true;
+                            SetFromTimeClicked = true;
+                            setFromTime.setText(FromTime);
+                            setToTime.setText(ToTime);
                         }
 
                         //Currentpills array is ACCESSIBLE here.
@@ -563,14 +585,13 @@ public class EditSlot extends AppCompatActivity {
                         {
                             //Call the onclick listener for each close image for all the added pills.
                             ClosePillImageListener(currentPills.get(i).GetCloseimg(),i,2);
+                            CurrentPillsImageListener(currentPills.get(i).GetPillimg(),i);
                         }
-
-
                     }
                     else
                     {
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"Welcome to your new slot!", Toast.LENGTH_LONG).show();
+                        //No pills returned, set the visibility of the text to visible to tell the user.
                         currentPillsTxt.setVisibility(View.VISIBLE);
                     }
                 }
@@ -602,6 +623,126 @@ public class EditSlot extends AppCompatActivity {
         AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq, cancel_req_tag);
     }
 
+    //Function that updates the time of the slot with no pills added.
+    public void UpdateSlotTime()
+    {
+        // Tag used to cancel the request
+        String cancel_req_tag = "updateslottime";
+        StringRequest strReq = new StringRequest(Request.Method.POST, URL_FOR_EditSlot, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Update Slot Time Response: " + response);
+                try
+                {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+                    if (!error)
+                    {
+                        String error_msg =  jObj.getString("error_msg");
+                        //Update done
+                        Toast.makeText(getApplicationContext(),error_msg, Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        String errorMsg = jObj.getString("error_msg");
+                        Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
+                        setFromTime.setText("Set From Time");
+                        setToTime.setText("Set To Time");
+                    }
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Update Slot Time Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting params to get slot url
+                Map<String, String> params = new HashMap<String, String>();
+                //Parameters for the slot of a given product.
+                params.put("productid",ProductID);
+                params.put("day",SlotDay);
+                params.put("daytime",SlotDayTime);
+                params.put("fromtime",setFromTime.getText().toString());
+                params.put("totime",setToTime.getText().toString());
+                return params;
+            }
+        };
+        // Adding request to request queue
+        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq, cancel_req_tag);
+
+
+    }
+
+    //Function that updates the pill count of the selected pill.
+    public void UpdatePillCount(final int idx,final int count)
+    {
+        final String PillName = currentPills.get(idx).GetPillName();
+        currentPills.get(idx).SetCount(count);
+
+        // Tag used to cancel the request
+        String cancel_req_tag = "updatepillcount";
+        StringRequest strReq = new StringRequest(Request.Method.POST, URL_FOR_EditSlot, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Update Pill count Response: " + response);
+                try
+                {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+                    if (!error)
+                    {
+                        //Update done
+                        Toast.makeText(getApplicationContext(), "Pill " + PillName +  " is updated successfully", Toast.LENGTH_LONG).show();
+                        String newText = CreateStringView(PillName,count);
+                        currentPills.get(idx).GetPilltv().setText(newText);
+                    }
+                    else
+                    {
+                         String errorMsg = jObj.getString("error_msg");
+                         Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
+                    }
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Update Pills slot Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting params to get slot url
+                Map<String, String> params = new HashMap<String, String>();
+                //Parameters for the slot of a given product.
+                params.put("productid",ProductID);
+                params.put("day",SlotDay);
+                params.put("daytime",SlotDayTime);
+                params.put("pillname",PillName);
+                params.put("pillcount",String.valueOf(count));
+                params.put("patientid",PatientID);
+                return params;
+            }
+        };
+        // Adding request to request queue
+        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq, cancel_req_tag);
+    }
+
+    //Function that deletes the selected pill from the database.
     public void DeletePill(int idx)
     {
         final String PillName = currentPills.get(idx).GetPillName();
@@ -634,7 +775,7 @@ public class EditSlot extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Get Pills slot Error: " + error.getMessage());
+                Log.e(TAG, "Delete Pill slot Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
             }
@@ -654,6 +795,8 @@ public class EditSlot extends AppCompatActivity {
         // Adding request to request queue
         AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq, cancel_req_tag);
     }
+
+    //Function that inserts the new pills to be added to the database.
     public void InsertPills()
     {
 
@@ -756,16 +899,64 @@ public class EditSlot extends AppCompatActivity {
     }
 
 
+
+    //Update pill count message
+    public void UpdatePillCountMessage(final int idx)
+    {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle("Change Number of pills");
+        alertDialog.setMessage("Enter your new pills count");
+
+        final EditText input = new EditText(this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+
+        input.setLayoutParams(lp);
+        alertDialog.setView(input);
+
+        alertDialog.setPositiveButton("YES",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                            String count  = "";
+                            count = input.getText().toString();
+                        if (!count.equals("")) {
+                            if (count.equals(String.valueOf(currentPills.get(idx).GetPillCount())))
+                            {
+                                Toast.makeText(getApplicationContext(),
+                                        "The number of the pills is the same as before.", Toast.LENGTH_SHORT).show();
+                                dialog.cancel();
+                            }
+                            else
+                            {
+                                //Valid new count(different than the displayed one).
+                                //Call the function to update the pillcount of the db.
+                                UpdatePillCount(idx, Integer.parseInt(count));
+                            }
+                        }
+                    }
+                });
+
+        alertDialog.setNegativeButton("NO",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        alertDialog.show();
+    }
+
     //Slot Time Message.
     public void EditSlotTimeMessage()
     {
         new AlertDialog.Builder(this)
-                .setTitle("Logout")
+                .setTitle("Edit Slot Time")
                 .setMessage("There are no new pills to be added. Do you want to edit the slot time only?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //Call update query to update the current pills time.
+                        UpdateSlotTime();
                     }
                 }).setNegativeButton("No", null).show();
 
@@ -819,9 +1010,17 @@ public class EditSlot extends AppCompatActivity {
                         else
                             selectedTime += Integer.toString(selectedMinute);
                         if (id == 1)
+                        {
                             setFromTime.setText(selectedTime);
+                            SetFromTimeClicked = true;
+                        }
+
                         else
+                        {
                             setToTime.setText(selectedTime);
+                            SetToTimeClicked = true;
+                        }
+
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");

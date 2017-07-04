@@ -32,6 +32,11 @@ public class Pill {
        this.Pilltv = pilltv;
    }
 
+   public void SetCount(int count)
+   {
+       this.PillCount = count;
+   }
+
    public String GetPillName()
    {
        return PillName;

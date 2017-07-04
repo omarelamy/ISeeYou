@@ -34,6 +34,8 @@ public class Config {
     public static final String KEY_Pillname = "medicinename";
     public static final String KEY_PillType = "medicinetype";
     public static final String KEY_PillCount= "medicinecount";
+    public static final String KEY_SlotFromtime = "slotfromtime";
+    public static final String KEY_SlotTotime = "slottotime";
 
     //Tags used for pill insertion
     public static final String Key_PillInsertError = "error";
