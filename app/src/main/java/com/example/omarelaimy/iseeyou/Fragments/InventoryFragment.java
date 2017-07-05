@@ -484,6 +484,7 @@ public void AddPillClickListener(ImageButton addbtn)
                             mainlayout.addView(separator);
                             pill.SetPillInventory(InsertPillName,InsertPillType,InsertPillCount,newpilllayout);
                             PatientInventory.add(pill);
+                            tv_welcome.setVisibility(View.GONE);
 
                             int idx = PatientInventory.size()-1;
                             ImageView newdeleteimage = GetDeleteImage(idx);

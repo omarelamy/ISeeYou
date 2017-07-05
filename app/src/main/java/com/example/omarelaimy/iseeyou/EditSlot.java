@@ -800,7 +800,6 @@ public class EditSlot extends AppCompatActivity {
     //Function that inserts the new pills to be added to the database.
     public void InsertPills()
     {
-
         // Tag used to cancel the request
         String cancel_req_tag = "insertpills";
         StringRequest strReq = new StringRequest(Request.Method.POST, URL_FOR_EditSlot, new Response.Listener<String>() {
