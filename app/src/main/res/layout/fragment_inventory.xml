@@ -4,15 +4,20 @@
     android:layout_height="match_parent"
     android:background="#eeecef"
     tools:context="com.example.omarelaimy.iseeyou.Fragments.InventoryFragment">
-<LinearLayout
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollIndicators="top">
+    <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/mainview_inventory"
     android:orientation="vertical"
-    android:layout_marginLeft="30dp"
-    android:layout_marginRight="30dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
     android:layout_marginTop="30dp">
 
-
 </LinearLayout>
+</ScrollView>
+
 </FrameLayout>
