@@ -102,7 +102,8 @@ public class NavigationMainActivity extends AppCompatActivity {
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         EditIcon = (ImageView) findViewById(R.id.nav_edit_icon);
         EditButton = (Button) findViewById(R.id.nav_edit_button);
-        //fab = (FloatingActionButton) findViewById(R.id.fab);
+
+
 
         // Navigation view header
         navHeader = navigationView.getHeaderView(0);
@@ -112,14 +113,6 @@ public class NavigationMainActivity extends AppCompatActivity {
 
         // load toolbar titles from string resources
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
-
-     /*   fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         // load nav menu header data
         loadNavHeader();
@@ -165,8 +158,6 @@ public class NavigationMainActivity extends AppCompatActivity {
         if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null) {
             drawer.closeDrawers();
 
-            // show or hide the fab button
-          //  toggleFab();
             return;
         }
 
@@ -192,8 +183,6 @@ public class NavigationMainActivity extends AppCompatActivity {
             mHandler.post(mPendingRunnable);
         }
 
-        // show or hide the fab button
-       // toggleFab();
 
         //Closing drawer on item click
           drawer.closeDrawers();

@@ -13,12 +13,12 @@
     <color name="Pillcolor">#13b7b8</color>
     <color name="current_heart_rate">#db4437</color>
     <color name="average_heart_rate">#be3c30</color>
-
     <color name="SeparatorFocused">#2f4cb7</color>
     <color name="SeparatorColor">#D9DADC</color>
     <color name="greycolor">#6b6d73</color>
-
+    <color name="linkcolor">#0000EE</color>
     <color name="hintColor">#C4C4C4</color>
+    <color name="warningcolor">#FF6347</color>
     <!-- dots inactive color -->
     <color name="dot_inactive">#0a0c14</color>
 

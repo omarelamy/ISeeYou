@@ -1,6 +1,9 @@
 package com.example.omarelaimy.iseeyou;
 
 import android.graphics.Bitmap;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 /**
  * Created by Omar on 6/20/2017.
@@ -42,5 +45,10 @@ public class Config {
     public static final String Key_PillInsertErrormsg = "error_msg";
     public static final String Key_PillInsertName = "pillname";
     public static final String Key_PillInsertCount = "pillcount";
+
+    //Tags used for inventory of patient
+    public static final String Key_InventoryPillName = "medicinename";
+    public static final String Key_InventoryPillType = "medicinetype";
+    public static final String Key_InventoryPillCount = "medicinecount";
 
 }

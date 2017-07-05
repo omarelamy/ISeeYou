@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,7 +100,7 @@ public class EditSlot extends AppCompatActivity {
     private String MedicineName;
     private int addedPillsNum = 0;
     private ProgressDialog progress;
-    private  ArrayList<Pill> newPills = new ArrayList<>();
+    private ArrayList<Pill> newPills = new ArrayList<>();
     private ArrayList<Pill> currentPills = new ArrayList<>();
     private List<Integer> newpillstoremove = new ArrayList<>();
     private List<Integer> currentpillstoremove = new ArrayList<>();
@@ -686,7 +687,6 @@ public class EditSlot extends AppCompatActivity {
     public void UpdatePillCount(final int idx,final int count)
     {
         final String PillName = currentPills.get(idx).GetPillName();
-        currentPills.get(idx).SetCount(count);
 
         // Tag used to cancel the request
         String cancel_req_tag = "updatepillcount";
@@ -700,6 +700,7 @@ public class EditSlot extends AppCompatActivity {
                     boolean error = jObj.getBoolean("error");
                     if (!error)
                     {
+                        currentPills.get(idx).SetCount(count);
                         //Update done
                         Toast.makeText(getApplicationContext(), "Pill " + PillName +  " is updated successfully", Toast.LENGTH_LONG).show();
                         String newText = CreateStringView(PillName,count);
@@ -850,7 +851,7 @@ public class EditSlot extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Edit slot Error: " + error.getMessage());
+                Log.e(TAG, "Insert Pills slot Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
             }
@@ -908,6 +909,7 @@ public class EditSlot extends AppCompatActivity {
         alertDialog.setMessage("Enter your new pills count");
 
         final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
@@ -921,7 +923,13 @@ public class EditSlot extends AppCompatActivity {
                             String count  = "";
                             count = input.getText().toString();
                         if (!count.equals("")) {
-                            if (count.equals(String.valueOf(currentPills.get(idx).GetPillCount())))
+                            if (count.equals(String.valueOf(0)))
+                            {
+                                Toast.makeText(getApplicationContext(),
+                                        "You cannot update the slot pill with 0, remove it instead.", Toast.LENGTH_SHORT).show();
+                                dialog.cancel();
+                            }
+                            else if (count.equals(String.valueOf(currentPills.get(idx).GetPillCount())))
                             {
                                 Toast.makeText(getApplicationContext(),
                                         "The number of the pills is the same as before.", Toast.LENGTH_SHORT).show();
