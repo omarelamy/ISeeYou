@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "283331503869",
+    "firebase_url": "https://iseeyou-6b8db.firebaseio.com",
+    "project_id": "iseeyou-6b8db",
+    "storage_bucket": "iseeyou-6b8db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:283331503869:android:818321905ae1b0fd",
+        "android_client_info": {
+          "package_name": "com.example.omarelaimy.iseeyou"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "283331503869-h6nebhdjsu3ujfjlgfm3813n29roncte.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.omarelaimy.iseeyou",
+            "certificate_hash": "fe91a7c32f143d22ef632fd6371eeaf4f10a68ed"
+          }
+        },
+        {
+          "client_id": "283331503869-nqniou7q1na0n1dfv8damed4q5vfetk0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKYTp2rYfJimwZZLOr8zNxe6f2H996opI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "283331503869-nqniou7q1na0n1dfv8damed4q5vfetk0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

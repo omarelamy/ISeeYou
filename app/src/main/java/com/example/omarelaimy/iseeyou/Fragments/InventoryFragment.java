@@ -266,6 +266,7 @@ public class InventoryFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (!pillhighlight1 && !pillhighlight2) {
                     mPopupWindow.dismiss();
                     return;
@@ -277,6 +278,8 @@ public class InventoryFragment extends Fragment {
                 }
                 else
                 {
+                    progress = ProgressDialog.show(getActivity(), "Adding your pill",
+                            "Please wait...", true);
                     //Call the database to add the new pill
                     InsertPillInventory();
                 }
@@ -470,6 +473,7 @@ public void AddPillClickListener(ImageButton addbtn)
                 Log.d(TAG, "Insert Pill Inventory Response: " + response);
                 try
                 {
+                    progress.dismiss();
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
                         //Error is false, pill is inserted successfully.

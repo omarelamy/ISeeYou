@@ -460,7 +460,7 @@ public class EditSlot extends AppCompatActivity {
                     } else {
                         //Errors happened, show the error_message and you can mark the errored pills as red.
                         String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(), "For Pill: " + insertPillName + "\n" + errorMsg, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),errorMsg, Toast.LENGTH_LONG).show();
                     }
 
                 }

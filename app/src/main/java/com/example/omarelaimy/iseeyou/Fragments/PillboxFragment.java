@@ -1,32 +1,45 @@
 package com.example.omarelaimy.iseeyou.Fragments;
-
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.example.omarelaimy.iseeyou.ChooseProfile;
-import com.example.omarelaimy.iseeyou.CreateProfile;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.example.omarelaimy.iseeyou.AppSingleton;
+import com.example.omarelaimy.iseeyou.Config;
 import com.example.omarelaimy.iseeyou.EditSlot;
 import com.example.omarelaimy.iseeyou.R;
-import com.example.omarelaimy.iseeyou.SignIn;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class PillboxFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String Patientid = "patientid";
     private static final String Productid = "productid";
-
+    private static final String URL_FOR_GETBOX_MONITOR = "https://icu.000webhostapp.com/getslotdates.php";
+    private static final String TAG = "PillBoxActivity";
     private String PatientID;
     private String ProductID;
+    private ProgressDialog progress;
     private ImageView SatMor,SatAft,SatEve,SunMor,SunAft,SunEve,MonMor,MonAft,MonEve,TueMor,TueAft,TueEve;
     private ImageView WedMor,WedAft,WedEve,ThuMor,ThuAft,ThuEve,FriMor,FriAft,FriEve;
     private Button btn_edit;
@@ -104,12 +117,10 @@ public class PillboxFragment extends Fragment {
         SlotClickListener(FriMor,"Friday Morning");
         SlotClickListener(FriAft,"Friday Afternoon");
         SlotClickListener(FriEve,"Friday Evening");
-
-
-
+        //Get the edit button.
         btn_edit = (Button) ((AppCompatActivity) getActivity()).findViewById(R.id.nav_edit_button);
 
-
+        //Click listener on the edit button.
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,7 +129,17 @@ public class PillboxFragment extends Fragment {
             }
         });
 
+        progress = ProgressDialog.show(getActivity(), "Syncing your pillbox",
+                "Please wait...", true);
 
+
+
+
+        //Get the minimum date from the current day we're in.
+        String mindate = GetMinDate();
+
+        //Call the function of the db to get the slots from the min date till now.
+        GetSlotsBeforeDate(mindate);
         //TODO: Implement the functionality of slots on click listeners.
        return view;
     }
@@ -153,12 +174,6 @@ public class PillboxFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-       /* if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }*/
     }
 
     @Override
@@ -167,16 +182,277 @@ public class PillboxFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    public void GetSlotsBeforeDate(final String mindate)
+    {
+        // Tag used to cancel the request
+        String cancel_req_tag = "getdatesbeforeslot";
+        StringRequest strReq = new StringRequest(Request.Method.POST, URL_FOR_GETBOX_MONITOR, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Get Dates Slots Response: " + response);
+                try
+                {
+                    progress.dismiss();
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+                    if (!error)
+                    {
+                        JSONArray result = jObj.getJSONArray(Config.JSON_ARRAY);
+
+                        //Loop on all pills and put them in currentpills array as well as the layout.
+                        for( int i = 0; i < result.length();i++)
+                        {
+                            String SlotID = "";
+                            String Taken  = "";
+                            String Timeout= "";
+                            JSONObject SlotData = result.getJSONObject(i);
+                            SlotID = SlotData.getString(Config.KEY_SLOTID);
+                            Taken =  SlotData.getString(Config.KEY_TAKEN);
+                            Timeout = SlotData.getString(Config.KEY_TIMEOUT);
+
+                            ChangeSlotStatus(SlotID,Taken,Timeout);
+                        }
+                    }
+                    else
+                    {
+                        //Error occured.
+                    }
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Get Slots dates Error: " + error.getMessage());
+                Toast.makeText(getActivity().getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting params to get patientinventory url
+                Map<String, String> params = new HashMap<String, String>();
+                //Parameters for the patient.
+                params.put("productid",ProductID);
+                params.put("minimumdate",mindate);
+                return params;
+            }
+        };
+        // Adding request to request queue
+        AppSingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(strReq, cancel_req_tag);
+    }
+
+
+
+    //Function that gets the min date from the current day we're in.
+    public String GetMinDate()
+    {
+
+
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        String mindate = "";
+        switch (day)
+        {
+            case Calendar.SATURDAY:
+                SimpleDateFormat saturday = new SimpleDateFormat("yyyy-MM-dd"); // you can specify your format here...
+                mindate = saturday.format(new Date(calendar.getTimeInMillis()));
+                break;
+
+            case Calendar.SUNDAY:
+                calendar.add(Calendar.DATE, -1); // I just want date before 90 days. you can give that you want.
+                SimpleDateFormat sunday = new SimpleDateFormat("yyyy-MM-dd"); // you can specify your format here...
+                mindate = sunday.format(new Date(calendar.getTimeInMillis()));
+                break;
+
+            case Calendar.MONDAY:
+                calendar.add(Calendar.DATE, -2); // I just want date before 90 days. you can give that you want.
+                SimpleDateFormat monday = new SimpleDateFormat("yyyy-MM-dd"); // you can specify your format here...
+                mindate = monday.format(new Date(calendar.getTimeInMillis()));
+                break;
+            // Current day is Monday
+
+            case Calendar.TUESDAY:
+                calendar.add(Calendar.DATE, -3); // I just want date before 90 days. you can give that you want.
+                SimpleDateFormat tuesday = new SimpleDateFormat("yyyy-MM-dd"); // you can specify your format here...
+                mindate = tuesday.format(new Date(calendar.getTimeInMillis()));
+                break;
+
+            case Calendar.WEDNESDAY:
+                calendar.add(Calendar.DATE, -4); // I just want date before 90 days. you can give that you want.
+                SimpleDateFormat wednesday = new SimpleDateFormat("yyyy-MM-dd"); // you can specify your format here...
+                mindate = wednesday.format(new Date(calendar.getTimeInMillis()));
+                break;
+
+            case Calendar.THURSDAY:
+                calendar.add(Calendar.DATE, -5); // I just want date before 90 days. you can give that you want.
+                SimpleDateFormat thursday = new SimpleDateFormat("yyyy-MM-dd"); // you can specify your format here...
+                mindate = thursday.format(new Date(calendar.getTimeInMillis()));
+                break;
+
+            case Calendar.FRIDAY:
+                calendar.add(Calendar.DATE, -6);
+                SimpleDateFormat friday = new SimpleDateFormat("yyyy-MM-dd"); // you can specify your format here...
+                mindate = friday.format(new Date(calendar.getTimeInMillis()));
+                break;
+        }
+        return mindate;
+    }
+    public void ChangeSlotStatus(String SlotID, String Taken, String Timeout)
+    {
+        switch (SlotID)
+        {
+            case "0":
+                //Case Slot is taken mark it as greyed out.(Taken)
+                if (Taken == "1")
+                    SunMor.setImageDrawable(getResources().getDrawable(R.drawable.morninginactive));
+                //Case Slot is not taken and timeout occured. Red border on the slot should happend.
+                else if (Taken == "0" && Timeout == "1")
+                    SunMor.setImageDrawable(getResources().getDrawable(R.drawable.morningactivealert));
+                break;
+
+            case "1":
+                if (Taken == "1")
+                    MonMor.setImageDrawable(getResources().getDrawable(R.drawable.morninginactive));
+                    //Case Slot is not taken and timeout occured. Red border on the slot should happend.
+                else if (Taken == "0" && Timeout == "1")
+                    MonMor.setImageDrawable(getResources().getDrawable(R.drawable.morningactivealert));
+                break;
+            case "2":
+                if (Taken == "1")
+                    TueMor.setImageDrawable(getResources().getDrawable(R.drawable.morninginactive));
+                else if (Taken == "0" && Timeout == "1")
+                    TueMor.setImageDrawable(getResources().getDrawable(R.drawable.morningactivealert));
+                break;
+            case "3":
+                if (Taken == "1")
+                    WedMor.setImageDrawable(getResources().getDrawable(R.drawable.morninginactive));
+                else if (Taken == "0" && Timeout == "1")
+                    WedMor.setImageDrawable(getResources().getDrawable(R.drawable.morningactivealert));
+                break;
+            case "4":
+                if (Taken == "1")
+                    ThuMor.setImageDrawable(getResources().getDrawable(R.drawable.morninginactive));
+                else if (Taken == "0" && Timeout == "1")
+                    ThuMor.setImageDrawable(getResources().getDrawable(R.drawable.morningactivealert));
+                break;
+            case "5":
+                if (Taken == "1")
+                    FriMor.setImageDrawable(getResources().getDrawable(R.drawable.morninginactive));
+                    //Case Slot is not taken and timeout occured. Red border on the slot should happend.
+                else if (Taken == "0" && Timeout == "1")
+                    FriMor.setImageDrawable(getResources().getDrawable(R.drawable.morningactivealert));
+                break;
+            case "6":
+                if (Taken == "1")
+                    SatMor.setImageDrawable(getResources().getDrawable(R.drawable.morninginactive));
+                    //Case Slot is not taken and timeout occured. Red border on the slot should happend.
+                else if (Taken == "0" && Timeout == "1")
+                    SatMor.setImageDrawable(getResources().getDrawable(R.drawable.morningactivealert));
+                break;
+            case "7":
+                if (Taken == "1")
+                    SunAft.setImageDrawable(getResources().getDrawable(R.drawable.afternooninactive));
+                    //Case Slot is not taken and timeout occured. Red border on the slot should happend.
+                else if (Taken == "0" && Timeout == "1")
+                    SunAft.setImageDrawable(getResources().getDrawable(R.drawable.afternoonactivealert));
+                break;
+            case "8":
+                if (Taken == "1")
+                    MonAft.setImageDrawable(getResources().getDrawable(R.drawable.afternooninactive));
+                    //Case Slot is not taken and timeout occured. Red border on the slot should happend.
+                else if (Taken == "0" && Timeout == "1")
+                    MonAft.setImageDrawable(getResources().getDrawable(R.drawable.afternoonactivealert));
+                break;
+            case "9":
+                if (Taken == "1")
+                    TueAft.setImageDrawable(getResources().getDrawable(R.drawable.afternooninactive));
+                    //Case Slot is not taken and timeout occured. Red border on the slot should happend.
+                else if (Taken == "0" && Timeout == "1")
+                    TueAft.setImageDrawable(getResources().getDrawable(R.drawable.afternoonactivealert));
+                break;
+            case "10":
+                if (Taken == "1")
+                    WedAft.setImageDrawable(getResources().getDrawable(R.drawable.afternooninactive));
+                    //Case Slot is not taken and timeout occured. Red border on the slot should happend.
+                else if (Taken == "0" && Timeout == "1")
+                    WedAft.setImageDrawable(getResources().getDrawable(R.drawable.afternoonactivealert));
+                break;
+            case "11":
+                if (Taken == "1")
+                    ThuAft.setImageDrawable(getResources().getDrawable(R.drawable.afternooninactive));
+                    //Case Slot is not taken and timeout occured. Red border on the slot should happend.
+                else if (Taken == "0" && Timeout == "1")
+                    ThuAft.setImageDrawable(getResources().getDrawable(R.drawable.afternoonactivealert));
+                break;
+            case "12":
+                if (Taken == "1")
+                    FriAft.setImageDrawable(getResources().getDrawable(R.drawable.afternooninactive));
+                    //Case Slot is not taken and timeout occured. Red border on the slot should happend.
+                else if (Taken == "0" && Timeout == "1")
+                    FriAft.setImageDrawable(getResources().getDrawable(R.drawable.afternoonactivealert));
+                break;
+            case "13":
+                if (Taken == "1")
+                    SatAft.setImageDrawable(getResources().getDrawable(R.drawable.afternooninactive));
+                    //Case Slot is not taken and timeout occured. Red border on the slot should happend.
+                else if (Taken == "0" && Timeout == "1")
+                    SatAft.setImageDrawable(getResources().getDrawable(R.drawable.afternoonactivealert));
+                break;
+            case "14":
+                if (Taken == "1")
+                    SunEve.setImageDrawable(getResources().getDrawable(R.drawable.eveninginactive));
+                    //Case Slot is not taken and timeout occured. Red border on the slot should happend.
+                else if (Taken == "0" && Timeout == "1")
+                    SunEve.setImageDrawable(getResources().getDrawable(R.drawable.eveningactivealert));
+                break;
+            case "15":
+                if (Taken == "1")
+                    MonEve.setImageDrawable(getResources().getDrawable(R.drawable.eveninginactive));
+                    //Case Slot is not taken and timeout occured. Red border on the slot should happend.
+                else if (Taken == "0" && Timeout == "1")
+                    MonEve.setImageDrawable(getResources().getDrawable(R.drawable.eveningactivealert));
+                break;
+            case "16":
+                if (Taken == "1")
+                    TueEve.setImageDrawable(getResources().getDrawable(R.drawable.eveninginactive));
+                    //Case Slot is not taken and timeout occured. Red border on the slot should happend.
+                else if (Taken == "0" && Timeout == "1")
+                    SunMor.setImageDrawable(getResources().getDrawable(R.drawable.redborder));
+                break;
+            case "17":
+                if (Taken == "1")
+                    WedEve.setImageDrawable(getResources().getDrawable(R.drawable.eveninginactive));
+                    //Case Slot is not taken and timeout occured. Red border on the slot should happend.
+                else if (Taken == "0" && Timeout == "1")
+                    WedEve.setImageDrawable(getResources().getDrawable(R.drawable.eveningactivealert));
+                break;
+            case "18":
+                if (Taken == "1")
+                    ThuEve.setImageDrawable(getResources().getDrawable(R.drawable.eveninginactive));
+                    //Case Slot is not taken and timeout occured. Red border on the slot should happend.
+                else if (Taken == "0" && Timeout == "1")
+                    ThuEve.setImageDrawable(getResources().getDrawable(R.drawable.eveningactivealert));
+                break;
+            case "19":
+                if (Taken == "1")
+                    FriEve.setImageDrawable(getResources().getDrawable(R.drawable.eveninginactive));
+                    //Case Slot is not taken and timeout occured. Red border on the slot should happend.
+                else if (Taken == "0" && Timeout == "1")
+                    FriEve.setImageDrawable(getResources().getDrawable(R.drawable.eveningactivealert));
+                break;
+            case "20":
+                if (Taken == "1")
+                    SatEve.setImageDrawable(getResources().getDrawable(R.drawable.eveninginactive));
+                    //Case Slot is not taken and timeout occured. Red border on the slot should happend.
+                else if (Taken == "0" && Timeout == "1")
+                    SatEve.setImageDrawable(getResources().getDrawable(R.drawable.eveningactivealert));
+                break;
+        }
+    }
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
