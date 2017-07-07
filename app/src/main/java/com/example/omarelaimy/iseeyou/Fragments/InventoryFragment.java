@@ -36,6 +36,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import static com.example.omarelaimy.iseeyou.EditSlot.setNumberPickerTextColor;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -405,7 +406,10 @@ public void AddPillClickListener(ImageButton addbtn)
         LinearLayout pillinfo = (LinearLayout) pilllayout.getChildAt(1);
         LinearLayout pillcount = (LinearLayout) pillinfo.getChildAt(1);
         TextView pillsleft = (TextView) pillcount.getChildAt(0);
-        pillsleft.setText(Integer.toString(count) + " pills left");
+        if(count == 1)
+            pillsleft.setText(Integer.toString(count) + " pill left");
+        else
+            pillsleft.setText(Integer.toString(count) + " pills left");
     }
 
     public void SetPillIndicator(int idx,int count)
@@ -798,7 +802,10 @@ public void AddPillClickListener(ImageButton addbtn)
         pilldescription.setPadding(0,0,0,0);
         pilldescription.setLayoutParams(pilldescription_params);
         //Text for viewing the pills left.
-        tv_pillcount.setText(Integer.toString(PillCount) + " pills left");
+        if(PillCount == 1)
+            tv_pillcount.setText(Integer.toString(PillCount) + " pill left");
+        else
+            tv_pillcount.setText(Integer.toString(PillCount) + " pills left");
         tv_pillcount.setTypeface(null,Typeface.ITALIC);
         tv_pillcount.setTextColor(getResources().getColor(R.color.greycolor));
         tv_pillcount.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
@@ -943,4 +950,5 @@ public void PillImageListener(final ImageView iv,final EditText et,final Relativ
         }
     });
 }
+
 }

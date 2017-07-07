@@ -1,240 +1,160 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:id="@+id/edit_slot_layout"
-    android:background="#eeecef"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-  >
+    android:background="#eeecef"
+    tools:context="com.example.omarelaimy.iseeyou.Fragments.InventoryFragment">
 
-    <!--Layout for the Slot title bar-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:id="@+id/singleslot_toolbar"
-        android:background="@color/welcomescreen"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/slot_cancel_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleX="0.25"
-            android:scaleY="0.25"
-            android:background="@android:color/transparent"
-            android:src="@drawable/x"/>
-
-        <TextView
-            android:id="@+id/slot_slotname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Slot Time"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@id/slot_cancel_button"
-            android:textSize="18sp"
-            android:textColor="#E6ECFF"
-            android:fontFamily="sans-serif-medium" />
-
-        <TextView
-            android:id="@+id/slot_productid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="AABBCCDD"
-            android:layout_gravity = "right"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="40dp"
-            android:textSize="15sp"
-            android:textColor="#E6ECFF"
-            android:textStyle="italic"
-            android:fontFamily="sans-serif-medium"
-            android:layout_alignParentRight="true"/>
-    </RelativeLayout>
-
-    <!--Layout for the time pickers-->
-
-
-    <LinearLayout
-        android:id="@+id/slot_timelayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
-        <Button
-            android:id="@+id/from_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#03AD40"
-            android:text="Set From Time"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-
-            android:layout_marginRight="5dp"/>
-        <Button
-            android:id="@+id/to_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#03AD40"
-            android:text="Set To Time"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:layout_marginLeft="5dp" />
-    </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/current_pillslayout"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/welcomescreen"
-            android:textStyle="italic"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="sans-serif-medium"
-            android:layout_gravity="center"
-            android:text="Current Pills"
-           />
-        <HorizontalScrollView
-            android:id="@+id/currentPillsScroll"
+        <!--Layout for the Slot title bar-->
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:fillViewport="true"
-            android:scrollbars="none">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/view_current_pillslayout"
-            android:background="@color/colorAccent"
-            android:paddingTop="20dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="20dp">
+            android:layout_height="70dp"
+            android:id="@+id/singleslot_toolbar"
+            android:background="@color/welcomescreen"
+            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/currentPillsTxt"
-                android:textColor="#E6ECFF"
-                android:visibility="gone"
-                android:text="You still have no added pills in this slot."
-                android:textSize="15sp"/>
-
-
-
-        </LinearLayout>
-        </HorizontalScrollView>
-
-     <!--   <Button
-            android:id="@+id/btn_update_pills"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/corners3"
-            android:layout_marginTop="30dp"
-            android:text="Update Current Pills"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:layout_gravity="center|bottom" />-->
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/new_pillslayout"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/welcomescreen"
-            android:textStyle="italic"
-            android:fontFamily="sans-serif-medium"
-            android:text="New Pills"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-
-            />
-
-        <HorizontalScrollView
-            android:id="@+id/horizontalScroll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:fillViewport="true"
-            android:scrollbars="none">
-
-        <LinearLayout
-            android:id="@+id/view_new_pillslayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/colorAccent"
-            android:paddingTop="20dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="12dp"
-           >
-
-
-            <TextView
+            <ImageButton
+                android:id="@+id/slot_cancel_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/defalut_newpills_txt"
+                android:scaleX="0.25"
+                android:scaleY="0.25"
                 android:background="@android:color/transparent"
+                android:src="@drawable/x"/>
+
+            <TextView
+                android:id="@+id/slot_slotname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Slot Time"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/slot_cancel_button"
+                android:textSize="18sp"
                 android:textColor="#E6ECFF"
-                android:text="Add your new pills here!"
+                android:fontFamily="sans-serif-medium" />
+
+            <TextView
+                android:id="@+id/slot_productid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AABBCCDD"
+                android:layout_marginTop="40dp"
                 android:textSize="15sp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginBottom="2dp"
-                android:layout_gravity="center_vertical"/>
-            <!--Image button for the Add pill-->
+                android:textColor="#E6ECFF"
+                android:textStyle="italic"
+                android:fontFamily="sans-serif-medium"
+               android:layout_alignParentRight="true"
+                android:layout_marginRight="80dp"/>
+
+            <ImageView
+                android:id="@+id/slot_edit_icon"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/edit"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="45dp"
+                android:layout_marginTop="37dp"
+                />
+
+            <Button
+                android:id="@+id/slot_edit_button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@android:color/transparent"
+                android:text="Edit"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#98999c"
+                android:textSize="17sp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="32dp"/>
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollIndicators="top"
+            android:layout_weight="5">
 
 
-        </LinearLayout>
-        </HorizontalScrollView>
-        <ImageView
+            <LinearLayout
+                android:id="@+id/mainvew_editslot"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
+            </LinearLayout>
+        </ScrollView>
+
+
+        <TextView
+            android:id="@+id/empty_slot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textAlignment="center"
+            android:text="You still have no pills in this slot!"
+            android:textSize="20dp"
+            android:textStyle="italic"
+            android:visibility="gone"
+            android:layout_weight="6"/>
+
+        <ImageButton
             android:id="@+id/add_pill"
-            android:layout_width="23dp"
-            android:layout_height="23dp"
-            android:src="@drawable/plus"
-            android:layout_gravity="right"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="120dp"
-            android:layout_marginTop="-37dp"/>
-
-
-
-        <Button
-            android:id="@+id/btn_add_pills"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/corners3"
-            android:layout_marginTop="30dp"
-            android:text="Add New Pills"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:layout_gravity="center|bottom"
-            />
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:src="@drawable/plusgrey" />
+
+        <!--Layout for the time pickers-->
+        <LinearLayout
+            android:id="@+id/slot_timelayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+            <Button
+                android:id="@+id/from_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#03AD40"
+                android:text="Set From Time"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+
+                android:layout_marginRight="5dp"/>
+            <Button
+                android:id="@+id/to_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#03AD40"
+                android:text="Set To Time"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="5dp" />
+        </LinearLayout>
+
+
+
+
     </LinearLayout>
-
-
-
-
-
-</LinearLayout>
-
-
+</FrameLayout>

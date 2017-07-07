@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.omarelaimy.iseeyou.ChooseProfile;
 import com.example.omarelaimy.iseeyou.CreateProfile;
@@ -26,6 +29,7 @@ public class PillboxFragment extends Fragment {
     private String ProductID;
     private ImageView SatMor,SatAft,SatEve,SunMor,SunAft,SunEve,MonMor,MonAft,MonEve,TueMor,TueAft,TueEve;
     private ImageView WedMor,WedAft,WedEve,ThuMor,ThuAft,ThuEve,FriMor,FriAft,FriEve;
+    private Button btn_edit;
     private OnFragmentInteractionListener mListener;
 
     public PillboxFragment() {
@@ -102,6 +106,17 @@ public class PillboxFragment extends Fragment {
         SlotClickListener(FriEve,"Friday Evening");
 
 
+
+        btn_edit = (Button) ((AppCompatActivity) getActivity()).findViewById(R.id.nav_edit_button);
+
+
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "Pillbox Fragment", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
 
         //TODO: Implement the functionality of slots on click listeners.

@@ -1,6 +1,7 @@
 package com.example.omarelaimy.iseeyou;
 
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -12,24 +13,20 @@ public class Pill {
     private int PillType;
     private int PillCount;
     private int Position;
-    private ImageView Pillimg;
-    private ImageView Closeimg;
-    private TextView Pilltv;
+    private LinearLayout MainLayout;
 
     public Pill()
     {
         //Empty constructor.
     }
     //Setting the attributes for a patient.
-   public void SetPillInfo(String pillname,int pilltype, int pillcount, int pos, ImageView pillimg,ImageView closeimg, TextView pilltv)
+   public void SetPillInfo(String pillname,int pilltype, int pillcount, int pos, LinearLayout mainlayout)
    {
        this.PillName = pillname;
        this.PillType = pilltype;
        this.PillCount = pillcount;
        this.Position = pos;
-       this.Pillimg = pillimg;
-       this.Closeimg = closeimg;
-       this.Pilltv = pilltv;
+       this.MainLayout = mainlayout;
    }
 
    public void SetCount(int count)
@@ -39,48 +36,27 @@ public class Pill {
 
    public String GetPillName()
    {
-       return PillName;
+       return this.PillName;
    }
 
    public int GetPillType()
     {
-        return PillType;
+        return this.PillType;
     }
-
-   /*public int GetLastPillType()
-   {
-       return LastPillType;
-   }*/
 
     public int GetPillCount()
     {
-        return PillCount;
+        return this.PillCount;
     }
 
     public int GetPosition()
     {
-        return Position;
+        return this.Position;
     }
 
-    public ImageView GetPillimg()
+    public LinearLayout GetPillLayout()
     {
-        return Pillimg;
+        return this.MainLayout;
     }
-
-    public ImageView GetCloseimg()
-    {
-        return Closeimg;
-    }
-
-    public TextView GetPilltv()
-    {
-        return Pilltv;
-    }
-
-
-
-
-
-
 
 }
