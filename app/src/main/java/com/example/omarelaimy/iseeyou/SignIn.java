@@ -1,10 +1,16 @@
 package com.example.omarelaimy.iseeyou;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -15,6 +21,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,6 +48,7 @@ public class SignIn extends AppCompatActivity {
     private TextView btnSignUp;
     private Button btnSignIn;
     private View EmailSeparator,PasswordSeparator;
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
     private EditText Email,Password;
     private static final String TAG = "LoginActivity";
     private static final String URL_FOR_LOGIN = "https://icu.000webhostapp.com/login.php";
@@ -98,13 +108,13 @@ public class SignIn extends AppCompatActivity {
 
     private void loginUser( final String email, final String password)
     {
+        final String token = FirebaseInstanceId.getInstance().getToken();
         // Tag used to cancel the request
         String cancel_req_tag = "login";
         progressDialog.setMessage("Logging you in...");
         showDialog();
         StringRequest strReq = new StringRequest(Request.Method.POST, URL_FOR_LOGIN, new Response.Listener<String>()
         {
-
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "Login Response: " + response.toString());
@@ -113,7 +123,8 @@ public class SignIn extends AppCompatActivity {
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
 
-                    if (!error) {
+                    if (!error)
+                    {
                         String user = jObj.getJSONObject("user").getString("name");
                         String userID = jObj.getJSONObject("user").getString("userID");
                         // Launch Choose profile activity
@@ -154,6 +165,7 @@ public class SignIn extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("email", email);
                 params.put("password", password);
+                params.put("token", token);
                 return params;
             }
         };

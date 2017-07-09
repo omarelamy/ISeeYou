@@ -15,6 +15,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,12 +25,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 //import com.example.omarelaimy.iseeyou.navigationdrawer.R;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.example.omarelaimy.iseeyou.Fragments.AppointmentsFragment;
 import com.example.omarelaimy.iseeyou.Fragments.HeartRateFragment;
 import com.example.omarelaimy.iseeyou.Fragments.InventoryFragment;
 import com.example.omarelaimy.iseeyou.Fragments.NotificationsFragment;
 import com.example.omarelaimy.iseeyou.Fragments.PillboxFragment;
 import com.example.omarelaimy.iseeyou.Fragments.ProfileFragment;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.example.omarelaimy.iseeyou.Fragments.HeartRateFragment.newHearRateInstance;
 import static com.example.omarelaimy.iseeyou.Fragments.InventoryFragment.newInventoryInstance;
@@ -41,6 +52,8 @@ import static com.example.omarelaimy.iseeyou.Fragments.PillboxFragment.newPillBo
  */
 
 public class NavigationMainActivity extends AppCompatActivity {
+    private static final String TAG  = "NavigationMainActivity";
+    private static final String URL_FOR_Notifications = "https://icu.000webhostapp.com/notifications.php";
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View navHeader;
@@ -494,6 +507,9 @@ public class NavigationMainActivity extends AppCompatActivity {
              .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                  @Override
                  public void onClick(DialogInterface dialog, int which) {
+
+                     //Call db function to remove token.
+                     DeleteUserToken();
                      // Launch login activity
                      Intent intent = new Intent(NavigationMainActivity.this, SignIn.class);
                      startActivity(intent);
@@ -521,5 +537,54 @@ public class NavigationMainActivity extends AppCompatActivity {
                      finish();
                  }
              }).setNegativeButton("No", null).show();
+ }
+
+ public void DeleteUserToken()
+ {
+     // Tag used to cancel the request
+     String cancel_req_tag = "Delete User Token";
+     StringRequest strReq = new StringRequest(Request.Method.POST, URL_FOR_Notifications, new Response.Listener<String>() {
+         @Override
+         public void onResponse(String response) {
+             Log.d(TAG, "Delete User Token Response: " + response);
+             try
+             {
+                 JSONObject jObj = new JSONObject(response);
+                 boolean error = jObj.getBoolean("error");
+                 if (!error)
+                 {
+                     Toast.makeText(getApplicationContext(), "You are now logged out!", Toast.LENGTH_LONG).show();
+                 }
+                 else
+                 {
+                     Toast.makeText(getApplicationContext(), "Unknown error occured while logging out!..Please try again.", Toast.LENGTH_LONG).show();
+                 }
+             }
+             catch (JSONException e)
+             {
+                 e.printStackTrace();
+             }
+         }
+     }, new Response.ErrorListener() {
+         @Override
+         public void onErrorResponse(VolleyError error) {
+             Log.e(TAG, "Delete User Token Error: " + error.getMessage());
+             Toast.makeText(getApplicationContext(),
+                     error.getMessage(), Toast.LENGTH_LONG).show();
+         }
+     }) {
+         @Override
+         protected Map<String, String> getParams() {
+             // Posting params to get slot url
+             Map<String, String> params = new HashMap<String, String>();
+             //Parameters for the slot of a given product.
+             params.put("caregiverid",Caregiver_ID);
+             return params;
+         }
+     };
+     // Adding request to request queue
+     AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq, cancel_req_tag);
+
+
  }
 }
