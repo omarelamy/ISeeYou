@@ -203,7 +203,8 @@ public class NavigationMainActivity extends AppCompatActivity {
     }
 
     private Fragment getProfileFragment() {
-        switch (navItemIndex) {
+        switch (navItemIndex)
+        {
             case 0:
                 //  inventory
                 InventoryFragment inventoryFragment = newInventoryInstance(Patient_ID);
