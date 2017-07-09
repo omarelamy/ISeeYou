@@ -127,6 +127,15 @@ public class SignIn extends AppCompatActivity {
                     {
                         String user = jObj.getJSONObject("user").getString("name");
                         String userID = jObj.getJSONObject("user").getString("userID");
+
+                        //Start the service to check for notifications.
+                        // use this to start and trigger a service
+                        Intent i= new Intent(getApplicationContext(), NotificationService.class);
+                        // potentially add data to the intent
+                        i.putExtra("caregiverid", userID);
+                        getApplicationContext().startService(i);
+
+
                         // Launch Choose profile activity
                        Intent intent = new Intent(SignIn.this,ChooseProfile.class);
                         //Send parameters to the ChooseProfile Activity

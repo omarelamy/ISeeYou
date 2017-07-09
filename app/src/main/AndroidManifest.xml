@@ -77,6 +77,10 @@
         </service>
         <!-- ./Firebase Notifications -->
 
+        <!--Service that calls the notifications php file-->
+        <service android:name=".NotificationService">
+        </service>
+
 
 
 
