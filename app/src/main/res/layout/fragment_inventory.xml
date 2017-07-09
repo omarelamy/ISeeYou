@@ -52,9 +52,5 @@
             android:background="@android:color/transparent"
             android:src="@drawable/plusgrey" />
 
-
-
-
-
     </LinearLayout>
 </FrameLayout>

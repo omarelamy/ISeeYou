@@ -78,7 +78,12 @@
         <!-- ./Firebase Notifications -->
 
         <!--Service that calls the notifications php file-->
-        <service android:name=".NotificationService">
+        <service android:name=".NotificationHeartService">
+        </service>
+
+
+        <!--Service that calls the notifications php file-->
+        <service android:name=".NotificationSlotPillService">
         </service>
 
 

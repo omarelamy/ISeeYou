@@ -22,15 +22,6 @@
             android:icon="@drawable/appointments"
             android:title="@string/nav_appointments" />
 
-        <item
-            android:id="@+id/nav_notifications"
-            android:icon="@drawable/ic_notifications_black_24dp"
-            android:title="@string/nav_notifications" />
-
-        <item  android:title="@string/nav_myprofile"
-            android:id="@+id/nav_profile"
-            android:icon="@drawable/profilenav"/>
-
         <item  android:title="@string/switch_patient"
             android:id="@+id/nav_switchpatient"
             android:icon="@drawable/ic_swap_horiz_black_48dp"/>

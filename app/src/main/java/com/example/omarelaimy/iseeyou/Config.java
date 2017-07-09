@@ -69,9 +69,14 @@ public class Config {
     public static final int NOTIFICATION_ID = 100;
     public static final int NOTIFICATION_ID_BIG_IMAGE = 101;
     public static final String SHARED_PREF = "ah_firebase";
+
  //Alarm Manager Variables to initiate notification requests
-    public static AlarmManager ALARM_MANAGER;
-    public static PendingIntent PENDING_INTENT;
+    public static final int heartmillisecs = 10000;           //Poll to Get Heart rates abnormal every 10 seconds.
+    public static final int slotspillmillisecs = 18000000;   //Poll to Get slots notifications every 5 hours.
+    public static AlarmManager HEART_ALARM_MANAGER;
+    public static PendingIntent HEART_PENDING_INTENT;
+    public static AlarmManager SlotPill_ALARM_MANAGER;
+    public static PendingIntent SlotPill_PENDING_INTENT;
 
 
 }

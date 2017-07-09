@@ -132,25 +132,20 @@ public class SignIn extends AppCompatActivity {
                         String user = jObj.getJSONObject("user").getString("name");
                         String userID = jObj.getJSONObject("user").getString("userID");
 
-                        //Starting a service with alarm manager
-                        Calendar cur_cal = Calendar.getInstance();
-                        cur_cal.setTimeInMillis(System.currentTimeMillis());
-                        cur_cal.add(Calendar.SECOND, 10);
 
-                        Intent i= new Intent(getApplicationContext(), NotificationService.class);
-                        i.putExtra("caregiverid", userID);
 
-                        Config.PENDING_INTENT = PendingIntent.getService(getApplicationContext(), 0, i, 0);
-                        Config.ALARM_MANAGER = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-                        Config.ALARM_MANAGER.set(AlarmManager.RTC, cur_cal.getTimeInMillis(), Config.PENDING_INTENT);
-                        Config.ALARM_MANAGER.setRepeating(AlarmManager.RTC_WAKEUP, cur_cal.getTimeInMillis(), 3000, Config.PENDING_INTENT);
-                        getApplicationContext().startService(i);
-                        //Start the service to check for notifications.
-                        // use this to start and trigger a service
-                        //Intent i= new Intent(getApplicationContext(), NotificationService.class);
-                        // potentially add data to the intent
+                        //Service for Heart Rate
+                        Intent heartrateintent= new Intent(getApplicationContext(), NotificationHeartService.class);
+                        heartrateintent.putExtra("caregiverid", userID);
 
-                       // getApplicationContext().startService(i);
+                        //Service for Slots not taken and pills running out
+                        Intent slotspillintent= new Intent(getApplicationContext(), NotificationSlotPillService.class);
+                        slotspillintent.putExtra("caregiverid", userID);
+
+
+                        //Set the Alarm timer for the heart rate every 5 minutes
+                        SetHeartAlarmTimer(heartrateintent);
+                        SetSlotPillAlarmTimer(slotspillintent);
 
 
                         // Launch Choose profile activity
@@ -244,4 +239,33 @@ public class SignIn extends AppCompatActivity {
             window.setStatusBarColor(getResources().getColor(R.color.NotificationBar));
         }
     }
+
+    private void SetSlotPillAlarmTimer(Intent intent)
+    {
+        //Starting a service with alarm manager
+        Calendar cur_cal = Calendar.getInstance();
+        cur_cal.setTimeInMillis(System.currentTimeMillis());
+
+        Config.SlotPill_PENDING_INTENT = PendingIntent.getService(getApplicationContext(), 0, intent, 0);
+        Config.SlotPill_ALARM_MANAGER = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        Config.SlotPill_ALARM_MANAGER.set(AlarmManager.RTC, cur_cal.getTimeInMillis(), Config.SlotPill_PENDING_INTENT);
+        Config.SlotPill_ALARM_MANAGER.setRepeating(AlarmManager.RTC_WAKEUP, cur_cal.getTimeInMillis(), Config.slotspillmillisecs, Config.SlotPill_PENDING_INTENT);
+        getApplicationContext().startService(intent);
+    }
+
+    private void SetHeartAlarmTimer(Intent intent)
+    {
+        //Starting a service with alarm manager
+        Calendar cur_cal = Calendar.getInstance();
+        cur_cal.setTimeInMillis(System.currentTimeMillis());
+        cur_cal.add(Calendar.SECOND, 10);
+
+        Config.HEART_PENDING_INTENT = PendingIntent.getService(getApplicationContext(), 0, intent, 0);
+        Config.HEART_ALARM_MANAGER = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        Config.HEART_ALARM_MANAGER.set(AlarmManager.RTC, cur_cal.getTimeInMillis(), Config.HEART_PENDING_INTENT);
+        Config.HEART_ALARM_MANAGER.setRepeating(AlarmManager.RTC_WAKEUP, cur_cal.getTimeInMillis(), Config.heartmillisecs, Config.HEART_PENDING_INTENT);
+        getApplicationContext().startService(intent);
+    }
+
+
 }

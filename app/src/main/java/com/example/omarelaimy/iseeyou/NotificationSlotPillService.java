@@ -23,9 +23,9 @@ import java.util.Map;
  * Created by Omar on 7/9/2017.
  */
 
-public class NotificationService extends Service {
+public class NotificationSlotPillService extends Service {
     private static final String TAG = "NotificationService";
-    private static final String URL_FOR_NOTIFICATIONS = "https://icu.000webhostapp.com/notifications.php";
+    private static final String URL_FOR_NOTIFICATIONS = "https://icu.000webhostapp.com/slotpillsnotifications.php";
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
@@ -33,7 +33,6 @@ public class NotificationService extends Service {
         String caregiverid = extras.getString("caregiverid");
         //Call the function that checks for notification in php.
         GetNotifications(caregiverid);
-        SystemClock.sleep(5000);
         return Service.START_NOT_STICKY;
     }
 
@@ -53,20 +52,20 @@ public class NotificationService extends Service {
                 Log.d(TAG, "Get Notifications Caregiver Response : " + response);
                 //try
                 //{
-                   // JSONObject jObj = new JSONObject(response);
-                    //boolean error = jObj.getBoolean("error");
-                    //if (!error)
-                    //{
-                     //   Toast.makeText(getApplicationContext(), "You are now logged out!", Toast.LENGTH_LONG).show();
-                    //}
-                   // else
-                    //{
-                      //  Toast.makeText(getApplicationContext(), "Unknown error occured while logging out!..Please try again.", Toast.LENGTH_LONG).show();
-                    //}
+                // JSONObject jObj = new JSONObject(response);
+                //boolean error = jObj.getBoolean("error");
+                //if (!error)
+                //{
+                //   Toast.makeText(getApplicationContext(), "You are now logged out!", Toast.LENGTH_LONG).show();
+                //}
+                // else
+                //{
+                //  Toast.makeText(getApplicationContext(), "Unknown error occured while logging out!..Please try again.", Toast.LENGTH_LONG).show();
+                //}
                 //}
                 //catch (JSONException e)
                 //{
-                  //  e.printStackTrace();
+                //  e.printStackTrace();
                 //}
             }
         }, new Response.ErrorListener() {

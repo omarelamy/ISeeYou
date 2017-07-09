@@ -32,9 +32,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.omarelaimy.iseeyou.Fragments.AppointmentsFragment;
 import com.example.omarelaimy.iseeyou.Fragments.HeartRateFragment;
 import com.example.omarelaimy.iseeyou.Fragments.InventoryFragment;
-import com.example.omarelaimy.iseeyou.Fragments.NotificationsFragment;
 import com.example.omarelaimy.iseeyou.Fragments.PillboxFragment;
-import com.example.omarelaimy.iseeyou.Fragments.ProfileFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -134,8 +132,8 @@ public class NavigationMainActivity extends AppCompatActivity {
         setUpNavigationView();
 
         if (savedInstanceState == null) {
-            navItemIndex = 5;
-            CURRENT_TAG = Config.TAG_PROFILE;
+            navItemIndex = 1;
+            CURRENT_TAG = Config.TAG_PILLBOX;
            loadProfileFragment();
         }
 
@@ -151,8 +149,7 @@ public class NavigationMainActivity extends AppCompatActivity {
         tv_patientName.setText(Patient_Name);
         //Set the Patient's Profile Image.
         iv_patientImage.setImageBitmap(Patient_Image);
-        //Show dot next to notifications label.
-        navigationView.getMenu().getItem(4).setActionView(R.layout.menu_dot);
+
     }
 
     /***
@@ -220,9 +217,6 @@ public class NavigationMainActivity extends AppCompatActivity {
             case 2:
                 // heartrate
                 HeartRateFragment heartRateFragment = newHearRateInstance(Patient_ID,Patient_Name);
-                //Bundle bundle = new Bundle();
-                //bundle.putString("patientid",Patient_ID);
-                //heartRateFragment.setArguments(bundle);
                 return heartRateFragment;
 
             case 3:
@@ -230,34 +224,15 @@ public class NavigationMainActivity extends AppCompatActivity {
                 AppointmentsFragment appointmentsFragment = new AppointmentsFragment();
                 return appointmentsFragment;
 
-            case 4:
-                // notifications
-                NotificationsFragment notificationsFragment = new NotificationsFragment();
-                return notificationsFragment;
-
-            case 5:
-                // profile
-                ProfileFragment profileFragment = new ProfileFragment();
-                return profileFragment;
-
-        //    case 6:
-                // switch profile
-        //        SwitchProfileFragment switchProfileFragment = new SwitchProfileFragment();
-        //        return switchProfileFragment;
-
-            //case 7:
-                // logout
-            //    LogoutFragment logoutFragment = new LogoutFragment();
-            //    return logoutFragment;
-              //  LogoutMessage();
             default:
-                return new ProfileFragment();
+                //Remember to change this to whatever default page we choose.
+                return new AppointmentsFragment();
         }
     }
 
     private void setToolbarTitle() {
         //If Selected item is Heart rate monitor or my notifications. hide the edit icons.
-        if (navItemIndex == 2 || navItemIndex == 4)
+        if (navItemIndex == 2)
         {
             EditIcon.setVisibility(View.GONE);
             EditButton.setVisibility(View.GONE);
@@ -267,7 +242,7 @@ public class NavigationMainActivity extends AppCompatActivity {
             EditIcon.setVisibility(View.VISIBLE);
             EditButton.setVisibility(View.VISIBLE);
         }
-        if(navItemIndex == 7 || navItemIndex == 6)
+        if(navItemIndex == 4 || navItemIndex == 5)
             return;
         getSupportActionBar().setTitle(activityTitles[navItemIndex]);
     }
@@ -348,34 +323,18 @@ public class NavigationMainActivity extends AppCompatActivity {
                         navItemIndex = 3;
                         CURRENT_TAG = Config.TAG_APPOINTMENTS;
                         break;
-                    case R.id.nav_notifications:
-                        navItemIndex = 4;
-                        CURRENT_TAG = Config.TAG_NOTIFICATIONS;
-                        break;
-                    case R.id.nav_profile:
-                        navItemIndex = 5;
-                        CURRENT_TAG = Config.TAG_PROFILE;
-                        break;
-                        // launch new intent instead of loading fragment
 
-            //           startActivity(new Intent(NavigationMainActivity.this, SignIn.class));
-             //           drawer.closeDrawers();
-             //           return true;
                     case R.id.nav_switchpatient:
-                        navItemIndex = 6;
+                        navItemIndex = 4;
                         CURRENT_TAG = Config.TAG_SWITCHPROFILE;
                        break;
-                        // launch new intent instead of loading fragment
 
-              //          startActivity(new Intent(NavigationMainActivity.this, SignIn.class));
-            //           drawer.closeDrawers();
-            //           return true;
                    case R.id.nav_logout:
-                        navItemIndex = 7;
+                        navItemIndex = 5;
                        CURRENT_TAG = Config.TAG_LOGOUT;
                         break;
                     default:
-                        navItemIndex = 5;
+                        navItemIndex = 1;
 
                 }
 
@@ -386,11 +345,11 @@ public class NavigationMainActivity extends AppCompatActivity {
                     menuItem.setChecked(true);
                 }
                 menuItem.setChecked(true);
-                if(navItemIndex == 7)
+                if(navItemIndex == 5)
                 {
                     LogoutMessage();
                 }
-                else if(navItemIndex == 6)
+                else if(navItemIndex == 4)
                 {
                     SwitchProfile();
                 }
@@ -435,9 +394,9 @@ public class NavigationMainActivity extends AppCompatActivity {
         if (shouldLoadProfileFragOnBackPress) {
             // checking if user is on other navigation menu
             // rather than home
-            if (navItemIndex != 5) {
-                navItemIndex = 5;
-                CURRENT_TAG = Config.TAG_PROFILE;
+            if (navItemIndex != 1) {
+                navItemIndex = 1;
+                CURRENT_TAG = Config.TAG_PILLBOX;
                 loadProfileFragment();
                 return;
             }
@@ -451,15 +410,10 @@ public class NavigationMainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
 
         // show menu only when home fragment is selected
-        if (navItemIndex == 0) {
+       /* if (navItemIndex == 0) {
             getMenuInflater().inflate(R.menu.main, menu);
-        }
+        }*/
 
-        // when fragment is notifications, load the menu created for notifications
-        //if (navItemIndex == 3)
-        //{
-          //  getMenuInflater().inflate(R.menu.main, menu);
-        //}
         return true;
     }
 
@@ -491,13 +445,7 @@ public class NavigationMainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // show or hide the fab
- /*   private void toggleFab() {
-        if (navItemIndex == 0)
-            fab.show();
-        else
-            fab.hide();
-    }*/
+
 
  public void LogoutMessage()
  {
@@ -510,7 +458,9 @@ public class NavigationMainActivity extends AppCompatActivity {
 
                      //Call db function to remove token.
                      DeleteUserToken();
-                     Config.ALARM_MANAGER.cancel(Config.PENDING_INTENT);
+                     Config.HEART_ALARM_MANAGER.cancel(Config.HEART_PENDING_INTENT);
+                     Config.SlotPill_ALARM_MANAGER.cancel(Config.SlotPill_PENDING_INTENT);
+
                      // Launch login activity
                      Intent intent = new Intent(NavigationMainActivity.this, SignIn.class);
                      startActivity(intent);

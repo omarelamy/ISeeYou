@@ -23,8 +23,6 @@
         <item>PillBox</item>
         <item>Heart Rate Monitor</item>
         <item>Appointments</item>
-        <item>Notifications</item>
-        <item>Profile</item>
         <item>Switch Profile</item>
         <item>Logout</item>
     </string-array>
