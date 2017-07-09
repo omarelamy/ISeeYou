@@ -53,7 +53,7 @@ import static com.example.omarelaimy.iseeyou.Fragments.PillboxFragment.newPillBo
 
 public class NavigationMainActivity extends AppCompatActivity {
     private static final String TAG  = "NavigationMainActivity";
-    private static final String URL_FOR_Notifications = "https://icu.000webhostapp.com/notifications.php";
+    private static final String URL_FOR_DELTETOKEN = "https://icu.000webhostapp.com/deletetoken.php";
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View navHeader;
@@ -510,6 +510,7 @@ public class NavigationMainActivity extends AppCompatActivity {
 
                      //Call db function to remove token.
                      DeleteUserToken();
+                     Config.ALARM_MANAGER.cancel(Config.PENDING_INTENT);
                      // Launch login activity
                      Intent intent = new Intent(NavigationMainActivity.this, SignIn.class);
                      startActivity(intent);
@@ -543,7 +544,7 @@ public class NavigationMainActivity extends AppCompatActivity {
  {
      // Tag used to cancel the request
      String cancel_req_tag = "Delete User Token";
-     StringRequest strReq = new StringRequest(Request.Method.POST, URL_FOR_Notifications, new Response.Listener<String>() {
+     StringRequest strReq = new StringRequest(Request.Method.POST, URL_FOR_DELTETOKEN, new Response.Listener<String>() {
          @Override
          public void onResponse(String response) {
              Log.d(TAG, "Delete User Token Response: " + response);

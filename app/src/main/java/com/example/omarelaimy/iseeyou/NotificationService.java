@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class NotificationService extends Service {
         String caregiverid = extras.getString("caregiverid");
         //Call the function that checks for notification in php.
         GetNotifications(caregiverid);
+        SystemClock.sleep(5000);
         return Service.START_NOT_STICKY;
     }
 

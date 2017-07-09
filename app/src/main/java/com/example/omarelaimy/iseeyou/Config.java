@@ -1,5 +1,8 @@
 package com.example.omarelaimy.iseeyou;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.Button;
@@ -66,6 +69,9 @@ public class Config {
     public static final int NOTIFICATION_ID = 100;
     public static final int NOTIFICATION_ID_BIG_IMAGE = 101;
     public static final String SHARED_PREF = "ah_firebase";
+ //Alarm Manager Variables to initiate notification requests
+    public static AlarmManager ALARM_MANAGER;
+    public static PendingIntent PENDING_INTENT;
 
 
 }

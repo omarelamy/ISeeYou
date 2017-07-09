@@ -1,4 +1,6 @@
 package com.example.omarelaimy.iseeyou;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -35,6 +37,8 @@ import android.view.View;
 import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -128,12 +132,25 @@ public class SignIn extends AppCompatActivity {
                         String user = jObj.getJSONObject("user").getString("name");
                         String userID = jObj.getJSONObject("user").getString("userID");
 
+                        //Starting a service with alarm manager
+                        Calendar cur_cal = Calendar.getInstance();
+                        cur_cal.setTimeInMillis(System.currentTimeMillis());
+                        cur_cal.add(Calendar.SECOND, 10);
+
+                        Intent i= new Intent(getApplicationContext(), NotificationService.class);
+                        i.putExtra("caregiverid", userID);
+
+                        Config.PENDING_INTENT = PendingIntent.getService(getApplicationContext(), 0, i, 0);
+                        Config.ALARM_MANAGER = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                        Config.ALARM_MANAGER.set(AlarmManager.RTC, cur_cal.getTimeInMillis(), Config.PENDING_INTENT);
+                        Config.ALARM_MANAGER.setRepeating(AlarmManager.RTC_WAKEUP, cur_cal.getTimeInMillis(), 3000, Config.PENDING_INTENT);
+                        getApplicationContext().startService(i);
                         //Start the service to check for notifications.
                         // use this to start and trigger a service
-                        Intent i= new Intent(getApplicationContext(), NotificationService.class);
+                        //Intent i= new Intent(getApplicationContext(), NotificationService.class);
                         // potentially add data to the intent
-                        i.putExtra("caregiverid", userID);
-                        getApplicationContext().startService(i);
+
+                       // getApplicationContext().startService(i);
 
 
                         // Launch Choose profile activity
