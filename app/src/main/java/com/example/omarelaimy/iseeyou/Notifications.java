@@ -59,6 +59,7 @@ public class Notifications extends AppCompatActivity {
                 Log.d(TAG, "Get Pills Slot Response: " + response);
                 try {
                     JSONObject jObj = new JSONObject(response);
+
                     boolean error = jObj.getBoolean("error");
                     if (!error) {
                         JSONArray result = jObj.getJSONArray(Config.JSON_ARRAY);
