@@ -49,7 +49,7 @@ public class ChooseProfile extends FragmentActivity {
     private static final String TAG = "ChooseProfileActivity";
     public final static int LOOPS = 1;
     public Button CreateProfileBtn;
-   // public ImageView btn_Notifications;
+    public ImageView btn_Notifications;
     public static int FIRST_PAGE; // = count * LOOPS / 2;
     public final static float BIG_SCALE = 1.0f;
     public final static float SMALL_SCALE = 0.7f;
@@ -165,18 +165,18 @@ public class ChooseProfile extends FragmentActivity {
 
 
         CreateProfileBtn = (Button) findViewById(R.id.create_profile);
-      //  btn_Notifications = (ImageView) findViewById(R.id.iv_notifications);
+       btn_Notifications = (ImageView) findViewById(R.id.iv_notifications);
 
-   /*     btn_Notifications.setOnClickListener(new View.OnClickListener() {
+     btn_Notifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent2 = new Intent(ChooseProfile.this, CreateProfile.class);
                 startActivity(intent2);
                 finish();
             }
-        }); */
+        });
 
-       // CheckNotifications(btn_Notifications);
+       CheckNotifications(btn_Notifications);
         //If Create Profile button is pressed, go to Create Profile page
         CreateProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override

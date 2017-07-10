@@ -56,13 +56,10 @@ public class Config {
     public static final String Key_InventoryPillCount = "medicinecount";
 
     //Tags used for monitoring info of slot.
-    public static final String KEY_MSGTITLE = "title";
-    public static final String KEY_MSGBODY = "body";
-    public static final String KEY_MSGTYPE = "type";
-    public static final String KEY_MSGDATE = "date";
-
-
-
+    public static final String KEY_MSGTITLE = "notificationtitle";
+    public static final String KEY_MSGBODY = "notificationmessage";
+    public static final String KEY_MSGTYPE = "notificationtype";
+    public static final String KEY_MSGDATE = "notificationdate";
 
     //Tags used for notifications_page page
     public static final String KEY_SLOTID = "slotid";

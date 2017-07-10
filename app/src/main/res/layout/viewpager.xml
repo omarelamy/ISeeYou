@@ -8,16 +8,6 @@
     android:background="@color/welcomescreen"
     tools:context=".ChooseProfile" >
 
-  <!-- <ImageView
-    android:id="@+id/iv_notifications"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="right"
-    android:layout_marginRight="20dp"
-    android:layout_marginTop="20dp"
-    android:background="@android:color/transparent"
-    android:src="@drawable/notification" /> -->
-
 
     <TextView
     android:layout_width="match_parent"
@@ -28,21 +18,24 @@
     android:textColor="#E6ECFF"
     android:layout_marginTop="40dp"/>
 
+
+
+
     <android.support.v4.view.ViewPager
         android:id="@+id/myviewpager"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="500dp"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
-        android:layout_marginTop="-160dp"
+        android:layout_marginTop="-100dp"
         android:overScrollMode="never" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="-120dp"
         android:background="#03AD40">
+
         <Button
             android:id="@+id/create_profile"
             android:layout_width="220dp"
@@ -60,5 +53,19 @@
             android:layout_marginLeft="25dp"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_notifications"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+
+        android:background="@android:color/transparent"
+        android:src="@drawable/notification" />
+
+
 
 </LinearLayout>
