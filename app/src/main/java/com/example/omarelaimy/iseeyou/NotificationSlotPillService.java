@@ -1,5 +1,6 @@
 package com.example.omarelaimy.iseeyou;
 
+import android.app.IntentService;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,10 +24,22 @@ import java.util.Map;
  * Created by Omar on 7/9/2017.
  */
 
-public class NotificationSlotPillService extends Service {
+public class NotificationSlotPillService extends IntentService {
     private static final String TAG = "NotificationService";
     private static final String URL_FOR_NOTIFICATIONS = "https://icu.000webhostapp.com/slotpillsnotifications.php";
+
+    public NotificationSlotPillService() {
+        super("NotificationService");
+    }
     @Override
+    protected void onHandleIntent(Intent intent) {
+        Bundle extras = intent.getExtras();
+        String caregiverid = extras.getString("caregiverid");
+        //Call the function that checks for notification in php.
+        GetNotifications(caregiverid);
+    }
+
+ /*   @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         Bundle extras = intent.getExtras();
@@ -34,7 +47,7 @@ public class NotificationSlotPillService extends Service {
         //Call the function that checks for notification in php.
         GetNotifications(caregiverid);
         return Service.START_NOT_STICKY;
-    }
+    }*/
 
     @Override
     public IBinder onBind(Intent intent) {

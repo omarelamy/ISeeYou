@@ -144,10 +144,10 @@ public class SignIn extends AppCompatActivity {
 
 
                         //Set the Alarm timer for the heart rate every 5 minutes
-                        SetHeartAlarmTimer(heartrateintent);
+                       SetHeartAlarmTimer(heartrateintent);
                         SetSlotPillAlarmTimer(slotspillintent);
 
-
+                        Config.CAREGIVERID = userID;
                         // Launch Choose profile activity
                        Intent intent = new Intent(SignIn.this,ChooseProfile.class);
                         //Send parameters to the ChooseProfile Activity
@@ -245,8 +245,9 @@ public class SignIn extends AppCompatActivity {
         //Starting a service with alarm manager
         Calendar cur_cal = Calendar.getInstance();
         cur_cal.setTimeInMillis(System.currentTimeMillis());
-
+        cur_cal.add(Calendar.SECOND, 10);
         Config.SlotPill_PENDING_INTENT = PendingIntent.getService(getApplicationContext(), 0, intent, 0);
+        //Config.SlotPill_PENDING_INTENT =  PendingIntent.getBroadcast(getApplicationContext(), 0, intent,0);
         Config.SlotPill_ALARM_MANAGER = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         Config.SlotPill_ALARM_MANAGER.set(AlarmManager.RTC, cur_cal.getTimeInMillis(), Config.SlotPill_PENDING_INTENT);
         Config.SlotPill_ALARM_MANAGER.setRepeating(AlarmManager.RTC_WAKEUP, cur_cal.getTimeInMillis(), Config.slotspillmillisecs, Config.SlotPill_PENDING_INTENT);
@@ -259,8 +260,8 @@ public class SignIn extends AppCompatActivity {
         Calendar cur_cal = Calendar.getInstance();
         cur_cal.setTimeInMillis(System.currentTimeMillis());
         cur_cal.add(Calendar.SECOND, 10);
-
         Config.HEART_PENDING_INTENT = PendingIntent.getService(getApplicationContext(), 0, intent, 0);
+        //Config.HEART_PENDING_INTENT = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
         Config.HEART_ALARM_MANAGER = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         Config.HEART_ALARM_MANAGER.set(AlarmManager.RTC, cur_cal.getTimeInMillis(), Config.HEART_PENDING_INTENT);
         Config.HEART_ALARM_MANAGER.setRepeating(AlarmManager.RTC_WAKEUP, cur_cal.getTimeInMillis(), Config.heartmillisecs, Config.HEART_PENDING_INTENT);

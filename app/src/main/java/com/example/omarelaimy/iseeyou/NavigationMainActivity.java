@@ -142,7 +142,7 @@ public class NavigationMainActivity extends AppCompatActivity {
     /***
      * Load navigation menu header information
      * like background image, profile image
-     * name, website, notifications action view (dot)
+     * name, website, notifications_page action view (dot)
      */
     private void loadNavHeader() {
         //Set the Patient Name.
@@ -232,7 +232,7 @@ public class NavigationMainActivity extends AppCompatActivity {
     }
 
     private void setToolbarTitle() {
-        //If Selected item is Heart rate monitor or my notifications. hide the edit icons.
+        //If Selected item is Heart rate monitor or my notifications_page. hide the edit icons.
         if (navItemIndex == 2)
         {
             EditIcon.setVisibility(View.GONE);
@@ -431,16 +431,16 @@ public class NavigationMainActivity extends AppCompatActivity {
             return true;
         }
 
-        // user is in notifications fragment
+        // user is in notifications_page fragment
         // and selected 'Mark all as Read'
         if (id == R.id.action_mark_all_read) {
-            Toast.makeText(getApplicationContext(), "All notifications marked as read!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "All notifications_page marked as read!", Toast.LENGTH_LONG).show();
         }
 
-        // user is in notifications fragment
+        // user is in notifications_page fragment
         // and selected 'Clear All'
         if (id == R.id.action_clear_notifications) {
-            Toast.makeText(getApplicationContext(), "Clear all notifications!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Clear all notifications_page!", Toast.LENGTH_LONG).show();
         }
 
         return super.onOptionsItemSelected(item);
@@ -460,7 +460,7 @@ public class NavigationMainActivity extends AppCompatActivity {
                      //Call db function to remove token.
                      DeleteUserToken();
                      Config.HEART_ALARM_MANAGER.cancel(Config.HEART_PENDING_INTENT);
-                     Config.SlotPill_ALARM_MANAGER.cancel(Config.SlotPill_PENDING_INTENT);
+                    Config.SlotPill_ALARM_MANAGER.cancel(Config.SlotPill_PENDING_INTENT);
 
                      // Launch login activity
                      Intent intent = new Intent(NavigationMainActivity.this, SignIn.class);

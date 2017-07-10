@@ -7,6 +7,14 @@
     android:orientation="vertical"
     android:background="@color/welcomescreen"
     tools:context=".ChooseProfile" >
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/notification"
+        android:id="@+id/iv_notifications"
+        android:layout_gravity="right"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"/>
 
     <TextView
         android:layout_width="match_parent"

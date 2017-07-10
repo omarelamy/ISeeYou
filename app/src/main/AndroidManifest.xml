@@ -53,7 +53,8 @@
 
        <activity android:name=".ChooseProfile">
 
-       </activity>
+     </activity>
+
 
         <activity android:name=".NavigationMainActivity">
 
@@ -61,6 +62,13 @@
 
         <activity android:name=".EditSlot">
 
+        </activity>
+
+        <activity android:name=".Notifications">
+            <intent-filter>
+                <action android:name=".Notifications" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
 
         <!-- Firebase Notifications -->
@@ -75,14 +83,16 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+
         <!-- ./Firebase Notifications -->
 
-        <!--Service that calls the notifications php file-->
+        <!--Service that calls the notifications_page php file-->
         <service android:name=".NotificationHeartService">
         </service>
 
 
-        <!--Service that calls the notifications php file-->
+        <!--Service that calls the notifications_page php file-->
         <service android:name=".NotificationSlotPillService">
         </service>
 

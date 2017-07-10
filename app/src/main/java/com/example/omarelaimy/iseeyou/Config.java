@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 public class Config {
     //Attributes for Choose Profile Page
+
     public static final String KEY_NAME = "name";
     public static final String KEY_ID = "patientid";
     public static final String KEY_GENDER = "Gender";
@@ -55,12 +56,22 @@ public class Config {
     public static final String Key_InventoryPillCount = "medicinecount";
 
     //Tags used for monitoring info of slot.
+    public static final String KEY_MSGTITLE = "title";
+    public static final String KEY_MSGBODY = "body";
+    public static final String KEY_MSGTYPE = "type";
+    public static final String KEY_MSGDATE = "date";
+
+
+
+
+    //Tags used for notifications_page page
     public static final String KEY_SLOTID = "slotid";
     public static final String KEY_TAKEN = "taken";
     public static final String KEY_TIMEOUT = "timeout";
 
-    //Tags used for sending the notifications.
-    // global topic to receive app wide push notifications
+
+    //Tags used for sending the notifications_page.
+    // global topic to receive app wide push notifications_page
     public static final String TOPIC_GLOBAL = "global";
     // broadcast receiver intent filters
     public static final String REGISTRATION_COMPLETE = "registrationComplete";
@@ -71,12 +82,15 @@ public class Config {
     public static final String SHARED_PREF = "ah_firebase";
 
  //Alarm Manager Variables to initiate notification requests
-    public static final int heartmillisecs = 10000;           //Poll to Get Heart rates abnormal every 10 seconds.
-    public static final int slotspillmillisecs = 18000000;   //Poll to Get slots notifications every 5 hours.
+    public static final int heartmillisecs = 300000;           //Poll to Get Heart rates abnormal every 10 seconds.
+    public static final int slotspillmillisecs = 18000000;   //Poll to Get slots notifications_page every 5 hours.
     public static AlarmManager HEART_ALARM_MANAGER;
     public static PendingIntent HEART_PENDING_INTENT;
     public static AlarmManager SlotPill_ALARM_MANAGER;
     public static PendingIntent SlotPill_PENDING_INTENT;
+
+    //Global Variables to share between activities
+    public static  String CAREGIVERID;
 
 
 }
