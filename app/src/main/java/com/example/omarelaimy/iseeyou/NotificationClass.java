@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
  */
 
 public class NotificationClass {
+    private String Notificationid;
     private String Title;
     private String Body;
     private int Type;
@@ -14,8 +15,9 @@ public class NotificationClass {
     private String Phonenumber;
     private LinearLayout NotificationLayout;
 
-    public void SetNotificationInfo(String title,String body,int type,String date,String phonenumber,LinearLayout layout)
+    public void SetNotificationInfo(String id,String title,String body,int type,String date,String phonenumber,LinearLayout layout)
     {
+        this.Notificationid = id;
         this.Title = title;
         this.Body  = body;
         this.Type  = type;
@@ -30,6 +32,8 @@ public class NotificationClass {
     }
 
     public String getPhonenumber() { return this.Phonenumber; }
+
+    public String GetNotificationID() { return this.Notificationid; }
 
 
 }

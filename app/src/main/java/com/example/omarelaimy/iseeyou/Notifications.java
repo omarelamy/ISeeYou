@@ -3,6 +3,7 @@ import android.app.Notification;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -43,7 +44,9 @@ public class Notifications extends AppCompatActivity {
     private TextView noNotifications;
     private ImageButton backnotifications;
     private ArrayList<NotificationClass> CaregiverNotifications = new ArrayList<>();
+    private ArrayList<LinearLayout> Separators = new ArrayList<>();
     private static final String URL_FOR_GETNOTIFICATIONS ="https://icu.000webhostapp.com/getnotifications.php";
+
     private ProgressDialog progress;
 
 
@@ -83,31 +86,34 @@ public class Notifications extends AppCompatActivity {
                     if (!error) {
                         JSONArray result = jObj.getJSONArray(Config.JSON_ARRAY);
                         //CREATE THE LINEAR LAYOUT FOR THE ARRAY RETURNED of Pills.
-                        String MessageTitle = "";
-                        String MessageBody = "";
-                        String MessageType = "";
-                        String MessageDate = "";
-                        String PatientPhone = "";
+                       String NotificationID = "";
+                        String NotificationTitle = "";
+                        String NotificationBody = "";
+                        String NotificationType = "";
+                        String NotficationDate = "";
+                        String NotificationPhone = "";
 
                         for (int i = 0; i < result.length(); i++)
                         {
                             NotificationClass notification = new NotificationClass();
                             JSONObject NotificationData = result.getJSONObject(i);
                             //Get the response from the server.
-                            MessageTitle = NotificationData.getString(Config.KEY_MSGTITLE);
-                            MessageBody = NotificationData.getString(Config.KEY_MSGBODY);
-                            MessageType = NotificationData.getString(Config.KEY_MSGTYPE);
-                            MessageDate = NotificationData.getString(Config.KEY_MSGDATE);
-                            PatientPhone = NotificationData.getString(Config.KEY_PHONE);
-                            LinearLayout newNotification = CreateNotificationLayout(MessageTitle, MessageBody, MessageType, MessageDate);
+                            NotificationID = NotificationData.getString(Config.NOTIFICATIONID);
+                            NotificationTitle = NotificationData.getString(Config.NOTIFICATION_TITILE);
+                            NotificationBody = NotificationData.getString(Config.NOTIFICATION_BODY);
+                            NotificationType = NotificationData.getString(Config.NOTIFICATION_TYPE);
+                            NotficationDate = NotificationData.getString(Config.NOTIFICATION_DATE);
+                            NotificationPhone = NotificationData.getString(Config.NOTIFICATION_PHONE);
+                            LinearLayout newNotification = CreateNotificationLayout(NotificationTitle, NotificationBody, NotificationType, NotficationDate);
                             noNotifications.setVisibility(View.GONE);
                             //Add the notification information to the layout(front-end).
                             mainView.addView(newNotification);
                             //Add the notification information to the notification object to access it later.
-                            notification.SetNotificationInfo(MessageTitle,MessageBody,Integer.parseInt(MessageType),MessageDate,PatientPhone,newNotification);
+                            notification.SetNotificationInfo(NotificationID,NotificationTitle,NotificationBody,Integer.parseInt(NotificationType),NotficationDate,NotificationPhone,newNotification);
                             //Add the notification object to the array of objects Caregivernotifications.
                             CaregiverNotifications.add(notification);
                             LinearLayout separator = CreateSeparator();
+                            Separators.add(separator);
                             mainView.addView(separator);
                         }
 
@@ -122,6 +128,7 @@ public class Notifications extends AppCompatActivity {
                             MessageIconListener(message_iv,j);
                             //MarkAsReadListener(mark_as_read_iv);
                             LayoutSwipeListener(CaregiverNotifications.get(j).getMainLayout(),j);
+                            DeleteIconListner(GetDeleteIcon(j),j);
                         }
 
                     } else {
@@ -181,8 +188,6 @@ public class Notifications extends AppCompatActivity {
         layoutParams1.leftMargin = 25;
         layoutParams1.topMargin = 10;
         textLayout.setLayoutParams(layoutParams1);
-        textLayout.addView(tv_title);
-        textLayout.addView(tv_msg);
 
         //Create a layout for the date along with the action buttons.
         LinearLayout iconsdate_layout = new LinearLayout(this);
@@ -208,15 +213,6 @@ public class Notifications extends AppCompatActivity {
         message_iv.setPadding(35,0,35,0);
         message_iv.setImageResource(R.drawable.message);
 
-        //Mark as read icon
-      /*  ImageView read_iv = new ImageView(this);
-        LinearLayout.LayoutParams read_params = new LinearLayout.LayoutParams(135, 135);
-        read_params.setMargins(0,28,0,0);
-        read_iv.setLayoutParams(message_Params);
-        read_iv.setPadding(35,0,35,0);
-        read_iv.setImageResource(R.drawable.read);*/
-
-
         //Date textview
         TextView date_tv = new TextView(this);
         LinearLayout.LayoutParams date_Params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -227,25 +223,28 @@ public class Notifications extends AppCompatActivity {
 
         iconsdate_layout.addView(call_iv);
         iconsdate_layout.addView(message_iv);
-        //iconsdate_layout.addView(read_iv);
         iconsdate_layout.addView(date_tv);
 
+        textLayout.addView(tv_title);
+        textLayout.addView(tv_msg);
         textLayout.addView(iconsdate_layout);
 
-
+        //Layout for delete icon
+        LinearLayout deletelayout = new LinearLayout(this);
+        LinearLayout.LayoutParams deletelayoutparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        deletelayoutparams.leftMargin = 20;
+        deletelayout.setLayoutParams(deletelayoutparams);
+        deletelayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
         ImageView delete_iv = new ImageView(this);
-        LinearLayout.LayoutParams deleteparams = new LinearLayout.LayoutParams(50,50);
-        deleteparams.setMargins(45,0,0,0);
-        deleteparams.gravity = Gravity.CENTER;
+        LinearLayout.LayoutParams deleteimgparams = new LinearLayout.LayoutParams(50,50);
+        deleteimgparams.gravity = Gravity.CENTER;
         delete_iv.setImageResource(R.drawable.bindelete);
-
         delete_iv.setColorFilter(getResources().getColor(android.R.color.holo_red_dark));
-        delete_iv.setVisibility(View.GONE);
-        delete_iv.setLayoutParams(deleteparams);
+        delete_iv.setLayoutParams(deleteimgparams);
+        deletelayout.addView(delete_iv);
+        deletelayout.setVisibility(View.GONE);
 
-        //Layout for the delete notification.
-        //LinearLayout deletelayout = new LinearLayout(this);
-        //LinearLayout.LayoutParams deleteparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
 
         //Delete TextView and setting its layout params
        /* TextView deletemessage = new TextView(this);
@@ -255,16 +254,13 @@ public class Notifications extends AppCompatActivity {
         deletemessage.setText("Delete");
         deletemessage.setTypeface(null,Typeface.ITALIC);
         deletemessage.setTextColor(getResources().getColor(android.R.color.white));
-        deletemessage.setGravity(Gravity.CENTER);
-
-        deletelayout.setLayoutParams(deleteparams);
-        deletelayout.addView(deletemessage);
-        deletelayout.setVisibility(View.GONE);
-        deletelayout.setBackgroundColor(getResources().getColor(android.R.color.holo_red_dark));*/
+        deletemessage.setGravity(Gravity.CENTER);*/
 
         layout.addView(iv_notification);
         layout.addView(textLayout);
-        layout.addView(delete_iv);
+        layout.addView(deletelayout);
+
+        //layout.addView(delete_iv);
         //layout.addView(deletelayout);
         return layout;
 
@@ -349,11 +345,19 @@ public class Notifications extends AppCompatActivity {
         ImageView mark_as_read_iv = (ImageView) icons_layout.getChildAt(2);
         return mark_as_read_iv;
     }*/
-    public ImageView GetDeleteLayout(int idx)
+    public LinearLayout GetDeleteLayout(int idx)
     {
         LinearLayout notificationLayout = CaregiverNotifications.get(idx).getMainLayout();
-        ImageView deletelayout = (ImageView) notificationLayout.getChildAt(2);
+        LinearLayout deletelayout = (LinearLayout) notificationLayout.getChildAt(2);
         return deletelayout;
+    }
+
+    public ImageView GetDeleteIcon(int idx)
+    {
+        LinearLayout notificationLayout = CaregiverNotifications.get(idx).getMainLayout();
+        LinearLayout deletelayout = (LinearLayout) notificationLayout.getChildAt(2);
+        ImageView deleteicon = (ImageView) deletelayout.getChildAt(0);
+        return deleteicon;
     }
     //End Getting children from layouts.
 
@@ -373,6 +377,69 @@ public class Notifications extends AppCompatActivity {
             }
         });
     }
+
+   public void DeleteIconListner(ImageView iv, final int idx)
+   {
+       iv.setOnClickListener(new View.OnClickListener()
+       {
+           public void onClick(View v)
+           {
+               //Delete notification from database
+               final String Notficationid = CaregiverNotifications.get(idx).GetNotificationID();
+
+               // Tag used to cancel the request
+               String cancel_req_tag = "deletenotification";
+               StringRequest strReq = new StringRequest(Request.Method.POST, URL_FOR_GETNOTIFICATIONS, new Response.Listener<String>() {
+                   @Override
+                   public void onResponse(String response) {
+                       Log.d(TAG, "Delete Notification Response: " + response);
+                       try {
+                           JSONObject jObj = new JSONObject(response);
+                           boolean error = jObj.getBoolean("error");
+                           if (!error)
+                           {
+                               Toast.makeText(getApplicationContext(), "Notification deleted successfully", Toast.LENGTH_LONG).show();
+                               //remove notification layout from the view
+                               //Delete notification from view\
+                               LinearLayout deletelayout = CaregiverNotifications.get(idx).getMainLayout();
+                               mainView.removeView(deletelayout);
+                               LinearLayout deleteseparator = Separators.get(idx);
+                               mainView.removeView(deleteseparator);
+
+                           }
+                           else
+                           {
+                               String errorMsg = jObj.getString("error_msg");
+                               Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
+                           }
+                       } catch (JSONException e) {
+                           e.printStackTrace();
+                       }
+                   }
+               }, new Response.ErrorListener() {
+                   @Override
+                   public void onErrorResponse(VolleyError error) {
+                       Log.e(TAG, "Delete Notification Error: " + error.getMessage());
+                       Toast.makeText(getApplicationContext(),
+                               error.getMessage(), Toast.LENGTH_LONG).show();
+                   }
+               }) {
+                   @Override
+                   protected Map<String, String> getParams() {
+                       // Posting params to get slot url
+                       Map<String, String> params = new HashMap<String, String>();
+                       //Parameters for the slot of a given product.
+                       params.put("notificationid", Notficationid);
+                       return params;
+                   }
+               };
+               // Adding request to request queue
+               AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq, cancel_req_tag);
+
+
+           }
+       });
+   }
 
     public void MessageIconListener(ImageView iv,final int idx)
     {
@@ -405,26 +472,24 @@ public class Notifications extends AppCompatActivity {
 
     public void LayoutSwipeListener(LinearLayout layout,int idx)
     {
-        final ImageView deletelayout = GetDeleteLayout(idx);
+        final LinearLayout deletelayout = GetDeleteLayout(idx);
         layout.setOnTouchListener(new OnSwipeTouchListener(getApplicationContext()) {
             public void onSwipeTop() {
-                Toast.makeText(getApplicationContext(), "top", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "top", Toast.LENGTH_SHORT).show();
             }
             public void onSwipeRight() {
                 deletelayout.setVisibility(View.GONE);
-                Toast.makeText(getApplicationContext(), "right", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getApplicationContext(), "right", Toast.LENGTH_SHORT).show();
             }
             public void onSwipeLeft() {
                 deletelayout.setVisibility(View.VISIBLE);
-                Toast.makeText(getApplicationContext(), "left", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getApplicationContext(), "left", Toast.LENGTH_SHORT).show();
             }
             public void onSwipeBottom() {
-                Toast.makeText(getApplicationContext(), "bottom", Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(getApplicationContext(), "bottom", Toast.LENGTH_SHORT).show();
             }
 
         });
     }
-
-
 
 }
