@@ -1,6 +1,8 @@
 package com.example.omarelaimy.iseeyou;
 import android.app.Notification;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -83,6 +85,7 @@ public class Notifications extends AppCompatActivity {
                         String MessageBody = "";
                         String MessageType = "";
                         String MessageDate = "";
+                        String PatientPhone = "";
 
                         for (int i = 0; i < result.length(); i++)
                         {
@@ -93,12 +96,13 @@ public class Notifications extends AppCompatActivity {
                             MessageBody = NotificationData.getString(Config.KEY_MSGBODY);
                             MessageType = NotificationData.getString(Config.KEY_MSGTYPE);
                             MessageDate = NotificationData.getString(Config.KEY_MSGDATE);
+                            PatientPhone = NotificationData.getString(Config.KEY_PHONE);
                             LinearLayout newNotification = CreateNotificationLayout(MessageTitle, MessageBody, MessageType, MessageDate);
                             noNotifications.setVisibility(View.GONE);
                             //Add the notification information to the layout(front-end).
                             mainView.addView(newNotification);
                             //Add the notification information to the notification object to access it later.
-                            notification.SetNotificationInfo(MessageTitle,MessageBody,Integer.parseInt(MessageType),MessageDate,newNotification);
+                            notification.SetNotificationInfo(MessageTitle,MessageBody,Integer.parseInt(MessageType),MessageDate,PatientPhone,newNotification);
                             //Add the notification object to the array of objects Caregivernotifications.
                             CaregiverNotifications.add(notification);
                             LinearLayout separator = CreateSeparator();
@@ -112,8 +116,8 @@ public class Notifications extends AppCompatActivity {
                             ImageView message_iv = GetMessageIcon(j);
                             ImageView mark_as_read_iv = GetMarkAsRead(j);
                             //Event listeners for each icon from the notification
-                            CallIconListener(call_iv);
-                            MessageIconListener(message_iv);
+                            CallIconListener(call_iv,j);
+                            MessageIconListener(message_iv,j);
                             MarkAsReadListener(mark_as_read_iv);
                         }
 
@@ -313,26 +317,36 @@ public class Notifications extends AppCompatActivity {
     //End Getting children from layouts.
 
     //Event listeners for the icons in the notifications
-    public void CallIconListener(ImageView iv)
+    public void CallIconListener(ImageView iv,final int idx)
     {
         iv.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
                 //TODO Implement the call dialer, see if we can get the number of the patient and put it in the dialer.
-                Toast.makeText(getApplicationContext(),"Hello from Call Icon", Toast.LENGTH_LONG).show();
+               // Toast.makeText(getApplicationContext(),"Hello from Call Icon", Toast.LENGTH_LONG).show();
+                String phone = CaregiverNotifications.get(idx).getPhonenumber();
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:"+phone));
+                startActivity(intent);
             }
         });
     }
 
-    public void MessageIconListener(ImageView iv)
+    public void MessageIconListener(ImageView iv,final int idx)
     {
         iv.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
                 //TODO Implement the message dialog, see if we can get the number of the patient and put it in the dialog message.
-                Toast.makeText(getApplicationContext(),"Hello from Message Icon", Toast.LENGTH_LONG).show();
+               // Toast.makeText(getApplicationContext(),"Hello from Message Icon", Toast.LENGTH_LONG).show();
+                String phone = CaregiverNotifications.get(idx).getPhonenumber();
+                Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+                sendIntent.setData(Uri.parse("sms:"+phone));
+                sendIntent.putExtra("sms_body", "Hello from Message Icon");
+                startActivity(sendIntent);
+
             }
         });
     }

@@ -11,14 +11,16 @@ public class NotificationClass {
     private String Body;
     private int Type;
     private String Date;
+    private String Phonenumber;
     private LinearLayout NotificationLayout;
 
-    public void SetNotificationInfo(String title,String body,int type,String date,LinearLayout layout)
+    public void SetNotificationInfo(String title,String body,int type,String date,String phonenumber,LinearLayout layout)
     {
         this.Title = title;
         this.Body  = body;
         this.Type  = type;
         this.Date  = date;
+        this.Phonenumber = phonenumber;
         this.NotificationLayout = layout;
     }
 
@@ -26,6 +28,8 @@ public class NotificationClass {
     {
         return this.NotificationLayout;
     }
+
+    public String getPhonenumber() { return this.Phonenumber; }
 
 
 }

@@ -60,6 +60,7 @@ public class Config {
     public static final String KEY_MSGBODY = "notificationmessage";
     public static final String KEY_MSGTYPE = "notificationtype";
     public static final String KEY_MSGDATE = "notificationdate";
+    public static final String KEY_PHONE = "phonenumber";
 
     //Tags used for notifications_page page
     public static final String KEY_SLOTID = "slotid";
@@ -79,8 +80,8 @@ public class Config {
     public static final String SHARED_PREF = "ah_firebase";
 
  //Alarm Manager Variables to initiate notification requests
-    public static final int heartmillisecs = 300000;           //Poll to Get Heart rates abnormal every 10 seconds.
-    public static final int slotspillmillisecs = 18000000;   //Poll to Get slots notifications_page every 5 hours.
+    public static final int heartmillisecs = 120000;           //Poll to Get Heart rates abnormal every 2 mins.
+    public static final int slotspillmillisecs = 900000;   //Poll to Get slots notifications_page every 15 mins.
     public static AlarmManager HEART_ALARM_MANAGER;
     public static PendingIntent HEART_PENDING_INTENT;
     public static AlarmManager SlotPill_ALARM_MANAGER;
