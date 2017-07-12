@@ -2,6 +2,7 @@ package com.example.omarelaimy.iseeyou;
 import android.app.Notification;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -114,11 +116,12 @@ public class Notifications extends AppCompatActivity {
                         {
                             ImageView call_iv = GetCallIcon(j);
                             ImageView message_iv = GetMessageIcon(j);
-                            ImageView mark_as_read_iv = GetMarkAsRead(j);
+                            //ImageView mark_as_read_iv = GetMarkAsRead(j);
                             //Event listeners for each icon from the notification
                             CallIconListener(call_iv,j);
                             MessageIconListener(message_iv,j);
-                            MarkAsReadListener(mark_as_read_iv);
+                            //MarkAsReadListener(mark_as_read_iv);
+                            LayoutSwipeListener(CaregiverNotifications.get(j).getMainLayout(),j);
                         }
 
                     } else {
@@ -206,31 +209,63 @@ public class Notifications extends AppCompatActivity {
         message_iv.setImageResource(R.drawable.message);
 
         //Mark as read icon
-        ImageView read_iv = new ImageView(this);
+      /*  ImageView read_iv = new ImageView(this);
         LinearLayout.LayoutParams read_params = new LinearLayout.LayoutParams(135, 135);
         read_params.setMargins(0,28,0,0);
         read_iv.setLayoutParams(message_Params);
         read_iv.setPadding(35,0,35,0);
-        read_iv.setImageResource(R.drawable.read);
+        read_iv.setImageResource(R.drawable.read);*/
 
 
         //Date textview
         TextView date_tv = new TextView(this);
         LinearLayout.LayoutParams date_Params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        date_Params.setMargins(65,70,0,0);
+        date_Params.setMargins(0,70,0,0);
         date_tv.setLayoutParams(date_Params);
         date_tv.setText(date);
         date_tv.setTextColor(getResources().getColor(R.color.welcomescreen));
 
         iconsdate_layout.addView(call_iv);
         iconsdate_layout.addView(message_iv);
-        iconsdate_layout.addView(read_iv);
+        //iconsdate_layout.addView(read_iv);
         iconsdate_layout.addView(date_tv);
 
         textLayout.addView(iconsdate_layout);
 
-       layout.addView(iv_notification);
-       layout.addView(textLayout);
+
+        ImageView delete_iv = new ImageView(this);
+        LinearLayout.LayoutParams deleteparams = new LinearLayout.LayoutParams(50,50);
+        deleteparams.setMargins(45,0,0,0);
+        deleteparams.gravity = Gravity.CENTER;
+        delete_iv.setImageResource(R.drawable.bindelete);
+
+        delete_iv.setColorFilter(getResources().getColor(android.R.color.holo_red_dark));
+        delete_iv.setVisibility(View.GONE);
+        delete_iv.setLayoutParams(deleteparams);
+
+        //Layout for the delete notification.
+        //LinearLayout deletelayout = new LinearLayout(this);
+        //LinearLayout.LayoutParams deleteparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        //Delete TextView and setting its layout params
+       /* TextView deletemessage = new TextView(this);
+        LinearLayout.LayoutParams textLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        textLayoutParams.gravity = Gravity.CENTER;
+        deletemessage.setLayoutParams(textLayoutParams);
+        deletemessage.setText("Delete");
+        deletemessage.setTypeface(null,Typeface.ITALIC);
+        deletemessage.setTextColor(getResources().getColor(android.R.color.white));
+        deletemessage.setGravity(Gravity.CENTER);
+
+        deletelayout.setLayoutParams(deleteparams);
+        deletelayout.addView(deletemessage);
+        deletelayout.setVisibility(View.GONE);
+        deletelayout.setBackgroundColor(getResources().getColor(android.R.color.holo_red_dark));*/
+
+        layout.addView(iv_notification);
+        layout.addView(textLayout);
+        layout.addView(delete_iv);
+        //layout.addView(deletelayout);
         return layout;
 
     }
@@ -306,13 +341,19 @@ public class Notifications extends AppCompatActivity {
         ImageView message_iv = (ImageView) icons_layout.getChildAt(1);
         return message_iv;
     }
-    public ImageView GetMarkAsRead(int idx)
+   /* public ImageView GetMarkAsRead(int idx)
     {
         LinearLayout notificationLayout = CaregiverNotifications.get(idx).getMainLayout();
         LinearLayout textLayout = (LinearLayout)notificationLayout.getChildAt(1);
         LinearLayout icons_layout = (LinearLayout) textLayout.getChildAt(2);
         ImageView mark_as_read_iv = (ImageView) icons_layout.getChildAt(2);
         return mark_as_read_iv;
+    }*/
+    public ImageView GetDeleteLayout(int idx)
+    {
+        LinearLayout notificationLayout = CaregiverNotifications.get(idx).getMainLayout();
+        ImageView deletelayout = (ImageView) notificationLayout.getChildAt(2);
+        return deletelayout;
     }
     //End Getting children from layouts.
 
@@ -359,6 +400,28 @@ public class Notifications extends AppCompatActivity {
                 //TODO Implement the notification deletion from layout, as well as from db. It must be deleted from db with id i think.
                 Toast.makeText(getApplicationContext(),"Hello from Mark as read Icon", Toast.LENGTH_LONG).show();
             }
+        });
+    }
+
+    public void LayoutSwipeListener(LinearLayout layout,int idx)
+    {
+        final ImageView deletelayout = GetDeleteLayout(idx);
+        layout.setOnTouchListener(new OnSwipeTouchListener(getApplicationContext()) {
+            public void onSwipeTop() {
+                Toast.makeText(getApplicationContext(), "top", Toast.LENGTH_SHORT).show();
+            }
+            public void onSwipeRight() {
+                deletelayout.setVisibility(View.GONE);
+                Toast.makeText(getApplicationContext(), "right", Toast.LENGTH_SHORT).show();
+            }
+            public void onSwipeLeft() {
+                deletelayout.setVisibility(View.VISIBLE);
+                Toast.makeText(getApplicationContext(), "left", Toast.LENGTH_SHORT).show();
+            }
+            public void onSwipeBottom() {
+                Toast.makeText(getApplicationContext(), "bottom", Toast.LENGTH_SHORT).show();
+            }
+
         });
     }
 
