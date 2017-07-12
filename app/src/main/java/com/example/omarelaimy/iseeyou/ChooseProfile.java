@@ -167,14 +167,7 @@ public class ChooseProfile extends FragmentActivity {
         CreateProfileBtn = (Button) findViewById(R.id.create_profile);
        btn_Notifications = (ImageView) findViewById(R.id.iv_notifications);
 
-     btn_Notifications.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent2 = new Intent(ChooseProfile.this, CreateProfile.class);
-                startActivity(intent2);
-                finish();
-            }
-        });
+
 
        CheckNotifications(btn_Notifications);
         //If Create Profile button is pressed, go to Create Profile page
@@ -196,14 +189,12 @@ public class ChooseProfile extends FragmentActivity {
 
     }
     //If notification icon is pressed, go to Notifications Page
-
     public void CheckNotifications(ImageView iv) {
 
         iv.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent2 = new Intent(ChooseProfile.this, Notifications.class);
-                startActivity(intent2);
-                finish();
+                Intent intent = new Intent(ChooseProfile.this, Notifications.class);
+                startActivity(intent);
             }
         });
     }
@@ -241,6 +232,13 @@ public class ChooseProfile extends FragmentActivity {
                 try {
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
+                    //Check if there are notifications for today.
+                    boolean hasnotifications = jObj.getBoolean("hasnotifications");
+                    btn_Notifications.setVisibility(View.VISIBLE);
+                    if (hasnotifications)
+                    {
+                        btn_Notifications.setColorFilter(getResources().getColor(R.color.colorAccent));
+                    }
 
                     if (!error)
                     {
