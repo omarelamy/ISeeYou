@@ -185,14 +185,14 @@ public class Notifications extends AppCompatActivity {
         textLayout.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams1.weight = 4;
-        layoutParams1.leftMargin = 25;
+        layoutParams1.leftMargin = 10;
         layoutParams1.topMargin = 10;
         textLayout.setLayoutParams(layoutParams1);
 
         //Create a layout for the date along with the action buttons.
         LinearLayout iconsdate_layout = new LinearLayout(this);
         LinearLayout.LayoutParams iconslayout_Params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        iconslayout_Params.setMargins(10,0,0,0);
+        iconslayout_Params.setMargins(0,0,0,0);
         iconsdate_layout.setOrientation(LinearLayout.HORIZONTAL);
         iconsdate_layout.setLayoutParams(iconslayout_Params);
 
