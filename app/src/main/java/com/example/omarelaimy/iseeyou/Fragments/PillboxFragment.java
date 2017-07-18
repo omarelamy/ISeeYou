@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -140,8 +141,30 @@ public class PillboxFragment extends Fragment {
 
         //Call the function of the db to get the slots from the min date till now.
         GetSlotsBeforeDate(mindate);
-        //TODO: Implement the functionality of slots on click listeners.
        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if(getView() == null){
+            return;
+        }
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK)
+                {
+                    getActivity().finish();
+                }
+                return false;
+            }
+        });
     }
 
 
@@ -250,8 +273,6 @@ public class PillboxFragment extends Fragment {
     //Function that gets the min date from the current day we're in.
     public String GetMinDate()
     {
-
-
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK);
         String mindate = "";

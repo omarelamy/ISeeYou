@@ -99,6 +99,13 @@ public class SignUp extends AppCompatActivity {
 
     }
 
+    //Handle the back press.
+    @Override
+    public void onBackPressed()
+    {
+        finish();
+    }
+
     private void Signup (final String name, final String email, final String password, final String confirmpassword)
     {
         // Tag used to cancel the request

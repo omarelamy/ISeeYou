@@ -157,7 +157,7 @@ public class SignIn extends AppCompatActivity {
                         extras.putString("caregiver_email",Email.getText().toString());
                         intent.putExtras(extras);
                         startActivity(intent);
-                        finish();
+                        //finish();
                     }
                     else
                     {
@@ -229,7 +229,7 @@ public class SignIn extends AppCompatActivity {
     private void launchSignUp()
     {
         startActivity(new Intent(SignIn.this, SignUp.class));
-        finish();
+       // finish();
     }
 
     private void changeStatusBarColor() {

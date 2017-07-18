@@ -9,6 +9,7 @@ import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,8 +72,6 @@ public class HeartRateFragment extends Fragment implements SwipeRefreshLayout.On
 
     }
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -102,6 +101,8 @@ public class HeartRateFragment extends Fragment implements SwipeRefreshLayout.On
         return view;
 
     }
+
+
 
     @Override
     public void onRefresh()
@@ -135,18 +136,7 @@ public class HeartRateFragment extends Fragment implements SwipeRefreshLayout.On
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 

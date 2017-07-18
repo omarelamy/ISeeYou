@@ -69,6 +69,13 @@ public class Notifications extends AppCompatActivity {
         });
         GetCurrentNotifications();
     }
+
+    //Handle the back press.
+    @Override
+    public void onBackPressed()
+    {
+        finish();
+    }
     //Function that gets the notifications for this day for the caregiver.
     public void GetCurrentNotifications() {
         // Tag used to cancel the request

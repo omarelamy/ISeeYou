@@ -60,8 +60,7 @@ public class NavigationMainActivity extends AppCompatActivity {
     private Button EditButton;
     private TextView tv_patientName;
     private Toolbar toolbar;
-   // private FloatingActionButton fab;
-
+    private int lastFragment = 1;
     //Patient's info
     private String Patient_ID = "";
     private String Patient_ProductID = "";
@@ -139,11 +138,7 @@ public class NavigationMainActivity extends AppCompatActivity {
 
     }
 
-    /***
-     * Load navigation menu header information
-     * like background image, profile image
-     * name, website, notifications_page action view (dot)
-     */
+
     private void loadNavHeader() {
         //Set the Patient Name.
         tv_patientName.setText(Patient_Name);
@@ -178,13 +173,16 @@ public class NavigationMainActivity extends AppCompatActivity {
   Runnable mPendingRunnable = new Runnable() {
             @Override
             public void run() {
-                // update the main content by replacing fragments
-                Fragment fragment = getProfileFragment();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
-                        android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
-                fragmentTransaction.commitAllowingStateLoss();
+                if (navItemIndex != 4 && navItemIndex != 5)
+                {
+                    // update the main content by replacing fragments
+                    Fragment fragment = getProfileFragment();
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
+                            android.R.anim.fade_out);
+                    fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
+                    fragmentTransaction.commitAllowingStateLoss();
+                }
             }
         };
 
@@ -208,22 +206,61 @@ public class NavigationMainActivity extends AppCompatActivity {
             case 0:
                 //  inventory
                 InventoryFragment inventoryFragment = newInventoryInstance(Patient_ID);
+                lastFragment = 0;
                 return inventoryFragment;
 
             case 1:
                 // pillbox
                 PillboxFragment pillboxFragment = newPillBoxInstance(Patient_ID,Patient_ProductID);
+                lastFragment = 1;
                 return pillboxFragment;
 
             case 2:
                 // heartrate
                 HeartRateFragment heartRateFragment = newHearRateInstance(Patient_ID,Patient_Name);
+                lastFragment = 2;
                 return heartRateFragment;
 
             case 3:
                 // appointments
                 AppointmentsFragment appointmentsFragment = new AppointmentsFragment();
+                lastFragment = 3;
                 return appointmentsFragment;
+
+            /*case 4:
+                //PillboxFragment pillboxFragmentdummy = newPillBoxInstance(Patient_ID,Patient_ProductID);
+             // return pillboxFragmentdummy;
+                switch(lastFragment)
+                {
+                    case 0:
+                        //  inventory
+                        InventoryFragment inventoryFragment2 = newInventoryInstance(Patient_ID);
+                        lastFragment = 0;
+                        return inventoryFragment2;
+
+                    case 1:
+                        // pillbox
+                        PillboxFragment pillboxFragment2 = newPillBoxInstance(Patient_ID,Patient_ProductID);
+                        lastFragment = 1;
+                        return pillboxFragment2;
+
+                    case 2:
+                        // heartrate
+                        HeartRateFragment heartRateFragment2 = newHearRateInstance(Patient_ID,Patient_Name);
+                        lastFragment = 2;
+                        return heartRateFragment2;
+
+                    case 3:
+                        // appointments
+                        AppointmentsFragment appointmentsFragment2 = new AppointmentsFragment();
+                        lastFragment = 3;
+                        return appointmentsFragment2;
+
+                    default:
+                        return newPillBoxInstance(Patient_ID,Patient_ProductID);
+                }*/
+
+
 
             default:
                 //Remember to change this to whatever default page we choose.
@@ -488,7 +525,7 @@ public class NavigationMainActivity extends AppCompatActivity {
                      startActivity(intent);
                      finish();
                  }
-             }).setNegativeButton("No", null).show();
+             }).setNegativeButton("No",null).show();
  }
 
  public void DeleteUserToken()

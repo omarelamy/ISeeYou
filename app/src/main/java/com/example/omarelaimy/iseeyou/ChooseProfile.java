@@ -1,5 +1,6 @@
 package com.example.omarelaimy.iseeyou;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -187,6 +189,21 @@ public class ChooseProfile extends FragmentActivity {
         });
 
 
+    }
+
+    //Handle the back press.
+    @Override
+    public void onBackPressed()
+    {
+        new AlertDialog.Builder(this)
+                .setTitle("Log out")
+                .setMessage("Do you want to log out?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                }).setNegativeButton("No", null).show();
     }
     //If notification icon is pressed, go to Notifications Page
     public void CheckNotifications(ImageView iv) {

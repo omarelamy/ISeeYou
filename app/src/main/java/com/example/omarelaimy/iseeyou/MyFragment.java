@@ -81,12 +81,9 @@ public class MyFragment extends Fragment {
                 extras.putString("caregiver_name",ChooseProfileCtx.Caregiver_name);
                 extras.putString("caregiver_email",ChooseProfileCtx.Caregiver_email);
                 extras.putString("caregiver_id", ChooseProfileCtx.Caregiver_ID);
-               // ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                //bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                //byte[] byteArray = stream.toByteArray();
                 intent.putExtras(extras);
                 startActivity(intent);
-                ChooseProfileCtx.finish();
+                //ChooseProfileCtx.finish();
             }
         });
 
