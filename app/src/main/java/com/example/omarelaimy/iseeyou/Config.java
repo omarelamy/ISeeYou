@@ -81,8 +81,8 @@ public class Config {
     public static final String SHARED_PREF = "ah_firebase";
 
  //Alarm Manager Variables to initiate notification requests
-    public static final int heartmillisecs = 120000;           //Poll to Get Heart rates abnormal every 2 mins.
-    public static final int slotspillmillisecs = 900000;   //Poll to Get slots notifications_page every 15 mins.
+    public static final int heartmillisecs = 30000;           //Poll to Get Heart rates abnormal every 30 sec.
+    public static final int slotspillmillisecs = 60000;   //Poll to Get slots notifications_page every 1 min.
     public static AlarmManager HEART_ALARM_MANAGER;
     public static PendingIntent HEART_PENDING_INTENT;
     public static AlarmManager SlotPill_ALARM_MANAGER;

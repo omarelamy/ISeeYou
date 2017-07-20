@@ -870,6 +870,7 @@ public class EditSlot extends AppCompatActivity {
                         SetToTimeClicked = true;
                     }
 
+
                 }
             }, hour, minute, true);//Yes 24 hour time
             mTimePicker.setTitle("Select Time");

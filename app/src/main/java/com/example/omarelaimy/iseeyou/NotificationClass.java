@@ -33,6 +33,8 @@ public class NotificationClass {
 
     public String getPhonenumber() { return this.Phonenumber; }
 
+    public int GetType() {return this.Type;}
+
     public String GetNotificationID() { return this.Notificationid; }
 
 

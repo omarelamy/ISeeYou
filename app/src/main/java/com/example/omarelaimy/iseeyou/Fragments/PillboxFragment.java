@@ -7,6 +7,7 @@ import java.util.Calendar;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -32,7 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class PillboxFragment extends Fragment {
+public class PillboxFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String Patientid = "patientid";
     private static final String Productid = "productid";
@@ -40,7 +41,9 @@ public class PillboxFragment extends Fragment {
     private static final String TAG = "PillBoxActivity";
     private String PatientID;
     private String ProductID;
+    private String MinDate;
     private ProgressDialog progress;
+    private SwipeRefreshLayout swipeLayout;
     private ImageView SatMor,SatAft,SatEve,SunMor,SunAft,SunEve,MonMor,MonAft,MonEve,TueMor,TueAft,TueEve;
     private ImageView WedMor,WedAft,WedEve,ThuMor,ThuAft,ThuEve,FriMor,FriAft,FriEve;
     private Button btn_edit;
@@ -134,14 +137,33 @@ public class PillboxFragment extends Fragment {
                 "Please wait...", true);
 
 
+        //Get the swipetorefresh layout.
+        swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_pillbox_refresh_layout);
+        swipeLayout.setOnRefreshListener(this);
+
+        swipeLayout.setColorSchemeColors(getResources().getColor(android.R.color.holo_green_dark),
+                getResources().getColor(android.R.color.holo_red_dark),
+                getResources().getColor(android.R.color.holo_blue_dark),
+                getResources().getColor(android.R.color.holo_orange_dark));
+
+
 
 
         //Get the minimum date from the current day we're in.
         String mindate = GetMinDate();
-
+        MinDate =  mindate;
         //Call the function of the db to get the slots from the min date till now.
         GetSlotsBeforeDate(mindate);
        return view;
+    }
+
+    @Override
+    public void onRefresh()
+    {
+        //Setting the refresh layout to true.
+        swipeLayout.setRefreshing(true);
+        //Call the function of the db to get the slots from the min date till now.
+        GetSlotsBeforeDate(MinDate);
     }
 
     @Override
@@ -215,6 +237,7 @@ public class PillboxFragment extends Fragment {
                 Log.d(TAG, "Get Dates Slots Response: " + response);
                 try
                 {
+                    swipeLayout.setRefreshing(false);
                     progress.dismiss();
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");

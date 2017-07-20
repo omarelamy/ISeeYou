@@ -48,6 +48,7 @@ public class ChooseProfile extends FragmentActivity {
     public String Caregiver_name = "";
     public String Caregiver_ID = "";
     private static final String CHOOSE_PROFILE_URL =  "https://icu.000webhostapp.com/chooseprofile.php";
+    private static final String URL_FOR_DELTETOKEN = "https://icu.000webhostapp.com/deletetoken.php";
     private static final String TAG = "ChooseProfileActivity";
     public final static int LOOPS = 1;
     public Button CreateProfileBtn;
@@ -201,6 +202,7 @@ public class ChooseProfile extends FragmentActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        DeleteUserToken();
                         finish();
                     }
                 }).setNegativeButton("No", null).show();
@@ -217,6 +219,54 @@ public class ChooseProfile extends FragmentActivity {
     }
 
 
+    public void DeleteUserToken()
+    {
+        // Tag used to cancel the request
+        String cancel_req_tag = "Delete User Token";
+        StringRequest strReq = new StringRequest(Request.Method.POST, URL_FOR_DELTETOKEN, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Delete User Token Response: " + response);
+                try
+                {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+                    if (!error)
+                    {
+                        Toast.makeText(getApplicationContext(), "You are now logged out!", Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(), "Unknown error occured while logging out!..Please try again.", Toast.LENGTH_LONG).show();
+                    }
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Delete User Token Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting params to get slot url
+                Map<String, String> params = new HashMap<String, String>();
+                //Parameters for the slot of a given product.
+                params.put("caregiverid",Caregiver_ID);
+                return params;
+            }
+        };
+        // Adding request to request queue
+        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq, cancel_req_tag);
+
+
+    }
 
     public Bitmap getImageBitmap(String EncodedString)
     {

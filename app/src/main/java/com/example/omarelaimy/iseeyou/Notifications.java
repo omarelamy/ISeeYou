@@ -375,11 +375,18 @@ public class Notifications extends AppCompatActivity {
         {
             public void onClick(View v)
             {
-                //TODO Implement the call dialer, see if we can get the number of the patient and put it in the dialer.
                // Toast.makeText(getApplicationContext(),"Hello from Call Icon", Toast.LENGTH_LONG).show();
                 String phone = CaregiverNotifications.get(idx).getPhonenumber();
+                int type = CaregiverNotifications.get(idx).GetType();
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:"+phone));
+                if (type == 1)
+                {
+                    intent.setData(Uri.parse("tel:"+"911"));
+                }
+                else
+                {
+                    intent.setData(Uri.parse("tel:"+phone));
+                }
                 startActivity(intent);
             }
         });
